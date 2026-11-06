@@ -15,6 +15,7 @@ public class CharacterAnimationController : MonoBehaviour
     [SerializeField] private float rotationSpeed = 5.0f;
     private CharacterCombat characterCombat;
     private CharacterMovement characterMovement;
+    private CharacterEquipment characterEquipment;
 
     private Health heath;
     private SpriteRenderer spriteRenderer;
@@ -144,33 +145,30 @@ public class CharacterAnimationController : MonoBehaviour
         {             
             animator.SetBool("IsRunning", true);
         }
-        else if(state == AnimationState.Hurt)
-        {
-            animator.SetTrigger("GetHit");
-        }
-        else if (state == AnimationState.Dead)
-        {
-            animator.SetBool("IsDead",true);
-        }
         else
         {
+            if (state == AnimationState.Hurt)
+            {
+                animator.SetTrigger("GetHit");
+            }
+            else if (state == AnimationState.Mining)
+            {
+                characterEquipment.EquipPickaxe();
+                animator.SetBool("Mining", true);
+            }
+            else if (state == AnimationState.Chopping)
+            {
+                characterEquipment.EquipAxe();
+                animator.SetBool("Chopping", true);
+            }
+            else if (state == AnimationState.Dead)
+            {
+                animator.SetBool("IsDead", true);
+            }
+
             animator.SetBool("IsRunning", false);
         }
     }
-    private void OnDestroy()
-    {
-        if (heath)
-        {
-            heath.OnHurt -= HandleHurt;
-            heath.OnDie -= HandleDie;
-        }
-        if (characterCombat)
-        {
-            characterMovement.OnDirectionChange -= HandleMovement;
-            characterCombat.BeginUsingSkill -= HandleUsingSkill;
-        }
-    }
-
     private void RotateCharacter(Vector3 direction)
     {
         if (direction.sqrMagnitude < 0.001f)
@@ -185,4 +183,31 @@ public class CharacterAnimationController : MonoBehaviour
             rotationSpeed * Time.deltaTime
         );
     }
+
+    private void HandleStopMining()
+    {
+        characterEquipment.UnequipPickaxe();
+        animator.SetBool("Mining", false);
+    }
+
+    private void HandleStopChopping()
+    {
+        characterEquipment.UnequipAxe();
+        animator.SetBool("Chopping", false);
+    }
+
+    private void OnDestroy()
+    {
+        if (heath)
+        {
+            heath.OnHurt -= HandleHurt;
+            heath.OnDie -= HandleDie;
+        }
+        if (characterCombat)
+        {
+            characterMovement.OnDirectionChange -= HandleMovement;
+            characterCombat.BeginUsingSkill -= HandleUsingSkill;
+        }
+    }
+
 }
