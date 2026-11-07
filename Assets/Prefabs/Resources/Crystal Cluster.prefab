@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb576dba98510d24589ec857526644f4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.32
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb576dba98510d24589ec857526644f4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crystal Cluster
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: eb576dba98510d24589ec857526644f4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -78,6 +82,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: eb576dba98510d24589ec857526644f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1582295942397755881}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: eb576dba98510d24589ec857526644f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3221414996825369871}
   m_SourcePrefab: {fileID: 100100000, guid: eb576dba98510d24589ec857526644f4, type: 3}
 --- !u!1 &5604758957285640038 stripped
 GameObject:
@@ -117,7 +124,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea2c1af6d6cef24e84926ba4f2eb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  type: 0
-  remainingResource: 100
+  type: 1
+  remainingResource: 1000
   resourcePerHarvest: 10
   baseHarvestTime: 2
+--- !u!208 &3221414996825369871
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5604758957285640038}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.5, y: 1.31, z: 1.99}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

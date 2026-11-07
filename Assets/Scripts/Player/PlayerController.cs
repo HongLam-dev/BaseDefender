@@ -1,4 +1,4 @@
-using Mono.Cecil;
+﻿using Mono.Cecil;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,12 +7,12 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterCombat))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private SkillBase basicAttack;
     [SerializeField] private PlayerInput input;
 
     [SerializeField] private LayerMask targetLayer;
 
     [SerializeField] private PlayerResourceManager resourceManager;
+    [SerializeField] private float interactDistance=1;
 
     private CharacterCombat combat;
     private CharacterMovement movement;
@@ -30,21 +30,21 @@ public class PlayerController : MonoBehaviour
 
     private ResourceNode targetResource;
 
-    private bool isHarvesting;
+    bool isHarvesting;
+    private PlayerState currentState = PlayerState.Idle;
 
     protected void Awake()
     {
         input = GetComponent<PlayerInput>();
         combat = GetComponent<CharacterCombat>();
         movement = GetComponent<CharacterMovement>();
-        GetComponent<CharacterAnimationController>().SkillAnimationFinishCallback += UnlockMovement;
+        GetComponent<CharacterAnimationController>().SkillAnimationFinishCallback += StopCastingSkill;
 
         skillActions = new[]
     {
         input.actions.FindAction("Player/Skill1"),
         input.actions.FindAction("Player/Skill2")
     };
-        runtimeBasicAttack = new SkillRuntime(basicAttack);
 
         for (int i = 0; i < skillActions.Length; i++)
         {
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
      );
         if (combat.TryUseSkill(index, mousePosition, target))
         {
-            movement.LockMovement(true);
+            SetState(PlayerState.CastingSkill);
         }
     }
 
@@ -81,11 +81,28 @@ public class PlayerController : MonoBehaviour
 
     protected void Update()
     {
-        if(targetResource)
+
+        if(currentState==PlayerState.HarvestingResource)
         {
-            resourceManager.AddResource(targetResource.Harvest(Time.deltaTime,1),targetResource.ResourceType);
+            if(isHarvesting)
+                resourceManager.AddResource(targetResource.Harvest(Time.deltaTime, 1), targetResource.ResourceType);
+            else
+            {
+                Vector3 closestPoint = targetResource.GetComponent<Collider>().ClosestPoint(transform.position);
+
+                float distance = Vector3.Distance(
+                    transform.position,
+                    closestPoint
+                );
+
+                if (distance <= interactDistance)
+                {
+                    movement.StopAgent();
+                    OnStartHarvestingResource?.Invoke(targetResource.transform.position - transform.position, targetResource.ResourceType);
+                    isHarvesting = true;
+                }
+            }     
         }
-        runtimeBasicAttack.Tick(Time.deltaTime);
         HandleInput();
     }
 
@@ -94,25 +111,28 @@ public class PlayerController : MonoBehaviour
         if (attackBtnPressed)
         {
             Transform target = FindTargetFromMousePosition();
-            if (basicAttack)
-            {
-                Vector2 mousePosition =
-                Camera.main.ScreenToWorldPoint(
-                Mouse.current.position.ReadValue()
-                );
-                if (combat.TryUseSkill(runtimeBasicAttack, mousePosition, target))
-                {
-                    movement.LockMovement(true);
-                }
-            }
-            if (target&&!targetResource)
+
+            if (target)
             {
                 ResourceNode resource = target.GetComponent<ResourceNode>();
-                if (resource)
+                if (resource!=targetResource)
                 {
+                    if(isHarvesting)
+                        OnStopHarvestingResource?.Invoke(targetResource.ResourceType);
                     targetResource = resource;
-                    OnStartHarvestingResource?.Invoke(resource.transform.position - transform.position,resource.ResourceType);
+                    SetState(PlayerState.HarvestingResource);
                     return;
+                }
+                else
+                {
+                    Vector2 mousePosition =
+                    Camera.main.ScreenToWorldPoint(
+                    Mouse.current.position.ReadValue()
+                    );
+                    if (combat.TryUseSkill(0, mousePosition, target))
+                    {
+                        SetState(PlayerState.CastingSkill);
+                    }
                 }
             }
         }
@@ -120,13 +140,12 @@ public class PlayerController : MonoBehaviour
         {
             if(currentMoveDirection!=Vector2.zero)
             {
-                if (targetResource)
-                {
-                    OnStopHarvestingResource?.Invoke(targetResource.ResourceType);
-                    targetResource = null;
-                }
+                SetState(PlayerState.Running);
             }
-            movement.SetDirection(new Vector3(currentMoveDirection.x, 0, currentMoveDirection.y));
+            else if(currentState==PlayerState.Running)
+            {
+                SetState(PlayerState.Idle);
+            }      
         }
     }
 
@@ -146,9 +165,50 @@ public class PlayerController : MonoBehaviour
         return null;
     }
 
-    private void UnlockMovement()
+    private void StopCastingSkill()
     {
-        movement.LockMovement(false);
+        SetState(PlayerState.Idle);
     }
 
+    private void SetState(PlayerState newState)
+    {
+        DisableCurrentState(newState);
+        switch (newState)
+        {
+            case PlayerState.Idle:
+                movement.SetDirection(Vector3.zero);
+                break;
+            case PlayerState.CastingSkill:
+                movement.LockMovement(true);
+                break;
+            case PlayerState.Running:
+                movement.SetDirection(new Vector3(currentMoveDirection.x, 0, currentMoveDirection.y));
+                break;
+            case PlayerState.HarvestingResource:
+                movement.MoveToDestination(targetResource.transform.position);           
+                break;
+        }
+        currentState = newState;
+    }
+    private void DisableCurrentState(PlayerState newState)
+    {
+        switch (currentState)
+        {
+            case PlayerState.Idle:
+                break;
+            case PlayerState.CastingSkill:
+                movement.LockMovement(false);
+                break;
+            case PlayerState.Running:
+                break;
+            case PlayerState.HarvestingResource:           
+                isHarvesting = false;
+                if(newState!=PlayerState.HarvestingResource)
+                {
+                    OnStopHarvestingResource?.Invoke(targetResource.ResourceType);
+                    targetResource = null;
+                }
+                break;
+        }
+    }
 }
