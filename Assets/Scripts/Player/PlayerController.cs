@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private LayerMask targetLayer;
 
+    [SerializeField] private PlayerResourceManager resourceManager;
+
     private CharacterCombat combat;
     private CharacterMovement movement;
 
@@ -22,6 +25,12 @@ public class PlayerController : MonoBehaviour
 
     private Transform target;
     public event Action<Transform> OnTargetChange;
+    public event Action<Vector3, ResourceType> OnStartHarvestingResource;
+    public event Action<ResourceType> OnStopHarvestingResource;
+
+    private ResourceNode targetResource;
+
+    private bool isHarvesting;
 
     protected void Awake()
     {
@@ -72,7 +81,10 @@ public class PlayerController : MonoBehaviour
 
     protected void Update()
     {
-        FindTargetFromMousePosition();
+        if(targetResource)
+        {
+            resourceManager.AddResource(targetResource.Harvest(Time.deltaTime,1),targetResource.ResourceType);
+        }
         runtimeBasicAttack.Tick(Time.deltaTime);
         HandleInput();
     }
@@ -81,47 +93,62 @@ public class PlayerController : MonoBehaviour
     {
         if (attackBtnPressed)
         {
+            Transform target = FindTargetFromMousePosition();
             if (basicAttack)
             {
                 Vector2 mousePosition =
-            Camera.main.ScreenToWorldPoint(
-             Mouse.current.position.ReadValue()
-            );
+                Camera.main.ScreenToWorldPoint(
+                Mouse.current.position.ReadValue()
+                );
                 if (combat.TryUseSkill(runtimeBasicAttack, mousePosition, target))
                 {
                     movement.LockMovement(true);
                 }
             }
+            if (target&&!targetResource)
+            {
+                ResourceNode resource = target.GetComponent<ResourceNode>();
+                if (resource)
+                {
+                    targetResource = resource;
+                    OnStartHarvestingResource?.Invoke(resource.transform.position - transform.position,resource.ResourceType);
+                    return;
+                }
+            }
         }
         else
         {
-            movement.SetDirection(currentMoveDirection);
+            if(currentMoveDirection!=Vector2.zero)
+            {
+                if (targetResource)
+                {
+                    OnStopHarvestingResource?.Invoke(targetResource.ResourceType);
+                    targetResource = null;
+                }
+            }
+            movement.SetDirection(new Vector3(currentMoveDirection.x, 0, currentMoveDirection.y));
         }
     }
 
-    void FindTargetFromMousePosition()
+    Transform FindTargetFromMousePosition()
     {
-        Vector2 mousePosition =
-              Camera.main.ScreenToWorldPoint(
-                  Mouse.current.position.ReadValue()
-              );
-
-        Collider2D hit = Physics2D.OverlapPoint(
-            mousePosition, targetLayer
+        Ray ray = Camera.main.ScreenPointToRay(
+            Mouse.current.position.ReadValue()
         );
-        if (hit)
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, targetLayer))
         {
-            if (hit.GetComponent<CharacterCombat>())
-            {
-                target = hit.transform;
-                OnTargetChange?.Invoke(target);
-                return;
-            }
+            OnTargetChange?.Invoke(hit.transform);
+
+            return hit.transform;
         }
+
+        return null;
     }
 
     private void UnlockMovement()
     {
         movement.LockMovement(false);
     }
+
 }
