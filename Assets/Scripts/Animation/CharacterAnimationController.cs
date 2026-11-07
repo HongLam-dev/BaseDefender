@@ -27,30 +27,33 @@ public class CharacterAnimationController : MonoBehaviour
     void Start()
     {
         animator=GetComponent<Animator>();
-        characterCombat = GetComponentInParent<CharacterCombat>();
-        characterMovement = GetComponentInParent<CharacterMovement>();
+        characterCombat = GetComponent<CharacterCombat>();
+        characterMovement = GetComponent<CharacterMovement>();
+        characterEquipment = GetComponent<CharacterEquipment>();
+
         heath = GetComponentInParent<Health>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if(heath)
-        {
-            heath.OnHurt += HandleHurt;
-            heath.OnDie += HandleDie;
-        }
-        if(characterCombat)
-        {
-            characterMovement.OnDirectionChange += HandleMovement;
-            characterCombat.BeginUsingSkill += HandleUsingSkill;
-        }
+
+        GetComponent<PlayerController>().OnStartHarvestingResource += StartResourceHarvestingAnimation;
+        GetComponent<PlayerController>().OnStopHarvestingResource += StopResourceHarvestingAnimation;
+
+        heath.OnHurt += HandleHurt;
+        heath.OnDie += HandleDie;
+        characterMovement.OnDirectionChange += HandleMovement;
+        characterCombat.BeginUsingSkill += HandleUsingSkill;
     }
-    private void HandleMovement(Vector2 moveDirection)
+
+
+
+    private void HandleMovement(Vector3 moveDirection)
     {
         AnimationState state = AnimationState.Idle;
 
-        if (moveDirection == Vector2.zero)
+        if (moveDirection == Vector3.zero)
             moveDirection = currentDirection;
         else
         {
-            RotateCharacter(moveDirection);
+            RotateCharacter(moveDirection,false);
             state = AnimationState.Run;
         }
         SetAnimation(state, moveDirection);
@@ -114,6 +117,39 @@ public class CharacterAnimationController : MonoBehaviour
         spriteRenderer.color = Color.white;
     }
 
+    private void StartResourceHarvestingAnimation(Vector3 direction,ResourceType type)
+    {
+        RotateCharacter(direction,true);
+
+        switch(type)
+        {
+            case ResourceType.Wood:
+                characterEquipment.EquipAxe();
+                SetAnimation(AnimationState.Chopping);
+                break;
+            default:
+                characterEquipment.EquipPickaxe();
+                SetAnimation(AnimationState.Mining);
+                break;
+        }
+
+    }
+    private void StopResourceHarvestingAnimation( ResourceType type)
+    {
+        switch (type)
+        {
+            case ResourceType.Wood:
+                animator.SetBool("Chopping",false);
+                characterEquipment.UnequipAxe();
+                break;
+            default:
+                animator.SetBool("Mining", false);
+                characterEquipment.UnequipPickaxe();
+                break;
+        }
+
+    }
+
     private void HandleDie()
     {
         SetAnimation(AnimationState.Dead);
@@ -169,45 +205,21 @@ public class CharacterAnimationController : MonoBehaviour
             animator.SetBool("IsRunning", false);
         }
     }
-    private void RotateCharacter(Vector3 direction)
+    private void RotateCharacter(Vector3 direction, bool instantRotate)
     {
         if (direction.sqrMagnitude < 0.001f)
             return;
 
         Quaternion targetRotation =
-            Quaternion.LookRotation(new Vector3(direction.x,0,direction.y).normalized);
+            Quaternion.LookRotation(direction.normalized);
 
-        transform.rotation = Quaternion.Slerp(
-            transform.rotation,
-            targetRotation,
-            rotationSpeed * Time.deltaTime
-        );
+        if (!instantRotate)
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime
+            );
+        else
+            transform.rotation = targetRotation;
     }
-
-    private void HandleStopMining()
-    {
-        characterEquipment.UnequipPickaxe();
-        animator.SetBool("Mining", false);
-    }
-
-    private void HandleStopChopping()
-    {
-        characterEquipment.UnequipAxe();
-        animator.SetBool("Chopping", false);
-    }
-
-    private void OnDestroy()
-    {
-        if (heath)
-        {
-            heath.OnHurt -= HandleHurt;
-            heath.OnDie -= HandleDie;
-        }
-        if (characterCombat)
-        {
-            characterMovement.OnDirectionChange -= HandleMovement;
-            characterCombat.BeginUsingSkill -= HandleUsingSkill;
-        }
-    }
-
 }

@@ -1,26 +1,32 @@
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CharacterMovement : MonoBehaviour
 {
-
-    private Vector2 moveDirection;
+    private NavMeshAgent agent;
+    private Vector3 moveDirection;
 
     [SerializeField]
     protected float moveSpeed = 5f;
-    public event Action<Vector2> OnDirectionChange;
+
+    [SerializeField]
+    protected float interactionRange = 1.5f;
+    public event Action<Vector3> OnDirectionChange;
     private Rigidbody rb;
     private bool canMove=true;
-
-    virtual protected void Awake()
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
+        agent= GetComponent<NavMeshAgent>();
+
+        agent.speed = moveSpeed;
     }
-    virtual protected void FixedUpdate()
+    void FixedUpdate()
     {
-        rb.linearVelocity = new Vector3(moveDirection.x * moveSpeed, rb.linearVelocity.y,moveDirection.y * moveSpeed) ;
+        rb.linearVelocity = new Vector3(moveDirection.x * moveSpeed, rb.linearVelocity.y,moveDirection.z* moveSpeed) ;
     }
-    public void SetDirection(Vector2 direction)
+    public void SetDirection(Vector3 direction)
     {
         if (!canMove)
             return;
@@ -32,7 +38,7 @@ public class CharacterMovement : MonoBehaviour
     {
         if (lockMovement)
         {
-            SetDirection(Vector2.zero);
+            SetDirection(Vector3.zero);
             canMove = false;
         }
         else
