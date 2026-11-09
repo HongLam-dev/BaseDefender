@@ -1,6 +1,7 @@
 ﻿public enum ResourceType
 {
     Wood,
+    Stone,
     Crystal,
-    Stone
+    Soul
 }

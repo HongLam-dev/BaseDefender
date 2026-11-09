@@ -127,7 +127,7 @@ MonoBehaviour:
   type: 1
   remainingResource: 1000
   resourcePerHarvest: 10
-  baseHarvestTime: 2
+  baseHarvestTime: 5
 --- !u!208 &3221414996825369871
 NavMeshObstacle:
   m_ObjectHideFlags: 0
