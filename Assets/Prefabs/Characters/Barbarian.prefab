@@ -88,11 +88,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f3c330e2a5b9afe4689699ccfb088378, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5
+      value: 3.24
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f3c330e2a5b9afe4689699ccfb088378, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.83
+      value: -0.93
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f3c330e2a5b9afe4689699ccfb088378, type: 3}
       propertyPath: m_LocalPosition.z
@@ -104,15 +104,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f3c330e2a5b9afe4689699ccfb088378, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f3c330e2a5b9afe4689699ccfb088378, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f3c330e2a5b9afe4689699ccfb088378, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f3c330e2a5b9afe4689699ccfb088378, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -218,8 +218,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1631095305319092095}
   serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
+  m_Mass: 60
+  m_LinearDamping: 0.1
   m_AngularDamping: 5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

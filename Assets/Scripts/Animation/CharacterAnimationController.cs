@@ -13,8 +13,6 @@ public class CharacterAnimationController : MonoBehaviour
     [SerializeField] private Color hitEffectColor = Color.red;
 
     [SerializeField] private float rotationSpeed = 5.0f;
-    private CharacterCombat characterCombat;
-    private CharacterMovement characterMovement;
     private CharacterEquipment characterEquipment;
 
     private Health heath;
@@ -27,25 +25,11 @@ public class CharacterAnimationController : MonoBehaviour
     void Start()
     {
         animator=GetComponent<Animator>();
-        characterCombat = GetComponent<CharacterCombat>();
-        characterMovement = GetComponent<CharacterMovement>();
         characterEquipment = GetComponent<CharacterEquipment>();
-
-        heath = GetComponentInParent<Health>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-     //   GetComponent<PlayerMovement>().OnStartHarvestingResource += StartResourceHarvestingAnimation;
-     //   GetComponent<PlayerMovement>().OnStopHarvestingResource += StopResourceHarvestingAnimation;
-
-        heath.OnHurt += HandleHurt;
-        heath.OnDie += HandleDie;
-        characterMovement.OnDirectionChange += HandleMovement;
-        characterCombat.BeginUsingSkill += HandleUsingSkill;
     }
 
-
-
-    private void HandleMovement(Vector3 moveDirection)
+    public void HandleMovement(Vector3 moveDirection)
     {
         AnimationState state = AnimationState.Idle;
 
