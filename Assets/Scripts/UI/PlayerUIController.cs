@@ -8,7 +8,7 @@ public class PlayerUIController : MonoBehaviour
 {
     [SerializeField] private SkillSlot[] skillSlots;
     [SerializeField] private Sprite emptySlotIcon;
-    [SerializeField]private PlayerController player;
+    [SerializeField] Transform player;
     IReadOnlyList<SkillRuntime> skills;
     [SerializeField] private Image healthFill;
     [SerializeField] private TMP_Text woodText;
