@@ -107,7 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResourceNode
   type: 0
   remainingResource: 200
-  resourcePerHarvest: 10
+  resourcePerHarvest: 5
   baseHarvestTime: 2
 --- !u!65 &4192606356917805088
 BoxCollider:

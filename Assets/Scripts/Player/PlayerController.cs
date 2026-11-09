@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private CharacterMovement movement;
 
     private SkillRuntime runtimeBasicAttack;
-    private bool attackBtnPressed = false;
+    private bool selectTargetBtnClickled = false;
     private Vector2 currentMoveDirection = Vector2.zero;
 
     private InputAction[] skillActions;
@@ -66,12 +66,12 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void OnAttack(InputAction.CallbackContext context)
+    public void OnSelectTarget(InputAction.CallbackContext context)
     {
         if (context.performed)
-            attackBtnPressed = true;
+            selectTargetBtnClickled = true;
         else if (context.canceled)
-            attackBtnPressed = false;
+            selectTargetBtnClickled = false;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -108,9 +108,9 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInput()
     {
-        if (attackBtnPressed)
+        if (selectTargetBtnClickled)
         {
-            Transform target = FindTargetFromMousePosition();
+            Transform target = FindTargetFromTouchPosition();
 
             if (target)
             {
@@ -149,11 +149,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    Transform FindTargetFromMousePosition()
+    Transform FindTargetFromTouchPosition()
     {
-        Ray ray = Camera.main.ScreenPointToRay(
-            Mouse.current.position.ReadValue()
-        );
+        if (Touchscreen.current == null)
+            return null;
+
+        Vector2 touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+
+        Ray ray = Camera.main.ScreenPointToRay(touchPosition);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, targetLayer))
         {
