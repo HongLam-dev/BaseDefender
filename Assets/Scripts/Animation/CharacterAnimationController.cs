@@ -34,8 +34,8 @@ public class CharacterAnimationController : MonoBehaviour
         heath = GetComponentInParent<Health>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        GetComponent<PlayerController>().OnStartHarvestingResource += StartResourceHarvestingAnimation;
-        GetComponent<PlayerController>().OnStopHarvestingResource += StopResourceHarvestingAnimation;
+     //   GetComponent<PlayerMovement>().OnStartHarvestingResource += StartResourceHarvestingAnimation;
+     //   GetComponent<PlayerMovement>().OnStopHarvestingResource += StopResourceHarvestingAnimation;
 
         heath.OnHurt += HandleHurt;
         heath.OnDie += HandleDie;

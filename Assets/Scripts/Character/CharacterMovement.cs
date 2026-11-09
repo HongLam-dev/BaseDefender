@@ -3,9 +3,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CharacterMovement : MonoBehaviour
+public abstract class CharacterMovement : MonoBehaviour
 {
-    private NavMeshAgent agent;
     private Vector3 moveDirection;
 
     [SerializeField]
@@ -17,46 +16,24 @@ public class CharacterMovement : MonoBehaviour
     private Rigidbody rb;
     private bool canMove=true;
 
-    void Start()
+    protected virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
-        agent= GetComponent<NavMeshAgent>();
-
-        agent.speed = moveSpeed;
-        agent.isStopped = true;
     }
 
-    public void MoveToDestination(Vector3 destination)
+    protected virtual void FixedUpdate()
     {
-        agent.isStopped = false;
-        agent.SetDestination(destination);
+       rb.linearVelocity = new Vector3(moveDirection.x * moveSpeed, rb.linearVelocity.y,moveDirection.z* moveSpeed) ;   
     }
-
-    void FixedUpdate()
-    {
-        if(agent.isStopped)
-            rb.linearVelocity = new Vector3(moveDirection.x * moveSpeed, rb.linearVelocity.y,moveDirection.z* moveSpeed) ;
-        else
-        {
-            OnDirectionChange?.Invoke(agent.desiredVelocity);
-        }    
-    }
-    public void SetDirection(Vector3 direction)
+    protected void SetDirection(Vector3 direction)
     {
         if (!canMove)
             return;
-
-        StopAgent();
         this.moveDirection = direction;
         OnDirectionChange?.Invoke(direction);
     }
 
-    public void StopAgent()
-    {
-        agent.isStopped = true;
-    }
-
-    public void LockMovement(bool lockMovement)
+    protected void LockMovement(bool lockMovement)
     {
         if (lockMovement)
         {
