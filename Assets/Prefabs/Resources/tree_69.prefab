@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea2c1af6d6cef24e84926ba4f2eb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourceNode
-  type: 0
+  resourceItem: {fileID: 11400000, guid: fa0b4f5ccabcf40488dc574c38e7c1fc, type: 2}
   remainingResource: 200
   resourcePerHarvest: 5
   baseHarvestTime: 2

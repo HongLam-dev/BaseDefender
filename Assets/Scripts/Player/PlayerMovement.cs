@@ -17,17 +17,17 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private bool canMove = true;
 
-    private CharacterAnimationController animator;
+    public event Action<Vector3> OnMovement;
+    public event Action OnIdle;
 
     protected void Start()
     {
-        animator = GetComponent<CharacterAnimationController>();
         rb = GetComponent<Rigidbody>();
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        Vector2 movement = context.ReadValue<Vector2>();
+        Vector2 movement = context.ReadValue<Vector2>().normalized;
         SetDirection(new Vector3(movement.x, 0, movement.y));
     }
 
@@ -40,7 +40,11 @@ public class PlayerMovement : MonoBehaviour
         if (!canMove)
             return;
         moveDirection = direction;
-        animator.HandleMovement(moveDirection);    
+
+        if (moveDirection.sqrMagnitude > 0.001)
+            OnMovement?.Invoke(direction);
+        else
+            OnIdle?.Invoke();
     }
 
     void LockMovement(bool lockMovement)

@@ -2,11 +2,10 @@
 using UnityEngine;
 public class PlayerResourceManager : MonoBehaviour
 {
-    [Header("Resources")]
-    [SerializeField] private int wood=0;
-    [SerializeField] private int crystal=0;
-    [SerializeField] private int stone=0;
-    [SerializeField] private int soul=0;
+    private int wood=0;
+    private int crystal=0;
+    private int stone=0;
+    private int soul=0;
     [Header("UI")]
     [SerializeField] private PlayerUIController ui;
 
@@ -23,29 +22,30 @@ public class PlayerResourceManager : MonoBehaviour
         ui.UpdateSoulUI(soul);
     }
 
-    public void AddResource(int amount, ResourceType type)
+    public void AddResource(Reward reward)
     {
-        if (amount <= 0) return;
-
-        switch (type)
+        foreach(ItemStack itemStack in reward.reward)
         {
-            case ResourceType.Wood:
+            if(itemStack.item.id=="resource_wood")
+            {
+                wood += itemStack.amount;
                 ui.UpdateWoodUI(wood);
-                wood += amount;
-                break;
-
-            case ResourceType.Stone:
-                stone += amount;
+            }
+            else if (itemStack.item.id == "resource_stone")
+            {
+                stone += itemStack.amount;
                 ui.UpdateStoneUI(stone);
-                break;
-            case ResourceType.Crystal:
-                crystal += amount;
+            }
+            else if (itemStack.item.id == "resource_crystal")
+            {
+                crystal += itemStack.amount;
                 ui.UpdateCrystalUI(crystal);
-                break;
-            case ResourceType.Soul:
-                soul += amount;
+            }
+            else if (itemStack.item.id == "resource_soul")
+            {
+               soul += itemStack.amount;
                 ui.UpdateSoulUI(soul);
-                break;
+            }
         }
     }
 }

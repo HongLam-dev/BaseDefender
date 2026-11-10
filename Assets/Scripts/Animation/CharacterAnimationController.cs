@@ -22,25 +22,32 @@ public class CharacterAnimationController : MonoBehaviour
     public event Action SkillAnimationFinishCallback;
     public event Action<int> SkillAnimationEvent;
 
+    PlayerMovement movement;
+    PlayerInteraction worker;
+
     void Start()
     {
         animator=GetComponent<Animator>();
         characterEquipment = GetComponent<CharacterEquipment>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        movement = GetComponent<PlayerMovement>();
+        worker = GetComponent<PlayerInteraction>();
+
+        movement.OnMovement += HandleMovement;
+        movement.OnIdle += HandleIdle;
+        worker.OnWork += StartWorkAnimation;
+        worker.OnStopWorking += StopWorkAnimation;
     }
 
     public void HandleMovement(Vector3 moveDirection)
     {
-        AnimationState state = AnimationState.Idle;
+        RotateCharacter(moveDirection,false);
+        SetAnimation(AnimationState.Run, moveDirection);
+    }
 
-        if (moveDirection == Vector3.zero)
-            moveDirection = currentDirection;
-        else
-        {
-            RotateCharacter(moveDirection,false);
-            state = AnimationState.Run;
-        }
-        SetAnimation(state, moveDirection);
+    public void HandleIdle()
+    {
+        SetAnimation(AnimationState.Idle);
     }
 
     private bool HasTrigger(string triggerName)
@@ -101,32 +108,32 @@ public class CharacterAnimationController : MonoBehaviour
         spriteRenderer.color = Color.white;
     }
 
-    private void StartResourceHarvestingAnimation(Vector3 direction,ResourceType type)
+    private void StartWorkAnimation(Vector3 direction, WorkType type)
     {
         RotateCharacter(direction,true);
 
         switch(type)
         {
-            case ResourceType.Wood:
+            case WorkType.Lumbering:
                 characterEquipment.EquipAxe();
                 SetAnimation(AnimationState.Chopping);
                 break;
-            default:
+            case WorkType.Mining:
                 characterEquipment.EquipPickaxe();
                 SetAnimation(AnimationState.Mining);
                 break;
         }
 
     }
-    private void StopResourceHarvestingAnimation( ResourceType type)
+    private void StopWorkAnimation(WorkType type)
     {
         switch (type)
         {
-            case ResourceType.Wood:
+            case WorkType.Lumbering:
                 animator.SetBool("Chopping",false);
                 characterEquipment.UnequipAxe();
                 break;
-            default:
+            case WorkType.Mining:
                 animator.SetBool("Mining", false);
                 characterEquipment.UnequipPickaxe();
                 break;

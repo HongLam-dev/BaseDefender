@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: edb3fc0170a977b4082a342d686dd710, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: -1821.3789
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: edb3fc0170a977b4082a342d686dd710, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.64
+      value: -938.4045
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: edb3fc0170a977b4082a342d686dd710, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.77
+      value: -330.89493
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: edb3fc0170a977b4082a342d686dd710, type: 3}
       propertyPath: m_LocalRotation.w
@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: edb3fc0170a977b4082a342d686dd710, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: edb3fc0170a977b4082a342d686dd710, type: 3}
       propertyPath: m_LocalRotation.z
@@ -99,10 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea2c1af6d6cef24e84926ba4f2eb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourceNode
-  type: 1
+  resourceItem: {fileID: 11400000, guid: 289bc118c2558ea4bbc5b371f5dc9b0c, type: 2}
   remainingResource: 50
   resourcePerHarvest: 6
   baseHarvestTime: 3
+  workType: 1
 --- !u!65 &4504376410476185187
 BoxCollider:
   m_ObjectHideFlags: 0
