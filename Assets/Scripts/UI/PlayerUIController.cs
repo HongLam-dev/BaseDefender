@@ -1,3 +1,4 @@
+using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -15,6 +16,12 @@ public class PlayerUIController : MonoBehaviour
     [SerializeField] private TMP_Text stoneText;
     [SerializeField] private TMP_Text crystalText;
     [SerializeField] private TMP_Text soulText;
+
+    [SerializeField] private Image workDetailIcon;
+    [SerializeField] private TMP_Text workDetailTxt;
+
+    [SerializeField] private Button workButton;
+
     private Health playerHealth;
 
     private void Start()
@@ -80,4 +87,24 @@ public class PlayerUIController : MonoBehaviour
         soulText.text = amount.ToString();
     }
 
+    public void DisplayWorkDetail(int remainingWorkload,Sprite icon)
+    {
+        workDetailTxt.text = remainingWorkload.ToString();
+        workDetailIcon.sprite= icon;
+        workDetailTxt.gameObject.SetActive(true);
+        workDetailIcon.gameObject.SetActive(true);
+        workButton.gameObject.SetActive(true);
+    }
+
+    public void UpdateWorkloadUI(int amount)
+    {
+        workDetailTxt.text = amount.ToString();
+    }
+
+    public void DisableWorkDetail()
+    {
+        workDetailTxt.gameObject.SetActive(false);
+        workDetailIcon.gameObject.SetActive(false);
+        workButton.gameObject.SetActive(false);
+    }
 }

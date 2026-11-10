@@ -4,6 +4,6 @@ using System.Text;
 
 public struct ItemStack
 {
-    int amount;
-    ItemData item;
+    public int amount;
+    public ItemData item;
 }

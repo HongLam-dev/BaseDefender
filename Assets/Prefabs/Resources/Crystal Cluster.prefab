@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb576dba98510d24589ec857526644f4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.19
+      value: -1811.189
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb576dba98510d24589ec857526644f4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -936.76447
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb576dba98510d24589ec857526644f4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.33
+      value: -326.79495
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb576dba98510d24589ec857526644f4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -38,15 +38,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb576dba98510d24589ec857526644f4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb576dba98510d24589ec857526644f4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb576dba98510d24589ec857526644f4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb576dba98510d24589ec857526644f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -124,10 +124,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea2c1af6d6cef24e84926ba4f2eb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  type: 1
+  resourceItem: {fileID: 11400000, guid: 4265c4eb1af3deb49bc59e5e8b4dae4b, type: 2}
   remainingResource: 1000
   resourcePerHarvest: 10
   baseHarvestTime: 5
+  workType: 1
 --- !u!208 &3221414996825369871
 NavMeshObstacle:
   m_ObjectHideFlags: 0
