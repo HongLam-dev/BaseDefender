@@ -4,8 +4,6 @@ using UnityEngine;
 public class PlayerInteraction: MonoBehaviour,IWorker
 {
     [SerializeField] PlayerResourceManager resourceManager;
-    [SerializeField] PlayerUIController ui;
-
     private PlayerMovement movement;
 
     float baseLumberingPower=1;
@@ -13,11 +11,13 @@ public class PlayerInteraction: MonoBehaviour,IWorker
     float baseBuildingPower = 1;
 
     IWork nearbyWork;
+    public event Action<WorkInfo> OnWork;
+    public event Action<WorkInfo> OnStopWorking;
+
+    public event Action<IWork> OnTargetWorkChange;
+    public event Action<WorkInfo> OnNearByWorkProgressUpdate;
 
     bool isWorking = false;
-
-    public event Action<Vector3,WorkType> OnWork;
-    public event Action<WorkType> OnStopWorking;
 
     private void Start()
     {
@@ -45,7 +45,7 @@ public class PlayerInteraction: MonoBehaviour,IWorker
         if(isWorking)
         {
             isWorking = false;
-            OnStopWorking?.Invoke(nearbyWork.GetWorkInfo().type);
+            OnStopWorking?.Invoke(nearbyWork.GetWorkInfo());
         }
     }
 
@@ -54,23 +54,23 @@ public class PlayerInteraction: MonoBehaviour,IWorker
         if (nearbyWork==null)
             return;
         isWorking = true;
-        OnWork?.Invoke(nearbyWork.GetWorkInfo().position-transform.position,nearbyWork.GetWorkInfo().type);
+        OnWork?.Invoke(nearbyWork.GetWorkInfo());
     }
 
-    public void EarnReward(Reward reward)
+    public void GetResource(Reward reward)
     {
         resourceManager.AddResource(reward);
-        ui.UpdateWorkloadUI(nearbyWork.GetWorkInfo().remainingWorkload);
+        OnNearByWorkProgressUpdate?.Invoke(nearbyWork.GetWorkInfo());
     }
 
-    void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
         IWork work = collider.GetComponent<IWork>();
         if (work!=null&&nearbyWork==null)
         {
             nearbyWork = work;
             ResourceNode resource= collider.GetComponent<ResourceNode>();
-            ui.DisplayWorkDetail(nearbyWork.GetWorkInfo().remainingWorkload, nearbyWork.GetWorkInfo().icon);
+            OnTargetWorkChange?.Invoke(nearbyWork);
         }
     }
 
@@ -79,11 +79,11 @@ public class PlayerInteraction: MonoBehaviour,IWorker
         IWork work = collider.GetComponent<IWork>();
         if (nearbyWork!=null&&work==nearbyWork)
         {
-            ui.DisableWorkDetail();       
-            if(isWorking)
+            OnTargetWorkChange?.Invoke(null);
+            if (isWorking)
             {
                 isWorking = false;
-                OnStopWorking?.Invoke(nearbyWork.GetWorkInfo().type);
+                OnStopWorking?.Invoke(nearbyWork.GetWorkInfo());
             }
             nearbyWork = null;
         }

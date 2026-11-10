@@ -1,51 +1,54 @@
 ﻿
+using System.Collections.Generic;
+using System;
 using UnityEngine;
 public class PlayerResourceManager : MonoBehaviour
 {
-    private int wood=0;
-    private int crystal=0;
-    private int stone=0;
-    private int soul=0;
-    [Header("UI")]
-    [SerializeField] private PlayerUIController ui;
-
-    public int Wood => wood;
-    public int Crystal => crystal;
-    public int Stone => stone;
-    public int Soul => soul;
+    List<ItemStack> itemStacks=new();
+    public event Action<ItemStack> OnResourceAdded;
 
     private void Start()
     {
-        ui.UpdateWoodUI(wood);
-        ui.UpdateStoneUI(stone);
-        ui.UpdateCrystalUI(crystal);
-        ui.UpdateSoulUI(soul);
+       
     }
 
     public void AddResource(Reward reward)
     {
         foreach(ItemStack itemStack in reward.reward)
         {
-            if(itemStack.item.id=="resource_wood")
+            AddItems(itemStack);
+        }
+    }
+
+    public void AddItems(ItemStack stack)
+    {
+        if (stack.amount == 0)
+            return;
+        for(int i=0;i<itemStacks.Count;i++)
+        {
+            if (itemStacks[i].item==stack.item)
             {
-                wood += itemStack.amount;
-                ui.UpdateWoodUI(wood);
-            }
-            else if (itemStack.item.id == "resource_stone")
-            {
-                stone += itemStack.amount;
-                ui.UpdateStoneUI(stone);
-            }
-            else if (itemStack.item.id == "resource_crystal")
-            {
-                crystal += itemStack.amount;
-                ui.UpdateCrystalUI(crystal);
-            }
-            else if (itemStack.item.id == "resource_soul")
-            {
-               soul += itemStack.amount;
-                ui.UpdateSoulUI(soul);
+                itemStacks[i].amount+= stack.amount;
+                OnResourceAdded?.Invoke(stack);
+                return;
             }
         }
+        ItemStack newStack = new();
+        newStack.item = stack.item;
+        newStack.amount = stack.amount;
+        itemStacks.Add(newStack);
+        OnResourceAdded?.Invoke(stack);
+    }
+
+    public int GetResourceAmount(string id)
+    {
+        foreach(ItemStack stack in itemStacks)
+        {
+            if(stack.item.id==id)
+            {
+                return stack.amount;
+            }
+        }
+        return 0;
     }
 }

@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: edb3fc0170a977b4082a342d686dd710, type: 3}
       propertyPath: m_Name
-      value: Rock
+      value: Rock_Base_Prefab
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: edb3fc0170a977b4082a342d686dd710, type: 3}
       propertyPath: m_Layer
@@ -123,7 +123,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.2650879, y: 0.19478118, z: 0.2188249}
+  m_Size: {x: 0.2650879, y: 0.21, z: 0.2188249}
   m_Center: {x: 0.015382814, y: 0.09729671, z: -0.0031176805}
 --- !u!208 &6013335866747727679
 NavMeshObstacle:
@@ -135,7 +135,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.125, y: 0.5, z: 0.05}
+  m_Extents: {x: 0.125, y: 0.125, z: 0.05}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1

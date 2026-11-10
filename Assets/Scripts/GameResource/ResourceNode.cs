@@ -15,7 +15,7 @@ public class ResourceNode : MonoBehaviour, IWork
 
     public void Start()
     {
-        ItemStack itemStack;
+        ItemStack itemStack=new();
         itemStack.amount = resourcePerHarvest;
         itemStack.item = resourceItem;
         harvestReward.reward = new();
@@ -45,7 +45,7 @@ public class ResourceNode : MonoBehaviour, IWork
 
     private void RewardWorker(IWorker worker)
     {
-        worker.EarnReward(harvestReward);
+        worker.GetResource(harvestReward);
     }
 
    public WorkInfo GetWorkInfo()

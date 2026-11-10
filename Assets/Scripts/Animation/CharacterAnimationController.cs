@@ -15,7 +15,7 @@ public class CharacterAnimationController : MonoBehaviour
     [SerializeField] private float rotationSpeed = 5.0f;
     private CharacterEquipment characterEquipment;
 
-    private Health heath;
+    private Health heatlh;
     private SpriteRenderer spriteRenderer;
 
     private Vector2 currentDirection = Vector2.down;
@@ -23,7 +23,7 @@ public class CharacterAnimationController : MonoBehaviour
     public event Action<int> SkillAnimationEvent;
 
     PlayerMovement movement;
-    PlayerInteraction worker;
+    IWorker worker;
 
     void Start()
     {
@@ -31,7 +31,7 @@ public class CharacterAnimationController : MonoBehaviour
         characterEquipment = GetComponent<CharacterEquipment>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         movement = GetComponent<PlayerMovement>();
-        worker = GetComponent<PlayerInteraction>();
+        worker = GetComponent<IWorker>();
 
         movement.OnMovement += HandleMovement;
         movement.OnIdle += HandleIdle;
@@ -108,11 +108,11 @@ public class CharacterAnimationController : MonoBehaviour
         spriteRenderer.color = Color.white;
     }
 
-    private void StartWorkAnimation(Vector3 direction, WorkType type)
+    private void StartWorkAnimation(WorkInfo info)
     {
-        RotateCharacter(direction,true);
+        RotateCharacter(info.position-transform.position, true);
 
-        switch(type)
+        switch(info.type)
         {
             case WorkType.Lumbering:
                 characterEquipment.EquipAxe();
@@ -125,9 +125,9 @@ public class CharacterAnimationController : MonoBehaviour
         }
 
     }
-    private void StopWorkAnimation(WorkType type)
+    private void StopWorkAnimation(WorkInfo info)
     {
-        switch (type)
+        switch (info.type)
         {
             case WorkType.Lumbering:
                 animator.SetBool("Chopping",false);
