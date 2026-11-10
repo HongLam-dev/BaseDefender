@@ -51,7 +51,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 2.33
+  m_Radius: 2.5
   m_Center: {x: 0, y: 1.2377509, z: 0}
 --- !u!1001 &1250629063894728303
 PrefabInstance:
@@ -540,7 +540,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
   resourceManager: {fileID: 0}
-  ui: {fileID: 0}
 --- !u!4 &2155254057045480901 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f3c330e2a5b9afe4689699ccfb088378, type: 3}

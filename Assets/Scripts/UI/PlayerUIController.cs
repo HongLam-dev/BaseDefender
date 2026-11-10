@@ -22,21 +22,33 @@ public class PlayerUIController : MonoBehaviour
 
     [SerializeField] private Button workButton;
 
+    [SerializeField] private Vector3 targetIndicatorOffset;
+
+    [SerializeField] private Transform targetIndicator;
+
+    [SerializeField] private PlayerResourceManager resourceManager;
+
     private Health playerHealth;
+    private PlayerInteraction interaction;
 
     private void Start()
     {
 
         playerHealth = player.GetComponent<Health>();
+        interaction = player.GetComponent<PlayerInteraction>();
 
-        playerHealth.OnHealthChange+=UpdateHealthUI;
+        playerHealth.OnHealthChange += UpdateHealthUI;
+        interaction.OnTargetWorkChange += HandleTargetWorkChange;
+        interaction.OnNearByWorkProgressUpdate += UpdateWorkloadUI;
+        resourceManager.OnResourceAdded+=HandleResourceAdded;
 
         ClearSkillUI();
+        ClearResourceUI();
 
         this.skills = player.GetComponent<CharacterCombat>().Skills;
-        for (int i=0; i< skillSlots.Length;i++)
+        for (int i = 0; i < skillSlots.Length; i++)
         {
-            if(i >= skills.Count)
+            if (i >= skills.Count)
             {
                 skillSlots[i].SetSkill(emptySlotIcon);
             }
@@ -50,7 +62,7 @@ public class PlayerUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for(int i=0; i<skills.Count;i++)
+        for (int i = 0; i < skills.Count; i++)
         {
             skillSlots[i].UpdateCooldownUI(skills[i].CooldownProgress);
         }
@@ -63,6 +75,14 @@ public class PlayerUIController : MonoBehaviour
             slot.SetSkill(emptySlotIcon);
             slot.UpdateCooldownUI(0);
         }
+    }
+
+    private void ClearResourceUI()
+    {
+        UpdateCrystalUI(0);
+        UpdateStoneUI(0);
+        UpdateSoulUI(0);
+        UpdateWoodUI(0);
     }
 
     private void UpdateHealthUI(HealthChangeInfo info)
@@ -87,24 +107,59 @@ public class PlayerUIController : MonoBehaviour
         soulText.text = amount.ToString();
     }
 
-    public void DisplayWorkDetail(int remainingWorkload,Sprite icon)
+    private void DisplayWorkDetail(int remainingWorkload, Sprite icon)
     {
         workDetailTxt.text = remainingWorkload.ToString();
-        workDetailIcon.sprite= icon;
+        workDetailIcon.sprite = icon;
         workDetailTxt.gameObject.SetActive(true);
         workDetailIcon.gameObject.SetActive(true);
         workButton.gameObject.SetActive(true);
     }
 
-    public void UpdateWorkloadUI(int amount)
+    private void UpdateWorkloadUI(WorkInfo info)
     {
-        workDetailTxt.text = amount.ToString();
+        workDetailTxt.text = info.remainingWorkload.ToString();
     }
 
-    public void DisableWorkDetail()
+    private void DisableWorkDetail()
     {
         workDetailTxt.gameObject.SetActive(false);
         workDetailIcon.gameObject.SetActive(false);
         workButton.gameObject.SetActive(false);
+    }
+
+    private void HandleTargetWorkChange(IWork work)
+    {
+        if(work!=null)
+        {
+            WorkInfo info = work.GetWorkInfo();
+            targetIndicator.GetComponent<PingPongAroundCenter>()?.SetPosition(info.position + targetIndicatorOffset);
+            targetIndicator.gameObject.SetActive(true);
+            DisplayWorkDetail(info.remainingWorkload,info.icon);
+        }
+        else
+        {
+            targetIndicator.gameObject.SetActive(false);
+            DisableWorkDetail();
+        }
+    }
+
+    private void HandleResourceAdded(ItemStack resource)
+    {
+        switch(resource.item.id)
+        {
+            case "resource_wood":
+                UpdateWoodUI(resourceManager.GetResourceAmount(resource.item.id));
+                break;
+            case "resource_stone":
+                UpdateStoneUI(resourceManager.GetResourceAmount(resource.item.id));
+                break;
+            case "resource_crystal":
+                UpdateCrystalUI(resourceManager.GetResourceAmount(resource.item.id));
+                break;
+            case "resource_soul":
+                UpdateSoulUI(resourceManager.GetResourceAmount(resource.item.id));
+                break;
+        }
     }
 }

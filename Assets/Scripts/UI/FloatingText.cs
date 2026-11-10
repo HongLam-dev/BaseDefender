@@ -1,22 +1,22 @@
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 
 public class FloatingText : MonoBehaviour
 {
-    [SerializeField] Vector2 moveSpeed= new Vector2(0,1 );
+    [SerializeField] Vector3 moveSpeed= new Vector3(0,0,1 );
     [SerializeField] float lifeTime = 1.0f;
-    TMP_Text text;
+
+    [SerializeField] Image icon;
+    [SerializeField] TMP_Text text;
 
     float currentLifeTime = 1.0f;
 
-    private void Awake()
-    {
-        text = GetComponent<TMP_Text>();
-    }
-
-    public void Initialize(Vector2 position, int amount)
+    public void Initialize(Vector3 position, int amount, Sprite icon)
     {
         transform.position = position;
+        this.icon.sprite = icon;
+
         currentLifeTime = lifeTime;
         if(amount>0)
         {
@@ -37,6 +37,11 @@ public class FloatingText : MonoBehaviour
         currentLifeTime -= Time.deltaTime;
         if (currentLifeTime <= 0)
             gameObject.SetActive(false);
-        transform.position = transform.position + new Vector3 (moveSpeed.x,moveSpeed.y,0) * Time.deltaTime;
+        transform.position = transform.position + moveSpeed * Time.deltaTime;
     }
+
+   // void LateUpdate()
+    //{
+  //      transform.forward = Camera.main.transform.forward;
+   // }
 }
