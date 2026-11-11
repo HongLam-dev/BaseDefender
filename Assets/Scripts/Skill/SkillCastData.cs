@@ -2,10 +2,10 @@
 public struct SkillCastData
 {
     public CharacterCombat caster;
-    public Vector2 targetPosition;
+    public Vector3 targetPosition;
     public Transform target;
 
-    public SkillCastData(CharacterCombat caster, Vector2 targetPosition, Transform target=null) {
+    public SkillCastData(CharacterCombat caster, Vector3 targetPosition, Transform target=null) {
         this.caster = caster;
         this.target = target;
         this.targetPosition = targetPosition; 

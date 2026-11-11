@@ -1,5 +1,6 @@
 using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 
 public class PlayerUIController : MonoBehaviour
 {
-    [SerializeField] private SkillSlot[] skillSlots;
+    [SerializeField] private SkillSlot[] skilSlots;
     [SerializeField] private Sprite emptySlotIcon;
     [SerializeField] Transform player;
     IReadOnlyList<SkillRuntime> skills;
@@ -46,15 +47,15 @@ public class PlayerUIController : MonoBehaviour
         ClearResourceUI();
 
         this.skills = player.GetComponent<CharacterCombat>().Skills;
-        for (int i = 0; i < skillSlots.Length; i++)
+        for (int i = 0; i < skilSlots.Length; i++)
         {
             if (i >= skills.Count)
             {
-                skillSlots[i].SetSkill(emptySlotIcon);
+                skilSlots[i].gameObject.SetActive(false);
             }
             else
             {
-                skillSlots[i].SetSkill(skills[i].skillData.Icon);
+                skilSlots[i].SetSkill(skills[i].skillData.Icon);
             }
         }
     }
@@ -62,18 +63,17 @@ public class PlayerUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < skills.Count; i++)
+        for (int i = 1; i < skills.Count(); i++)
         {
-            skillSlots[i].UpdateCooldownUI(skills[i].CooldownProgress);
+            skilSlots[i].UpdateCooldownUI(skills[i].CooldownRemaining, skills[i].SkillCooldown);
         }
     }
 
     private void ClearSkillUI()
     {
-        foreach (SkillSlot slot in skillSlots)
+        foreach (SkillSlot slot in skilSlots)
         {
-            slot.SetSkill(emptySlotIcon);
-            slot.UpdateCooldownUI(0);
+            slot.gameObject.SetActive(false);
         }
     }
 

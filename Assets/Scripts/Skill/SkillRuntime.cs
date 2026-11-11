@@ -1,11 +1,18 @@
+using System;
+using System.Linq;
 using UnityEngine;
 [System.Serializable]
 public class SkillRuntime
 {
     public SkillBase skillData;
-    public float cooldownRemaining=0;
+    private float cooldownRemaining=0;
+    private int currentStage;
+    private float timer=0;
 
-    public float CooldownProgress => cooldownRemaining/skillData.BaseCooldown;
+    public float CooldownRemaining => cooldownRemaining;
+    public float SkillCooldown => skillData.BaseCooldown;
+
+    public event Action OnSkillFinish;
 
     public bool CanUse(Vector2 casterPosition, Transform target)
     {
@@ -17,25 +24,41 @@ public class SkillRuntime
                )
                 return false;
         }
-        return CooldownProgress<=0;
+        return cooldownRemaining<=0;
     }
 
-    public void ExcuteState(SkillCastData castData,int stage)
+    public void Excute(float deltaTime, SkillCastData castData)
     {
-        skillData.ExcuteState(castData,stage);
+        timer += deltaTime;
+        for(int i=0;i<skillData.Stages.Count();i++)
+        {
+            if(timer>= skillData.Stages[i]&&currentStage<i)
+            {
+                currentStage = i;
+                skillData.ExcuteStage(castData, currentStage);
+                return;
+            }
+        }
+        Finish();
     }
-    public void Tick(float deltaTime)
+
+    public void Cooldown(float deltaTime)
     {
         if (cooldownRemaining > 0)
+        {
             cooldownRemaining -= deltaTime;
+        }
     }
 
     public SkillRuntime(SkillBase skillData) {
         this.skillData = skillData;
     }
 
-    public void Cooldown()
+    public void Finish()
     {
+        timer = 0;
+        currentStage = 0;
         cooldownRemaining = skillData.BaseCooldown;
+        OnSkillFinish?.Invoke();
     }
 }

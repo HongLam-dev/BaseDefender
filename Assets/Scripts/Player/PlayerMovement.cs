@@ -2,21 +2,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CharacterCombat))]
 public class PlayerMovement : MonoBehaviour
 {
     private Vector3 moveDirection;
 
     [SerializeField]
     protected float moveSpeed = 5f;
-
-    [SerializeField]
-    protected float interactionRange = 1.5f;
     private Rigidbody rb;
     private bool canMove = true;
 
     public event Action<Vector3> OnMovement;
     public event Action OnIdle;
+
 
     protected void Start()
     {
