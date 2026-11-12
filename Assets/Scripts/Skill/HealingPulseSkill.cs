@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewSkill",
-    menuName = "Echoes/Skills/Healing Pulse"
+    menuName = "Game/Skills/Healing Pulse"
 )]
 public class HealingPulseSkill : SkillBase
 {
@@ -13,7 +13,7 @@ public class HealingPulseSkill : SkillBase
     [SerializeField]
     private float healInterval = 1;
 
-    override public void ExcuteState(SkillCastData castData, int state)
+    override public void ExcuteStage(SkillCastData castData, int state)
     {
         GameObject healObject=Instantiate(prefab, castData.target.position, Quaternion.identity);
         healObject.transform.SetParent(castData.target);

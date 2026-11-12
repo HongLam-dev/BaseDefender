@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,6 +8,10 @@ public abstract class SkillBase : ScriptableObject
 {
     [SerializeField]
     private string animation = "MeleeAttack";
+
+    [SerializeField] float[] stages;
+
+    public float[] Stages => stages;
 
     public string Animation => animation;
     [SerializeField]
@@ -22,6 +27,7 @@ public abstract class SkillBase : ScriptableObject
 
     [SerializeField]
     protected float castRange = 5.0f;
+    public float CastRange => castRange;
 
     [SerializeField]
     private bool requireTarget = false;
@@ -38,7 +44,7 @@ public abstract class SkillBase : ScriptableObject
 
     protected abstract int CalculateDamage(int atk);
 
-    public abstract void ExcuteState(SkillCastData castData,int state);
+    public abstract void ExcuteStage(SkillCastData castData,int state);
  
     public virtual bool IsTargetInEffectiveRange(Vector2 casterPosition, Vector2 targetPosition)
     {

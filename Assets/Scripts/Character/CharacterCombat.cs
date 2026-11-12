@@ -19,6 +19,8 @@ public class CharacterCombat: MonoBehaviour
     [SerializeField]
     protected SkillBase[] skills;
 
+    [SerializeField] float targetCheckRadius;
+
     public event Action<string,Vector2> BeginUsingSkill;
 
     protected List<SkillRuntime> runtimeSkills = new();
@@ -30,22 +32,14 @@ public class CharacterCombat: MonoBehaviour
     protected bool isCastingSkill=false;
 
     private Health health;
-    private CharacterAnimationController animator;
 
     virtual protected void Awake()
     {
         health = GetComponent<Health>();
-        animator = GetComponentInChildren<CharacterAnimationController>();
-
         if (health)
         {
             health.TeamID = teamID;
             health.OnHurt += HandleHurt;
-        }
-        if(animator)
-        {
-            animator.SkillAnimationFinishCallback += FinishCurrentSkill;
-            animator.SkillAnimationEvent += RunCurrentSkill;
         }
 
         foreach (SkillBase skillData in skills)
@@ -56,6 +50,10 @@ public class CharacterCombat: MonoBehaviour
 
     virtual protected void Update()
     {
+        if(activeSkill!=null)
+        {
+            activeSkill.Excute(Time.deltaTime,activeSkillCastData);
+        }
         CoolDownSkills(Time.deltaTime);
     }
 
@@ -63,7 +61,7 @@ public class CharacterCombat: MonoBehaviour
     {
         foreach (SkillRuntime skill in runtimeSkills)
         {
-            skill.Tick(deltaTime);
+            skill.Cooldown(deltaTime);
         }
     }
 
@@ -71,15 +69,7 @@ public class CharacterCombat: MonoBehaviour
     {
         if (activeSkill==null)
             return;
-        activeSkill.Cooldown();
         activeSkill = null;   
-    }
-
-    private void RunCurrentSkill(int stage)
-    {
-        if (activeSkill == null)
-            return;
-        activeSkill.ExcuteState(activeSkillCastData,stage);
     }
 
     public virtual bool TryUseSkill(SkillRuntime skill,Vector2 targetCastPosition, Transform target=null,bool requireTargetInCastRange=false)
@@ -93,6 +83,8 @@ public class CharacterCombat: MonoBehaviour
 
             activeSkillCastData=new SkillCastData(this, targetCastPosition,target);
             activeSkill = skill;
+            activeSkill.OnSkillFinish += FinishCurrentSkill;
+
             Vector2 direction = targetCastPosition - (Vector2)transform.position;
             BeginUsingSkill?.Invoke(skill.skillData.Animation, direction);
             return true;
@@ -100,24 +92,9 @@ public class CharacterCombat: MonoBehaviour
         return false;
     }
 
-    public virtual bool TryUseSkill(int skillIndex, Vector2 targetCastPosition, Transform target = null, bool requireTargetInCastRange = false)
-    {
-        if (skillIndex > skills.Count() - 1)
-            return false;
-        return TryUseSkill(runtimeSkills[skillIndex],targetCastPosition,target,requireTargetInCastRange);
-    }
-
     private void HandleHurt(DamageInfo damageInfo)
     {
         FinishCurrentSkill();
     }
 
-    private void OnDestroy()
-    {
-        if (animator)
-        {
-            animator.SkillAnimationFinishCallback -= FinishCurrentSkill;
-            health.OnHurt -= HandleHurt;
-        }
-    }
 }

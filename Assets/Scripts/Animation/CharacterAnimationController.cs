@@ -19,10 +19,8 @@ public class CharacterAnimationController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     private Vector2 currentDirection = Vector2.down;
-    public event Action SkillAnimationFinishCallback;
-    public event Action<int> SkillAnimationEvent;
-
     PlayerMovement movement;
+    CharacterCombat combat;
     IWorker worker;
 
     void Start()
@@ -31,12 +29,14 @@ public class CharacterAnimationController : MonoBehaviour
         characterEquipment = GetComponent<CharacterEquipment>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         movement = GetComponent<PlayerMovement>();
+        combat = GetComponent<PlayerCombat>();
         worker = GetComponent<IWorker>();
 
         movement.OnMovement += HandleMovement;
         movement.OnIdle += HandleIdle;
         worker.OnWork += StartWorkAnimation;
         worker.OnStopWorking += StopWorkAnimation;
+        combat.BeginUsingSkill += HandleUsingSkill;
     }
 
     public void HandleMovement(Vector3 moveDirection)
@@ -66,12 +66,6 @@ public class CharacterAnimationController : MonoBehaviour
 
     private void HandleUsingSkill(string animation, Vector2 strikeDirection)
     {
-        if(!HasTrigger(animation))
-        {
-            OnSkillAnimationFinish();
-            Debug.Log("No trigger");
-            return;
-        }
         Vector2 direction;
         if (math.abs(strikeDirection).x < math.abs(strikeDirection.y))
         {
@@ -90,10 +84,6 @@ public class CharacterAnimationController : MonoBehaviour
         SetSkillAnimation(animation, direction);
     }
 
-    private void OnSkillAnimationEvent(int stage)
-    {
-        SkillAnimationEvent?.Invoke(stage);
-    }
 
     private void HandleHurt(DamageInfo damageInfo)
     {
@@ -146,10 +136,6 @@ public class CharacterAnimationController : MonoBehaviour
         SetAnimation(AnimationState.Dead);
     }
 
-    private void OnSkillAnimationFinish()
-    {
-        SkillAnimationFinishCallback?.Invoke();
-    }
     private void SetAnimation(AnimationState state)
     {
         SetAnimation(state, currentDirection);

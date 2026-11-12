@@ -1,14 +1,14 @@
 using UnityEngine;
 
 [CreateAssetMenu( fileName = "NewSkill",
-    menuName = "Echoes/Skills/MeleAttack"
+    menuName = "Game/Skills/MeleAttack"
 )]
 class BasicMeleeAttack : SkillBase
 {
-    override public void ExcuteState(SkillCastData castData, int state)
+    override public void ExcuteStage(SkillCastData castData, int state)
     {    
         Collider2D[] hits = Physics2D.OverlapCircleAll(castData.caster.transform.position, castRange);
-        Vector2 direction = castData.targetPosition - (Vector2)castData.caster.transform.position;
+        Vector2 direction = castData.targetPosition - castData.caster.transform.position;
 
         foreach (Collider2D collider in hits)
         {
