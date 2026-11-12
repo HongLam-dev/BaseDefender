@@ -52,7 +52,7 @@ public class PlayerInteraction: MonoBehaviour,IWorker
         }
     }
 
-    public void HandleSkillUsing(string animation, Vector2 direction)
+    public void HandleSkillUsing(string animation, Vector3 direction)
     {
         if (isWorking)
             StopWorking();

@@ -7,18 +7,15 @@ class BasicMeleeAttack : SkillBase
 {
     override public void ExcuteStage(SkillCastData castData, int state)
     {    
-        Collider2D[] hits = Physics2D.OverlapCircleAll(castData.caster.transform.position, castRange);
-        Vector2 direction = castData.targetPosition - castData.caster.transform.position;
-
-        foreach (Collider2D collider in hits)
+        Collider[] hits = Physics.OverlapSphere(castData.caster.transform.position, castRange);
+        Vector3 direction = castData.targetPosition - castData.caster.transform.position;
+        foreach (Collider collider in hits)
         {
-            if (!collider.isTrigger)
-                continue;
             Health health = collider.GetComponent<Health>();
             if (health)
             {
-                Vector2 hitDirection = collider.transform.position - castData.caster.transform.position;
-                if (Vector2.Dot(direction,hitDirection)>0)
+                Vector3 hitDirection = collider.transform.position - castData.caster.transform.position;
+                if (Vector3.Dot(direction,hitDirection)>=0)
                     health.TakeDamage(new DamageInfo(castData.caster.TeamID,CalculateDamage(castData.caster.Atk),force));
             }
         }

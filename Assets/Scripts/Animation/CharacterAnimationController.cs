@@ -8,7 +8,7 @@ public class CharacterAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
 
-    [SerializeField] private float hitEffectTime = 0.2f;
+    //[SerializeField] private float hitEffectTime = 0.2f;
 
     [SerializeField] private Color hitEffectColor = Color.red;
 
@@ -16,10 +16,8 @@ public class CharacterAnimationController : MonoBehaviour
     private CharacterEquipment characterEquipment;
 
     private Health heatlh;
-    private SpriteRenderer spriteRenderer;
-
     private Vector2 currentDirection = Vector2.down;
-    PlayerMovement movement;
+    CharacterMovement movement;
     CharacterCombat combat;
     IWorker worker;
 
@@ -27,16 +25,19 @@ public class CharacterAnimationController : MonoBehaviour
     {
         animator=GetComponent<Animator>();
         characterEquipment = GetComponent<CharacterEquipment>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        movement = GetComponent<PlayerMovement>();
-        combat = GetComponent<PlayerCombat>();
+        movement = GetComponent<CharacterMovement>();
+        combat = GetComponent<CharacterCombat>();
         worker = GetComponent<IWorker>();
 
         movement.OnMovement += HandleMovement;
         movement.OnIdle += HandleIdle;
-        worker.OnWork += StartWorkAnimation;
-        worker.OnStopWorking += StopWorkAnimation;
-        combat.BeginUsingSkill += HandleUsingSkill;
+        combat.BeginUsingSkill += SetSkillAnimation;
+
+        if(worker!=null)
+        {
+            worker.OnWork += StartWorkAnimation;
+            worker.OnStopWorking += StopWorkAnimation;
+        }
     }
 
     public void HandleMovement(Vector3 moveDirection)
@@ -64,39 +65,16 @@ public class CharacterAnimationController : MonoBehaviour
         return false;
     }
 
-    private void HandleUsingSkill(string animation, Vector2 strikeDirection)
-    {
-        Vector2 direction;
-        if (math.abs(strikeDirection).x < math.abs(strikeDirection.y))
-        {
-            if (strikeDirection.y > 0)
-                direction = new Vector2(0, 1);
-            else
-                direction = new Vector2(0, -1);
-        }
-        else
-        {
-            if (strikeDirection.x > 0)
-                direction = new Vector2(1, 0);
-            else
-                direction = new Vector2(-1, 0);
-        }
-        SetSkillAnimation(animation, direction);
-    }
-
-
     private void HandleHurt(DamageInfo damageInfo)
     {
         //SetAnimation(AnimationState.Hurt);
-        StartCoroutine(HurtEffect());
+      //  StartCoroutine(HurtEffect());
     }
 
-    private IEnumerator HurtEffect()
+ /*   private IEnumerator HurtEffect()
     {
-        spriteRenderer.color = hitEffectColor;
-        yield return new WaitForSeconds(hitEffectTime);
-        spriteRenderer.color = Color.white;
-    }
+   
+    }*/
 
     private void StartWorkAnimation(WorkInfo info)
     {
@@ -147,8 +125,9 @@ public class CharacterAnimationController : MonoBehaviour
     }
 
 
-    private void SetSkillAnimation(string animation,Vector2 direction)
+    private void SetSkillAnimation(string animation,Vector3 direction)
     {
+        RotateCharacter(direction,true);
         animator.SetTrigger(animation);
     }
 

@@ -6,7 +6,7 @@ public class SkillRuntime
 {
     public SkillBase skillData;
     private float cooldownRemaining=0;
-    private int currentStage;
+    private int currentStage=-1;
     private float timer=0;
 
     public float CooldownRemaining => cooldownRemaining;
@@ -39,7 +39,10 @@ public class SkillRuntime
                 return;
             }
         }
-        Finish();
+        if (currentStage >= skillData.Stages.Count()-1)
+        {
+            Finish();
+        }
     }
 
     public void Cooldown(float deltaTime)
@@ -57,7 +60,7 @@ public class SkillRuntime
     public void Finish()
     {
         timer = 0;
-        currentStage = 0;
+        currentStage = -1;
         cooldownRemaining = skillData.BaseCooldown;
         OnSkillFinish?.Invoke();
     }
