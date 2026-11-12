@@ -49,7 +49,7 @@ public class PlayerUIController : MonoBehaviour
         this.skills = player.GetComponent<CharacterCombat>().Skills;
         for (int i = 0; i < skilSlots.Length; i++)
         {
-            if (i >= skills.Count)
+            if (i >= skills.Count-1)
             {
                 skilSlots[i].gameObject.SetActive(false);
             }

@@ -5,6 +5,7 @@ public class PlayerInteraction: MonoBehaviour,IWorker
 {
     [SerializeField] PlayerResourceManager resourceManager;
     private PlayerMovement movement;
+    private PlayerCombat combat;
 
     float baseLumberingPower=1;
     float baseMiningPower = 1;
@@ -22,6 +23,9 @@ public class PlayerInteraction: MonoBehaviour,IWorker
     private void Start()
     {
         movement = GetComponent<PlayerMovement>();
+        combat=GetComponent<PlayerCombat>();
+
+        combat.BeginUsingSkill += HandleSkillUsing;
         movement.OnMovement += HandlePlayerMove;
     }
 
@@ -44,9 +48,14 @@ public class PlayerInteraction: MonoBehaviour,IWorker
     {
         if(isWorking)
         {
-            isWorking = false;
-            OnStopWorking?.Invoke(nearbyWork.GetWorkInfo());
+            StopWorking();
         }
+    }
+
+    public void HandleSkillUsing(string animation, Vector2 direction)
+    {
+        if (isWorking)
+            StopWorking();
     }
 
     public void StartWorking()
@@ -82,8 +91,7 @@ public class PlayerInteraction: MonoBehaviour,IWorker
             OnTargetWorkChange?.Invoke(null);
             if (isWorking)
             {
-                isWorking = false;
-                OnStopWorking?.Invoke(nearbyWork.GetWorkInfo());
+                StopWorking();
             }
             nearbyWork = null;
         }
@@ -95,5 +103,11 @@ public class PlayerInteraction: MonoBehaviour,IWorker
         {
             nearbyWork.Work(Time.deltaTime, this);
         }
+    }
+
+    void StopWorking()
+    {
+        isWorking = false;
+        OnStopWorking?.Invoke(nearbyWork.GetWorkInfo());
     }
 }
