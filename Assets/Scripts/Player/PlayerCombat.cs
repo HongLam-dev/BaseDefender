@@ -28,7 +28,7 @@ public class PlayerCombat : CharacterCombat {
         return null;
     }
 
-    public virtual bool TryUseSkill(int skillIndex,Vector2 input)
+    public bool TryUseSkill(int skillIndex,Vector2 input)
     {
         if (skillIndex >= skills.Count())
             return false;
@@ -43,6 +43,6 @@ public class PlayerCombat : CharacterCombat {
         Vector3 targetPosition =
         transform.position + direction.normalized * distance;
 
-        return TryUseSkill(runtimeSkills[skillIndex], targetPosition, target, false);
+        return TryUseSkill(runtimeSkills[skillIndex], targetPosition, target);
     }
 }

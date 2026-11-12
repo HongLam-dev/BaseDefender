@@ -4,6 +4,7 @@ using System;
 public class Health : MonoBehaviour
 {
     private int teamID=0;
+    public int TeamID { set => teamID = value; get => teamID; }
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private int currentHealth;
 
@@ -14,12 +15,6 @@ public class Health : MonoBehaviour
     public event Action<DamageInfo> OnHurt;
     public event Action OnDie;
     public event Action<HealthChangeInfo> OnHealthChange;
-
-    public int TeamID
-    {
-        get => teamID;
-        set => teamID = value;
-    }
 
     private void Start()
     {

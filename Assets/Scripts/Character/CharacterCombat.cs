@@ -7,11 +7,10 @@ using UnityEngine.EventSystems;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 
-public class CharacterCombat: MonoBehaviour
+public abstract class CharacterCombat: MonoBehaviour
 {
-    [SerializeField]
     protected int teamID = 0;
-    public int TeamID => teamID;
+    public int TeamID { set => teamID=value; get=>teamID; }
 
     [SerializeField]
     protected int atk = 10;
@@ -21,7 +20,8 @@ public class CharacterCombat: MonoBehaviour
 
     [SerializeField] float targetCheckRadius;
 
-    public event Action<string,Vector2> BeginUsingSkill;
+    public event Action<string,Vector3> BeginUsingSkill;
+    public event Action OnSkillFinish;
 
     protected List<SkillRuntime> runtimeSkills = new();
     public IReadOnlyList<SkillRuntime> Skills => runtimeSkills;
@@ -38,7 +38,6 @@ public class CharacterCombat: MonoBehaviour
         health = GetComponent<Health>();
         if (health)
         {
-            health.TeamID = teamID;
             health.OnHurt += HandleHurt;
         }
 
@@ -69,23 +68,19 @@ public class CharacterCombat: MonoBehaviour
     {
         if (activeSkill==null)
             return;
+        OnSkillFinish?.Invoke();
         activeSkill = null;   
     }
 
-    public virtual bool TryUseSkill(SkillRuntime skill,Vector2 targetCastPosition, Transform target=null,bool requireTargetInCastRange=false)
+    public virtual bool TryUseSkill(SkillRuntime skill,Vector3 targetCastPosition, Transform target=null)
     {
         if (activeSkill==null&& skill.CanUse(transform.position,target))
         {
-            if(requireTargetInCastRange&& !skill.skillData.IsTargetInEffectiveRange(transform.position, target.position))
-            {
-                return false;
-            }
-
             activeSkillCastData=new SkillCastData(this, targetCastPosition,target);
             activeSkill = skill;
             activeSkill.OnSkillFinish += FinishCurrentSkill;
 
-            Vector2 direction = targetCastPosition - (Vector2)transform.position;
+            Vector3 direction = targetCastPosition - transform.position;
             BeginUsingSkill?.Invoke(skill.skillData.Animation, direction);
             return true;
         }

@@ -5782,18 +5782,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1266501294537489386, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
-      propertyPath: skills.Array.size
-      value: 1
+    - target: {fileID: 942431430041877454, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
+      propertyPath: moveSpeed
+      value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 1266501294537489386, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
-      propertyPath: targetLayer.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1266501294537489386, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
-      propertyPath: 'skills.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: a2649b24f5ec9a54c91d888d46b82933, type: 2}
     - target: {fileID: 1631095305319092095, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
       propertyPath: m_Name
       value: Barbarian
@@ -6052,6 +6044,71 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &6207099429294758563
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7323088097782172013, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
+      propertyPath: m_Name
+      value: Skeleton_Minion
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992488010165965783, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -18.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992488010165965783, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992488010165965783, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -9.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992488010165965783, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.122129105
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992488010165965783, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992488010165965783, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.99251425
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992488010165965783, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992488010165965783, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992488010165965783, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -194.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992488010165965783, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453179058802406928, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
+      propertyPath: m_LinearDamping
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453179058802406928, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
+      propertyPath: m_AngularDamping
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
 --- !u!1001 &6715625217449094663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6278,3 +6335,4 @@ SceneRoots:
   - {fileID: 625023442}
   - {fileID: 2286522053401744926}
   - {fileID: 1433093748}
+  - {fileID: 6207099429294758563}
