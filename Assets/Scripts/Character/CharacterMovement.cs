@@ -8,10 +8,8 @@ using UnityEngine.InputSystem;
 public abstract  class CharacterMovement : MonoBehaviour
 {
     protected float moveSpeed = 5f;
-
-    public event Action<Vector3> OnMovement;
-    public event Action OnIdle;
-
+    protected float speedMultiplier=1;
+    public event Action<Vector3,float> OnMovement;
     public virtual void SetMoveSpeed(float speed)
     {
         moveSpeed = speed;
@@ -19,10 +17,8 @@ public abstract  class CharacterMovement : MonoBehaviour
 
     protected void SetDirection(Vector3 direction)
     {
-        if (direction.sqrMagnitude > 0.001)
-            OnMovement?.Invoke(direction);
-        else
-            OnIdle?.Invoke();
+        OnMovement?.Invoke(direction,speedMultiplier);
     }
 
+    public abstract void SetSpeedMultiplier(float multiplier);
 }

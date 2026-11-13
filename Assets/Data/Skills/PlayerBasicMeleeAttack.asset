@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BasicMeleeAttack
   animation: MeleeAttack
   stages:
-  - 0.5
+  - 1
   baseDamage: 10
   force: 1
   baseCooldown: 1

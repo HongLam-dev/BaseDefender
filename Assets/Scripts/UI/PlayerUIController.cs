@@ -9,10 +9,8 @@ using UnityEngine.UI;
 public class PlayerUIController : MonoBehaviour
 {
     [SerializeField] private SkillSlot[] skilSlots;
-    [SerializeField] private Sprite emptySlotIcon;
     [SerializeField] Transform player;
     IReadOnlyList<SkillRuntime> skills;
-    [SerializeField] private Image healthFill;
     [SerializeField] private TMP_Text woodText;
     [SerializeField] private TMP_Text stoneText;
     [SerializeField] private TMP_Text crystalText;
@@ -30,6 +28,8 @@ public class PlayerUIController : MonoBehaviour
     [SerializeField] private PlayerResourceManager resourceManager;
 
     private Health playerHealth;
+    [SerializeField] private Image healthFill;
+    [SerializeField] private TMP_Text healthText;
     private PlayerInteraction interaction;
 
     private void Start()
@@ -38,13 +38,14 @@ public class PlayerUIController : MonoBehaviour
         playerHealth = player.GetComponent<Health>();
         interaction = player.GetComponent<PlayerInteraction>();
 
-        playerHealth.OnHealthChange += UpdateHealthUI;
+        playerHealth.OnHealthChange += HandleHealthChange;
         interaction.OnTargetWorkChange += HandleTargetWorkChange;
         interaction.OnNearByWorkProgressUpdate += UpdateWorkloadUI;
         resourceManager.OnResourceAdded+=HandleResourceAdded;
 
         ClearSkillUI();
         ClearResourceUI();
+        UpdateHealthUI();
 
         this.skills = player.GetComponent<CharacterCombat>().Skills;
         for (int i = 0; i < skilSlots.Length; i++)
@@ -85,9 +86,15 @@ public class PlayerUIController : MonoBehaviour
         UpdateWoodUI(0);
     }
 
-    private void UpdateHealthUI(HealthChangeInfo info)
+    private void HandleHealthChange(HealthChangeInfo info)
+    {
+        UpdateHealthUI();
+    }
+
+    private void UpdateHealthUI()
     {
         healthFill.fillAmount = (float)playerHealth.CurrentHealth / playerHealth.MaxHealth;
+        healthText.text = playerHealth.CurrentHealth.ToString() + "/" + playerHealth.MaxHealth.ToString();
     }
 
     public void UpdateWoodUI(int amount)

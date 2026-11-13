@@ -20,7 +20,6 @@ public abstract class CharacterCombat: MonoBehaviour
 
     [SerializeField] float targetCheckRadius;
 
-    public event Action<string,Vector3> BeginUsingSkill;
     public event Action OnSkillFinish;
 
     protected List<SkillRuntime> runtimeSkills = new();
@@ -32,6 +31,24 @@ public abstract class CharacterCombat: MonoBehaviour
     protected bool isCastingSkill=false;
 
     private Health health;
+
+    public event EventHandler<SkillEventArgs> OnBeginUsingSkill;
+    public class SkillEventArgs : EventArgs
+    {
+        public string AnimationName { get; }
+        public Vector3 CastDirection { get; }
+        public float MovementSpeedMultiplier { get; }
+
+        public SkillEventArgs(
+            string animationName,
+            Vector3 direction,
+            float movementSpeedMultiplier)
+        {
+            AnimationName = animationName;
+            CastDirection = direction;
+            MovementSpeedMultiplier = movementSpeedMultiplier;
+        }
+    }
 
     virtual protected void Awake()
     {
@@ -81,7 +98,7 @@ public abstract class CharacterCombat: MonoBehaviour
             activeSkill.OnSkillFinish += FinishCurrentSkill;
 
             Vector3 direction = targetCastPosition - transform.position;
-            BeginUsingSkill?.Invoke(skill.skillData.Animation, direction);
+            OnBeginUsingSkill?.Invoke(this,new SkillEventArgs( skill.skillData.Animation, direction,skill.skillData.SpeedMultiplier));
             return true;
         }
         return false;

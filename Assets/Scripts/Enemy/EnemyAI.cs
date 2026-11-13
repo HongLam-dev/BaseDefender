@@ -12,34 +12,20 @@ public class EnemyAI : MonoBehaviour
     private EnemyMovement movement;
     private Character character;
 
-    bool isUsingSkill=false;
     void Start()
     {
         movement = GetComponent<EnemyMovement>();
         combat = GetComponent<EnemyCombat>();
         character=GetComponent<Character>();
-        combat.OnSkillFinish += HandleSkillFinish;
     }
 
     void Update()
     {
         if(target)
         {
-            if(combat.TryAttackTarget(target))
-            {
-                movement.Stop();
-                isUsingSkill = true;
-            }
-            else if(!isUsingSkill)
-            {
-                movement.FollowTarget(target);
-            }
+            combat.TryAttackTarget(target);
+            movement.FollowTarget(target);
         }
-    }
-
-    void HandleSkillFinish()
-    {
-        isUsingSkill = false;
     }
 
     private void OnTriggerStay(Collider collision)
@@ -50,4 +36,6 @@ public class EnemyAI : MonoBehaviour
             target = collision.transform;
         }
     }
+
+
 }

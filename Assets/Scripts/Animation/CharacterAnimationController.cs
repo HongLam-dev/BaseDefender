@@ -3,13 +3,14 @@ using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static CharacterCombat;
 
 public class CharacterAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
 
     //[SerializeField] private float hitEffectTime = 0.2f;
-
+    private float currentAnimationSpeed;
     [SerializeField] private Color hitEffectColor = Color.red;
 
     [SerializeField] private float rotationSpeed = 5.0f;
@@ -30,8 +31,7 @@ public class CharacterAnimationController : MonoBehaviour
         worker = GetComponent<IWorker>();
 
         movement.OnMovement += HandleMovement;
-        movement.OnIdle += HandleIdle;
-        combat.BeginUsingSkill += SetSkillAnimation;
+        combat.OnBeginUsingSkill += SetSkillAnimation;
 
         if(worker!=null)
         {
@@ -40,15 +40,10 @@ public class CharacterAnimationController : MonoBehaviour
         }
     }
 
-    public void HandleMovement(Vector3 moveDirection)
+    public void HandleMovement(Vector3 moveDirection,float speedMultiplier)
     {
         RotateCharacter(moveDirection,false);
-        SetAnimation(AnimationState.Run, moveDirection);
-    }
-
-    public void HandleIdle()
-    {
-        SetAnimation(AnimationState.Idle);
+        animator.SetFloat("SpeedMultiplier", moveDirection.sqrMagnitude>0.001 ? speedMultiplier : 0f);
     }
 
     private bool HasTrigger(string triggerName)
@@ -114,53 +109,38 @@ public class CharacterAnimationController : MonoBehaviour
         SetAnimation(AnimationState.Dead);
     }
 
-    private void SetAnimation(AnimationState state)
-    {
-        SetAnimation(state, currentDirection);
-    }
-
     public void DieAnimationFinish()
     {
         transform.parent.gameObject.SetActive(false);
     }
-
-
-    private void SetSkillAnimation(string animation,Vector3 direction)
+    private void SetSkillAnimation(object sender, SkillEventArgs args)
     {
-        RotateCharacter(direction,true);
-        animator.SetTrigger(animation);
+        RotateCharacter(args.CastDirection, true);
+        animator.SetTrigger(args.AnimationName);
     }
 
-    private void SetAnimation(AnimationState state, Vector2 direction)
+    private void SetAnimation(AnimationState state)
     {
-        if (state== AnimationState.Run)
-        {             
-            animator.SetBool("IsRunning", true);
-        }
-        else
+        if (state == AnimationState.Hurt)
         {
-            if (state == AnimationState.Hurt)
-            {
-                animator.SetTrigger("GetHit");
-            }
-            else if (state == AnimationState.Mining)
-            {
-                characterEquipment.EquipPickaxe();
-                animator.SetBool("Mining", true);
-            }
-            else if (state == AnimationState.Chopping)
-            {
-                characterEquipment.EquipAxe();
-                animator.SetBool("Chopping", true);
-            }
-            else if (state == AnimationState.Dead)
-            {
-                animator.SetBool("IsDead", true);
-            }
-
-            animator.SetBool("IsRunning", false);
+            animator.SetTrigger("GetHit");
+        }
+        else if (state == AnimationState.Mining)
+        {
+            characterEquipment.EquipPickaxe();
+            animator.SetBool("Mining", true);
+        }
+        else if (state == AnimationState.Chopping)
+        {
+            characterEquipment.EquipAxe();
+            animator.SetBool("Chopping", true);
+        }
+        else if (state == AnimationState.Dead)
+        {
+            animator.SetBool("IsDead", true);
         }
     }
+
     private void RotateCharacter(Vector3 direction, bool instantRotate)
     {
         if (direction.sqrMagnitude < 0.001f)
