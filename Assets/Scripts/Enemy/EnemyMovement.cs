@@ -1,10 +1,11 @@
 ﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 public class EnemyMovement:CharacterMovement
 {
     [SerializeField] NavMeshAgent agent;
-
     private Transform target;
     private float stopRange= 2f;
 
@@ -30,7 +31,7 @@ public class EnemyMovement:CharacterMovement
     private void Update()
     {
         if(!agent.isStopped)
-            SetDirection(agent.velocity);
+            SetDirection(agent.velocity*speedMultiplier);
         if(target)
         {
             if(Vector3.Distance(transform.position,target.position)<=stopRange)
@@ -47,5 +48,11 @@ public class EnemyMovement:CharacterMovement
         SetDirection(Vector3.zero);
         agent.isStopped = true;
         target = null;
+    }
+
+    public override void SetSpeedMultiplier(float multiplier)
+    {
+        agent.speed *= speedMultiplier;
+        speedMultiplier = multiplier;
     }
 }

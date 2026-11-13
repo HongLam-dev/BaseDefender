@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using static CharacterCombat;
 
 public class Character: MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class Character: MonoBehaviour
     [SerializeField] CharacterMovement movement;
     [SerializeField] float moveSpeed = 5;
 
-    private void Start()
+
+    protected virtual void Start()
     {
         combat = GetComponent<CharacterCombat>();
         health = GetComponent<Health>();
@@ -19,6 +21,16 @@ public class Character: MonoBehaviour
         movement.SetMoveSpeed(moveSpeed);
         combat.TeamID = teamID;
         health.TeamID = teamID;
+        combat.OnSkillFinish += HandleSkillFinish;
+        combat.OnBeginUsingSkill += HandleSkillUsing;
+    }
+    protected void HandleSkillFinish()
+    {
+        movement.SetSpeedMultiplier(1);
     }
 
+    protected void HandleSkillUsing(object sender, SkillEventArgs args)
+    {
+        movement.SetSpeedMultiplier(args.MovementSpeedMultiplier);
+    }
 }

@@ -1,11 +1,10 @@
 ﻿using System;
 using UnityEngine;
+using static CharacterCombat;
 
 public class PlayerInteraction: MonoBehaviour,IWorker
 {
     [SerializeField] PlayerResourceManager resourceManager;
-    private PlayerMovement movement;
-    private PlayerCombat combat;
 
     float baseLumberingPower=1;
     float baseMiningPower = 1;
@@ -20,15 +19,6 @@ public class PlayerInteraction: MonoBehaviour,IWorker
 
     bool isWorking = false;
 
-    private void Start()
-    {
-        movement = GetComponent<PlayerMovement>();
-        combat=GetComponent<PlayerCombat>();
-
-        combat.BeginUsingSkill += HandleSkillUsing;
-        movement.OnMovement += HandlePlayerMove;
-    }
-
     public float GetWorkPower(WorkType workType)
     {
         switch(workType)
@@ -42,20 +32,6 @@ public class PlayerInteraction: MonoBehaviour,IWorker
             default:
                 return 0;
         }
-    }
-
-    public void HandlePlayerMove(Vector3 direction)
-    {
-        if(isWorking)
-        {
-            StopWorking();
-        }
-    }
-
-    public void HandleSkillUsing(string animation, Vector3 direction)
-    {
-        if (isWorking)
-            StopWorking();
     }
 
     public void StartWorking()
@@ -105,8 +81,10 @@ public class PlayerInteraction: MonoBehaviour,IWorker
         }
     }
 
-    void StopWorking()
+    public void StopWorking()
     {
+        if (!isWorking)
+            return;
         isWorking = false;
         OnStopWorking?.Invoke(nearbyWork.GetWorkInfo());
     }
