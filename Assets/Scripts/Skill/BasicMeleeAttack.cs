@@ -16,7 +16,7 @@ class BasicMeleeAttack : SkillBase
             {
                 Vector3 hitDirection = collider.transform.position - castData.caster.transform.position;
                 if (Vector3.Dot(direction,hitDirection)>=0)
-                    health.TakeDamage(new DamageInfo(castData.caster.TeamID,CalculateDamage(castData.caster.Atk),force));
+                    health.TakeDamage(CalculateDamgeInfo(castData));
             }
         }
     }

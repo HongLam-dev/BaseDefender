@@ -1,9 +1,6 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Character))]
-[RequireComponent(typeof(EnemyCombat))]
-[RequireComponent(typeof(EnemyMovement))]
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private LayerMask oponentLayer;
@@ -29,7 +26,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     private void OnTriggerStay(Collider collision)
-    {
+    { 
         Character detectedCharacter = collision.GetComponent<Character>();
         if (!target&&detectedCharacter&&detectedCharacter.TeamID!=character.TeamID)
         {

@@ -7,6 +7,7 @@ public class PlayerMovement : CharacterMovement
 {
     private Rigidbody rb;
     private Vector3 moveDirection;
+    private Vector3 movementVelocity;
     protected void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -18,11 +19,13 @@ public class PlayerMovement : CharacterMovement
         moveDirection = new Vector3(movement.x, 0, movement.y);
         SetDirection(moveDirection*speedMultiplier);
     }
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        rb.linearVelocity = new Vector3(moveDirection.x * moveSpeed * speedMultiplier
-            , rb.linearVelocity.y,
-            moveDirection.z * moveSpeed*speedMultiplier);
+        movementVelocity = moveDirection * moveSpeed;
+
+        rb.linearVelocity = movementVelocity + externalVelocity;
+
+        externalVelocity = Vector3.zero;
     }
 
     public override void SetSpeedMultiplier(float multiplier)
