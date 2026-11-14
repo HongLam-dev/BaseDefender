@@ -25,6 +25,14 @@ public class PlayerCombat : CharacterCombat {
 
     Transform FindSuitableTargetInCastRange(Vector3 casterPosition,float castRadius)
     {
+        Collider[] hits= Physics.OverlapSphere(casterPosition, castRadius);
+        foreach(Collider hit in hits)
+        {
+            if (hit.GetComponent<Character>())
+            {
+                return hit.transform;
+            }
+        }
         return null;
     }
 
@@ -33,16 +41,26 @@ public class PlayerCombat : CharacterCombat {
         if (skillIndex >= skills.Count())
             return false;
 
-        Transform target= FindSuitableTargetInCastRange(transform.position, skills[skillIndex].CastRange);
+        Transform target = FindSuitableTargetInCastRange(transform.position, skills[skillIndex].CastRange);
         if (!runtimeSkills[skillIndex].CanUse(transform.position, target))
             return false;
 
-        float distance = input.magnitude * skills[skillIndex].CastRange;
+        Vector3 targetPosition=transform.position;
+        if (runtimeSkills[skillIndex].skillData.IsSkillSHot)
+        {
+            if(target)
+            {
+                targetPosition = target.position;
+            }
+        }
+        else
+        {
+            float distance = input.magnitude * skills[skillIndex].CastRange;
 
-        Vector3 direction = new Vector3(input.x, 0f, input.y);
-        Vector3 targetPosition =
-        transform.position + direction.normalized * distance;
-
+            Vector3 direction = new Vector3(input.x, 0f, input.y);
+            targetPosition =
+            transform.position + direction.normalized * distance;
+        }
         return TryUseSkill(runtimeSkills[skillIndex], targetPosition, target);
     }
 }

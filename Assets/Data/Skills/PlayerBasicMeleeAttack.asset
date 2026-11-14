@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BasicMeleeAttack
   animation: MeleeAttack
   stages:
-  - 1
+  - 0.5
   baseDamage: 10
-  force: 1
+  force: 50
   baseCooldown: 1
-  castRange: 2
+  castRange: 3
   requireTarget: 0
+  speedMultiplier: 0
   isHealingSkill: 0
   icon: {fileID: 21300000, guid: 8800802127da6354c9066e9ddc69f887, type: 3}

@@ -14,7 +14,7 @@ public class SkillRuntime
 
     public event Action OnSkillFinish;
 
-    public bool CanUse(Vector2 casterPosition, Transform target)
+    public bool CanUse(Vector3 casterPosition, Transform target)
     {
         if (skillData.RequireTarget)
         {

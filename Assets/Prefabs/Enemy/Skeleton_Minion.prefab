@@ -162,10 +162,10 @@ PrefabInstance:
       addedObject: {fileID: 4925777866740916906}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2d37ef003a677d0408ca1b16045a6bea, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2509509324980673781}
+      addedObject: {fileID: 9039981614856318324}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2d37ef003a677d0408ca1b16045a6bea, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9039981614856318324}
+      addedObject: {fileID: 2198741093761460247}
   m_SourcePrefab: {fileID: 100100000, guid: 2d37ef003a677d0408ca1b16045a6bea, type: 3}
 --- !u!1 &7323088097782172013 stripped
 GameObject:
@@ -223,7 +223,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7323088097782172013}
   serializedVersion: 5
-  m_Mass: 40
+  m_Mass: 60
   m_LinearDamping: 5
   m_AngularDamping: 5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -256,7 +256,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -308,6 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   agent: {fileID: 8288836300057084987}
+  stoppingDistance: 1.5
 --- !u!114 &4925777866740916906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,7 +324,21 @@ MonoBehaviour:
   oponentLayer:
     serializedVersion: 2
     m_Bits: 0
---- !u!114 &2509509324980673781
+--- !u!114 &9039981614856318324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7323088097782172013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f633b8331f80f44fafcd9b1dfd3e494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 1000
+  currentHealth: 0
+--- !u!114 &2198741093761460247
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -339,21 +354,9 @@ MonoBehaviour:
   combat: {fileID: 0}
   health: {fileID: 0}
   movement: {fileID: 0}
-  moveSpeed: 3
---- !u!114 &9039981614856318324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7323088097782172013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f633b8331f80f44fafcd9b1dfd3e494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 100
-  currentHealth: 0
+  moveSpeed: 5
+  baseKnockBackForce: 1
+  knockBackResistance: 0
 --- !u!4 &7992488010165965783 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2d37ef003a677d0408ca1b16045a6bea, type: 3}

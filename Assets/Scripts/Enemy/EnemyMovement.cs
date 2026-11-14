@@ -6,9 +6,15 @@ using UnityEngine.EventSystems;
 public class EnemyMovement:CharacterMovement
 {
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] float stoppingDistance = 1.5f;
     private Transform target;
-    private float stopRange= 2f;
+    private Rigidbody rb;
 
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        agent.stoppingDistance = stoppingDistance;
+    }
     public override void SetMoveSpeed(float speed)
     {
         agent.speed = speed;
@@ -21,25 +27,17 @@ public class EnemyMovement:CharacterMovement
         agent.isStopped = false;
     }
 
-    public void FollowTarget(Transform target, float stopRange=2f)
+    public void FollowTarget(Transform target)
     {
         this.target = target;
-        this.stopRange = stopRange;
-        agent.isStopped = false;
     }
 
     private void Update()
     {
-        if(!agent.isStopped)
-            SetDirection(agent.velocity*speedMultiplier);
+        SetDirection(agent.velocity*speedMultiplier);
         if(target)
         {
-            if(Vector3.Distance(transform.position,target.position)<=stopRange)
-            {
-                Stop();
-            }
-            else
-                agent.SetDestination(target.position);
+            MoveToDestination(target.position);
         }
     }
 
@@ -52,7 +50,13 @@ public class EnemyMovement:CharacterMovement
 
     public override void SetSpeedMultiplier(float multiplier)
     {
-        agent.speed *= speedMultiplier;
+        agent.speed = moveSpeed*multiplier;
         speedMultiplier = multiplier;
+    }
+
+    private void FixedUpdate()
+    {
+        rb.linearVelocity = externalVelocity;
+        externalVelocity = Vector3.zero;
     }
 }

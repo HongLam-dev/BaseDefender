@@ -20,7 +20,7 @@ public abstract class SkillBase : ScriptableObject
 
     [SerializeField]  private bool requireTarget = false;
     [SerializeField] private float speedMultiplier = 0;
-
+    [SerializeField] private bool isSkillshot = true;
     [SerializeField] private bool isHealingSkill = false;
 
     [SerializeField] private Sprite icon;
@@ -33,17 +33,22 @@ public abstract class SkillBase : ScriptableObject
     public float[] Stages => stages;
     public float SpeedMultiplier => speedMultiplier;
     public string Animation => animation;
+    public bool IsSkillSHot => isSkillshot;
 
     protected abstract int CalculateDamage(int atk);
 
     public abstract void ExcuteStage(SkillCastData castData,int state);
  
-    public virtual bool IsTargetInEffectiveRange(Vector2 casterPosition, Vector2 targetPosition)
+    public virtual bool IsTargetInEffectiveRange(Vector3 casterPosition, Vector3 targetPosition)
     {
-        Vector2 distance = targetPosition - casterPosition;
-        if (math.abs(distance.x) > castRange)
+        if (Vector3.Distance(casterPosition,targetPosition)>castRange)
             return false;
         return true;
+    }
+
+    protected virtual DamageInfo CalculateDamgeInfo(SkillCastData castData)
+    {
+        return new DamageInfo(castData.caster.TeamID, CalculateDamage(castData.caster.Atk), force,castData.targetPosition- castData.caster.transform.position);
     }
 }
 
