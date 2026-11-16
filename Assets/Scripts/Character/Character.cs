@@ -18,7 +18,6 @@ public class Character: MonoBehaviour
     [SerializeField] float knockBackResistance = 0;
 
     private Rigidbody rb;
-
     protected virtual void Start()
     {
         combat = GetComponent<CharacterCombat>();

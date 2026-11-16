@@ -98,7 +98,7 @@ public abstract class CharacterCombat: MonoBehaviour
             activeSkill.OnSkillFinish += FinishCurrentSkill;
 
             Vector3 direction = targetCastPosition - transform.position;
-            OnBeginUsingSkill?.Invoke(this,new SkillEventArgs( skill.skillData.Animation, direction,skill.skillData.SpeedMultiplier));
+            OnBeginUsingSkill?.Invoke(this,new SkillEventArgs( skill.skillData.Animation, direction.normalized,skill.skillData.SpeedMultiplier));
             return true;
         }
         return false;
