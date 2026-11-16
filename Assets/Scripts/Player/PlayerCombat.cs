@@ -6,7 +6,6 @@ using UnityEngine.Windows;
 public class PlayerCombat : CharacterCombat {
 
     [SerializeField] LayerMask targetLayer;
-
     public void BasicAttack()
     {
         TryUseSkill(0, Vector2.zero);
@@ -28,7 +27,8 @@ public class PlayerCombat : CharacterCombat {
         Collider[] hits= Physics.OverlapSphere(casterPosition, castRadius);
         foreach(Collider hit in hits)
         {
-            if (hit.GetComponent<Character>())
+            Character hitCharacter = hit.GetComponent<Character>();
+            if (hitCharacter&&hitCharacter.TeamID!=teamID)
             {
                 return hit.transform;
             }

@@ -9,8 +9,6 @@ public class CharacterAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
 
-    //[SerializeField] private float hitEffectTime = 0.2f;
-    private float currentAnimationSpeed;
     [SerializeField] private Color hitEffectColor = Color.red;
 
     [SerializeField] private float rotationSpeed = 5.0f;
@@ -43,21 +41,7 @@ public class CharacterAnimationController : MonoBehaviour
     public void HandleMovement(Vector3 moveDirection,float speedMultiplier)
     {
         RotateCharacter(moveDirection,false);
-        animator.SetFloat("SpeedMultiplier", moveDirection.sqrMagnitude>0.001 ? speedMultiplier : 0f);
-    }
-
-    private bool HasTrigger(string triggerName)
-    {
-        foreach (AnimatorControllerParameter parameter in animator.parameters)
-        {
-            if (parameter.name == triggerName &&
-                parameter.type == AnimatorControllerParameterType.Trigger)
-            {
-                return true;
-            }
-        }
-
-        return false;
+        animator.SetFloat("SpeedMultiplier", moveDirection.sqrMagnitude>0.001f ? speedMultiplier : 0f);
     }
 
     private void HandleHurt(DamageInfo damageInfo)
@@ -143,13 +127,12 @@ public class CharacterAnimationController : MonoBehaviour
 
     private void RotateCharacter(Vector3 direction, bool instantRotate)
     {
-        if (direction.sqrMagnitude < 0.001f)
+        if (direction.sqrMagnitude < 000.1f)
             return;
-
         Quaternion targetRotation =
             Quaternion.LookRotation(direction.normalized);
 
-        if (!instantRotate)
+       if (!instantRotate)
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 targetRotation,
