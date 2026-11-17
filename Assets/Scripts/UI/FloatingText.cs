@@ -9,13 +9,24 @@ public class FloatingText : MonoBehaviour
 
     [SerializeField] Image icon;
     [SerializeField] TMP_Text text;
-
+    [SerializeField] Color emptyIconColor;
+    [SerializeField] Color hasIconColor;
     float currentLifeTime = 1.0f;
 
-    public void Initialize(Vector3 position, int amount, Sprite icon)
+    public void Initialize(Vector3 position, int amount, Sprite icon=null)
     {
         transform.position = position;
-        this.icon.sprite = icon;
+
+        if(icon)
+        {
+            this.icon.sprite = icon;
+            this.icon.color = hasIconColor;
+
+        }
+        else
+        {
+            this.icon.color = emptyIconColor;
+        }
 
         currentLifeTime = lifeTime;
         if(amount>0)
@@ -26,7 +37,7 @@ public class FloatingText : MonoBehaviour
         else
         {
             text.color = Color.red;
-            text.text = "-" + amount.ToString();
+            text.text = amount.ToString();
         }
         gameObject.SetActive(true);
     }

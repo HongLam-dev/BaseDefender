@@ -889,8 +889,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimationController
   animator: {fileID: 0}
-  hitEffectColor: {r: 1, g: 0, b: 0, a: 1}
   rotationSpeed: 5
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!114 &1953170442440519791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -979,6 +980,7 @@ MonoBehaviour:
   moveSpeed: 5
   baseKnockBackForce: 1
   knockBackResistance: 80
+  afterDeathTime: 2
 --- !u!4 &2155254057045480901 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f3c330e2a5b9afe4689699ccfb088378, type: 3}

@@ -11,14 +11,12 @@ public class Health : MonoBehaviour
     public int MaxHealth => maxHealth;
     public int CurrentHealth => currentHealth;
 
-    private CharacterAnimationController ani;
     public event Action<DamageInfo> OnHurt;
     public event Action OnDeath;
     public event Action<HealthChangeInfo> OnHealthChange;
 
     private void Start()
     {
-        ani = GetComponentInChildren<CharacterAnimationController>();
         currentHealth = maxHealth;
     }
 
