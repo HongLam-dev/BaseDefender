@@ -9,16 +9,30 @@ public class CharacterAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
 
-    [SerializeField] private Color hitEffectColor = Color.red;
-
     [SerializeField] private float rotationSpeed = 5.0f;
     private CharacterEquipment characterEquipment;
 
     private Health heatlh;
-    private Vector2 currentDirection = Vector2.down;
     CharacterMovement movement;
     CharacterCombat combat;
     IWorker worker;
+
+    [Header("Hurt Effect")]
+    [SerializeField] private Color flashColor = Color.red;
+    [SerializeField] private float flashDuration = 0.15f;
+
+    private SkinnedMeshRenderer[] renderers;
+    private MaterialPropertyBlock propertyBlock;
+    private Coroutine flashCoroutine;
+
+    private static readonly int BaseColor =
+        Shader.PropertyToID("_BaseColor");
+
+    private void Awake()
+    {
+        renderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+        propertyBlock = new MaterialPropertyBlock();
+    }
 
     void Start()
     {
@@ -27,9 +41,11 @@ public class CharacterAnimationController : MonoBehaviour
         movement = GetComponent<CharacterMovement>();
         combat = GetComponent<CharacterCombat>();
         worker = GetComponent<IWorker>();
+        heatlh= GetComponent<Health>();
 
         movement.OnMovement += HandleMovement;
         combat.OnBeginUsingSkill += SetSkillAnimation;
+        heatlh.OnHurt += HandleHurt;
 
         if(worker!=null)
         {
@@ -46,14 +62,8 @@ public class CharacterAnimationController : MonoBehaviour
 
     private void HandleHurt(DamageInfo damageInfo)
     {
-        //SetAnimation(AnimationState.Hurt);
-      //  StartCoroutine(HurtEffect());
+        Flash();
     }
-
- /*   private IEnumerator HurtEffect()
-    {
-   
-    }*/
 
     private void StartWorkAnimation(WorkInfo info)
     {
@@ -141,4 +151,32 @@ public class CharacterAnimationController : MonoBehaviour
         else
             transform.rotation = targetRotation;
     }
+
+    public void Flash()
+    {
+        if (flashCoroutine != null)
+            StopCoroutine(flashCoroutine);
+
+        flashCoroutine = StartCoroutine(FlashRoutine());
+    }
+
+    private IEnumerator FlashRoutine()
+    {
+        foreach (var renderer in renderers)
+        {
+            renderer.GetPropertyBlock(propertyBlock);
+            propertyBlock.SetColor(BaseColor, flashColor);
+            renderer.SetPropertyBlock(propertyBlock);
+        }
+
+        yield return new WaitForSeconds(flashDuration);
+
+        foreach (var renderer in renderers)
+        {
+            renderer.SetPropertyBlock(null);
+        }
+
+        flashCoroutine = null;
+    }
+
 }
