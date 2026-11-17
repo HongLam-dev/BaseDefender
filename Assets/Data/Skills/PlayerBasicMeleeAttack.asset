@@ -15,6 +15,7 @@ MonoBehaviour:
   animation: MeleeAttack
   stages:
   - 0.5
+  - 0.8
   baseDamage: 10
   force: 80
   baseCooldown: 1

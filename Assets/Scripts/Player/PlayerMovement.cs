@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -36,7 +37,8 @@ public class PlayerMovement : CharacterMovement
     {
         movementVelocity = moveDirection * moveSpeed;
 
-        rb.linearVelocity = movementVelocity + externalVelocity;
+        Vector3 movement= movementVelocity + externalVelocity;
+        rb.linearVelocity = new Vector3(movement.x, rb.linearVelocity.y, movement.z);
 
         externalVelocity = Vector3.zero;
     }

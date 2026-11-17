@@ -23,7 +23,7 @@ public class FloatingTextManager : MonoBehaviour
 
     private void HandleResourceAdded(ItemStack stack)
     {
-        GetText().Initialize(player.transform.position+floatingTextStartPositionOffset,stack.amount,stack.item.icon);
+        InitializeText(player.transform.position, stack.amount, stack.item.icon);
     }
 
     FloatingText GetText()
@@ -41,4 +41,8 @@ public class FloatingTextManager : MonoBehaviour
         return pool[currentIndex++];
     }
 
+    public void InitializeText(Vector3 position, int value, Sprite icon=null)
+    {
+        GetText().Initialize(position + floatingTextStartPositionOffset, value, icon);
+    }
 }

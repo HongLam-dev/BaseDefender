@@ -294,7 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCombat
   atk: 10
   skills:
-  - {fileID: 11400000, guid: a2649b24f5ec9a54c91d888d46b82933, type: 2}
+  - {fileID: 11400000, guid: c9f96498022e2a041a1037d920c3c4c7, type: 2}
   targetCheckRadius: 0
 --- !u!114 &6730257098049498829
 MonoBehaviour:
