@@ -277,8 +277,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimationController
   animator: {fileID: 0}
-  hitEffectColor: {r: 1, g: 0, b: 0, a: 1}
   rotationSpeed: 5
+  flashColor: {r: 1, g: 0.48113203, b: 0.48113203, a: 1}
+  flashDuration: 0.15
 --- !u!114 &634910235486068608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,7 +355,7 @@ MonoBehaviour:
   combat: {fileID: 0}
   health: {fileID: 0}
   movement: {fileID: 0}
-  moveSpeed: 5
+  moveSpeed: 3
   baseKnockBackForce: 1
   knockBackResistance: 0
 --- !u!4 &7992488010165965783 stripped
