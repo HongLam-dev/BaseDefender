@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f633b8331f80f44fafcd9b1dfd3e494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 1000
+  maxHealth: 100
   currentHealth: 0
 --- !u!114 &2198741093761460247
 MonoBehaviour:
@@ -358,6 +358,7 @@ MonoBehaviour:
   moveSpeed: 3
   baseKnockBackForce: 1
   knockBackResistance: 0
+  afterDeathTime: 2
 --- !u!4 &7992488010165965783 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2d37ef003a677d0408ca1b16045a6bea, type: 3}

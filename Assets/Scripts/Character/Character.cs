@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using static CharacterCombat;
@@ -18,6 +19,9 @@ public class Character: MonoBehaviour
     [SerializeField] float knockBackResistance = 0;
 
     private Rigidbody rb;
+
+    [SerializeField] private float afterDeathTime = 2f;
+    private bool isDead=false;
     protected virtual void Start()
     {
         combat = GetComponent<CharacterCombat>();
@@ -32,6 +36,7 @@ public class Character: MonoBehaviour
         combat.OnBeginUsingSkill += HandleSkillUsing;
         movement.OnMovement += HandleMovement;
         health.OnHurt += HandleHurt;
+        health.OnDeath += Die;
     }
     protected void HandleSkillFinish()
     {
@@ -52,5 +57,22 @@ public class Character: MonoBehaviour
     protected void HandleHurt(DamageInfo damageInfo)
     {
         movement.ApplyKnockback(damageInfo.direction.normalized, damageInfo.Force - knockBackResistance);
+    }
+
+    protected void Die()
+    {
+        if (isDead) return;
+        isDead = true;
+        movement.enabled = false;
+        combat.enabled = false;
+        if (worker != null)
+            worker.StopWorking();
+        StartCoroutine(DeathCoroutine());
+    }
+
+    private IEnumerator DeathCoroutine()
+    {
+        yield return new WaitForSeconds(afterDeathTime);
+        gameObject.SetActive(false);
     }
 }

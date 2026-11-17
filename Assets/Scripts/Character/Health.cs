@@ -13,7 +13,7 @@ public class Health : MonoBehaviour
 
     private CharacterAnimationController ani;
     public event Action<DamageInfo> OnHurt;
-    public event Action OnDie;
+    public event Action OnDeath;
     public event Action<HealthChangeInfo> OnHealthChange;
 
     private void Start()
@@ -50,7 +50,7 @@ public class Health : MonoBehaviour
 
     public void Die()
     {
-        OnDie?.Invoke();
+        OnDeath?.Invoke();
     }
     
 }

@@ -46,6 +46,7 @@ public class CharacterAnimationController : MonoBehaviour
         movement.OnMovement += HandleMovement;
         combat.OnBeginUsingSkill += SetSkillAnimation;
         heatlh.OnHurt += HandleHurt;
+        heatlh.OnDeath += HandleDeath;
 
         if(worker!=null)
         {
@@ -98,7 +99,7 @@ public class CharacterAnimationController : MonoBehaviour
 
     }
 
-    private void HandleDie()
+    private void HandleDeath()
     {
         SetAnimation(AnimationState.Dead);
     }
