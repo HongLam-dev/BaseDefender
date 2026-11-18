@@ -13,25 +13,23 @@ public class Character: MonoBehaviour
     [SerializeField] IWorker worker;
     [SerializeField] Health health;
     [SerializeField] CharacterMovement movement;
-    [SerializeField] float moveSpeed = 5;
-
-    [SerializeField] float baseKnockBackForce = 1;
-    [SerializeField] float knockBackResistance = 0;
-
-    private Rigidbody rb;
 
     [SerializeField] private float afterDeathTime = 2f;
+    public CharacterStats stats { get; private set; }
     private bool isDead=false;
+    public bool IsDead => isDead;
+
     protected virtual void Start()
     {
         combat = GetComponent<CharacterCombat>();
         health = GetComponent<Health>();
         movement = GetComponent<CharacterMovement>();
         worker = GetComponent<IWorker>();
-        rb = GetComponent<Rigidbody>();
-        movement.SetMoveSpeed(moveSpeed);
-        combat.TeamID = teamID;
+        stats = GetComponent<CharacterStats>();
+
         health.TeamID = teamID;
+        movement.SetMoveSpeed(stats.moveSpeed);
+
         combat.OnSkillFinish += HandleSkillFinish;
         combat.OnBeginUsingSkill += HandleSkillUsing;
         movement.OnMovement += HandleMovement;
@@ -56,7 +54,7 @@ public class Character: MonoBehaviour
 
     protected void HandleHurt(DamageInfo damageInfo)
     {
-        movement.ApplyKnockback(damageInfo.direction.normalized, damageInfo.Force - knockBackResistance);
+        movement.ApplyKnockback(damageInfo.knockBackDirection.normalized, damageInfo.Force - stats.knockBackResistance);
     }
 
     protected void Die()

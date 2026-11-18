@@ -1,8 +1,4 @@
-﻿using System;
-using UnityEditorInternal;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
+﻿using UnityEngine;
 
 public class PlayerMovement : CharacterMovement
 {

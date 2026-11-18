@@ -50,7 +50,7 @@ public class Projectile : MonoBehaviour
         Health health = collision.GetComponent<Health>();
         if (health)
         {
-            if (damageInfo.TeamID == health.TeamID)
+            if (damageInfo.caster.TeamID == health.TeamID)
                 return;
             health.TakeDamage(damageInfo);
             Explode();

@@ -8,16 +8,22 @@ public class EnemyAI : MonoBehaviour
     private EnemyCombat combat;
     private EnemyMovement movement;
     private Character character;
+    private Health health;
 
     void Start()
     {
         movement = GetComponent<EnemyMovement>();
         combat = GetComponent<EnemyCombat>();
         character=GetComponent<Character>();
+        health = GetComponent<Health>();
+
+        health.OnHurt += HandleHurt;
     }
 
     void Update()
     {
+        if (character.IsDead)
+            return;
         if(target)
         {
             combat.TryAttackTarget(target);
@@ -34,5 +40,11 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-
+    private void HandleHurt(DamageInfo info)
+    {
+        if(info.caster.TeamID!=character.TeamID)
+        {
+            
+        }
+    }
 }
