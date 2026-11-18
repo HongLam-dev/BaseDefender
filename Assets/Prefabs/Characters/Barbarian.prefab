@@ -779,6 +779,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f3c330e2a5b9afe4689699ccfb088378, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5855798549038406515}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f3c330e2a5b9afe4689699ccfb088378, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4975367171717497167}
   m_SourcePrefab: {fileID: 100100000, guid: f3c330e2a5b9afe4689699ccfb088378, type: 3}
 --- !u!4 &295688563621855322 stripped
 Transform:
@@ -931,7 +934,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa8b15865f49e245b96e1f6d003e78c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  movementJoystick: {fileID: 0}
 --- !u!114 &6520170265324511985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -997,6 +999,21 @@ MonoBehaviour:
   moveSpeed: 5
   knockBackResistance: 0
   KnockBackForce: 0
+--- !u!114 &4975367171717497167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631095305319092095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76dfdd98002063a449aa54a7059c5913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  combat: {fileID: 0}
+  movement: {fileID: 0}
+  character: {fileID: 0}
 --- !u!4 &2155254057045480901 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f3c330e2a5b9afe4689699ccfb088378, type: 3}

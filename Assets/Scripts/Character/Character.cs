@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using static CharacterCombat;
@@ -17,7 +18,11 @@ public class Character: MonoBehaviour
     [SerializeField] private float afterDeathTime = 2f;
     public CharacterStats stats { get; private set; }
 
-    protected virtual void Start()
+    private float stunTime = 0;
+    public event Action OnStunned;
+    public bool IsStunned => stunTime > 0;
+
+    private void Start()
     {
         combat = GetComponent<CharacterCombat>();
         health = GetComponent<Health>();
@@ -34,6 +39,39 @@ public class Character: MonoBehaviour
         health.OnHurt += HandleHurt;
         health.OnDeath += HandleDeath;
     }
+
+    private void Update()
+    {
+        if(stunTime>0)
+        {
+            stunTime -= Time.deltaTime;
+            if(stunTime<=0)
+            {
+                StunRecover();
+            }
+        }
+    }
+
+
+    private void Stun(float stunTime)
+    {
+        if (this.stunTime<=0)
+        {
+            if (worker != null)
+                worker.StopWorking();
+            movement.Stop();
+            movement.SetSpeedMultiplier(0);
+            combat.FinishCurrentSkill();
+            OnStunned?.Invoke();
+        }
+        this.stunTime = math.max(this.stunTime, stunTime);
+    }
+
+    private void StunRecover()
+    {
+        movement.SetSpeedMultiplier(1);
+    }
+
     protected void HandleSkillFinish()
     {
         movement.SetSpeedMultiplier(1);
@@ -53,6 +91,10 @@ public class Character: MonoBehaviour
     protected void HandleHurt(DamageInfo damageInfo)
     {
         movement.ApplyKnockback(damageInfo.knockBackDirection.normalized, damageInfo.Force - stats.knockBackResistance);
+        if(damageInfo.stunTime>0)
+        {
+            Stun(damageInfo.stunTime);
+        }
     }
 
     protected void HandleDeath()

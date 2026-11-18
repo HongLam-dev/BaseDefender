@@ -8,15 +8,13 @@ public class InputManager : MonoBehaviour
     [SerializeField] FixedJoystick[] skillJoysticks;
     [SerializeField] FixedJoystick movementJoystick;
 
-    [SerializeField] Transform player;
-
-    PlayerCombat combat;
+    [SerializeField] PlayerController player;
 
     private void Start()
     {
-        combat = player.GetComponent<PlayerCombat>();
-
-        basicAttackButton.onClick.AddListener(combat.BasicAttack);
+        basicAttackButton.onClick.AddListener(player.BasicAttack);
+        movementJoystick.OnJoystickDrag += player.OnMove;
+        movementJoystick.OnRelease += player.OnIdle;
     }
 
 }

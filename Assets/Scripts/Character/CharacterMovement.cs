@@ -12,14 +12,16 @@ public abstract  class CharacterMovement : MonoBehaviour
     protected float speedMultiplier=1;
     public event Action<Vector3,float> OnMovement;
     protected Vector3 externalVelocity;
+    protected Vector3 moveDirection=Vector3.zero;
 
     public virtual void SetMoveSpeed(float speed)
     {
         moveSpeed = speed;
     }
 
-    protected void SetDirection(Vector3 direction)
+    public void SetDirection(Vector3 direction)
     {
+        moveDirection = direction;
         OnMovement?.Invoke(direction,speedMultiplier);
     }
 
