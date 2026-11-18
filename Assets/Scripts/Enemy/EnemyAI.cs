@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private LayerMask oponentLayer;
-    private Transform target;
+    private Health target;
     private EnemyCombat combat;
     private EnemyMovement movement;
     private Character character;
@@ -22,21 +22,29 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        if (character.IsDead)
+        if (health.IsDead)
             return;
         if(target)
         {
-            combat.TryAttackTarget(target);
-            movement.FollowTarget(target);
+            if (target.IsDead)
+            {
+                target = null;
+            }
+            else
+            {
+                combat.TryAttackTarget(target.transform);
+                movement.FollowTarget(target.transform);
+            }
+
         }
     }
 
     private void OnTriggerStay(Collider collision)
     { 
-        Character detectedCharacter = collision.GetComponent<Character>();
-        if (!target&&detectedCharacter&&detectedCharacter.TeamID!=character.TeamID)
+        Health oponentUnit = collision.GetComponent<Health>();
+        if (!target&&oponentUnit&&oponentUnit.TeamID!=character.TeamID)
         {
-            target = collision.transform;
+            target = oponentUnit;
         }
     }
 
@@ -44,7 +52,7 @@ public class EnemyAI : MonoBehaviour
     {
         if(info.caster.TeamID!=character.TeamID)
         {
-            
+            target = info.caster.CasterTransform.GetComponent<Health>();
         }
     }
 }

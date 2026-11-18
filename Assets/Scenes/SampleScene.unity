@@ -4935,6 +4935,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8366093642766619289, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
+      propertyPath: MaxHealth
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9039981614856318324, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
+      propertyPath: maxHealth
+      value: 1000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6000,10 +6008,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 942431430041877454, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
-      propertyPath: teamID
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1631095305319092095, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
       propertyPath: m_Name
       value: Barbarian

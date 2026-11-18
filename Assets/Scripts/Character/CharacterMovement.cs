@@ -24,6 +24,10 @@ public abstract  class CharacterMovement : MonoBehaviour
     }
 
     public abstract void SetSpeedMultiplier(float multiplier);
+    public virtual void Stop()
+    {
+        speedMultiplier = 0;
+    }
 
     public void ApplyKnockback(Vector3 direction, float force)
     {

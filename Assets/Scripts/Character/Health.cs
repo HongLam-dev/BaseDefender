@@ -15,6 +15,9 @@ public class Health : MonoBehaviour
     public event Action OnDeath;
     public event Action<HealthChangeInfo> OnHealthChange;
 
+    private bool isDead = false;
+    public bool IsDead => isDead;
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -22,7 +25,7 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(DamageInfo damageInfo)
     {
-        if (this.teamID == damageInfo.caster.TeamID||currentHealth<=0)
+        if (isDead||this.teamID == damageInfo.caster.TeamID||currentHealth<=0)
             return;
         currentHealth -= damageInfo.Damage;
 
@@ -48,6 +51,7 @@ public class Health : MonoBehaviour
 
     public void Die()
     {
+        isDead = true;
         OnDeath?.Invoke();
     }
     
