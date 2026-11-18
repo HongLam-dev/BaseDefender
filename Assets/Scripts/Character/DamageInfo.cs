@@ -1,16 +1,16 @@
 using UnityEngine;
 public struct DamageInfo
 {
-    public int TeamID;
+    public ISkillCaster caster;
     public int Damage;
     public float Force;
 
-    public Vector3 direction;
-    public DamageInfo(int teamID,int damge, float force,Vector3 direction)
+    public Vector3 knockBackDirection;
+    public DamageInfo(ISkillCaster caster, int damge, float force,Vector3 knockBackDirection)
     {
-        TeamID = teamID;
+        this.caster = caster;
         Damage = damge;
         Force = force;
-        this.direction = direction;
+        this.knockBackDirection = knockBackDirection;
     }
 }

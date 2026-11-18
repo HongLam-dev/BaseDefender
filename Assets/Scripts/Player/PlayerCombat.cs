@@ -28,7 +28,7 @@ public class PlayerCombat : CharacterCombat {
         foreach(Collider hit in hits)
         {
             Character hitCharacter = hit.GetComponent<Character>();
-            if (hitCharacter&&hitCharacter.TeamID!=teamID)
+            if (hitCharacter&&hitCharacter.TeamID!=TeamID)
             {
                 return hit.transform;
             }

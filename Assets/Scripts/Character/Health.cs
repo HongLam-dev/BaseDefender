@@ -22,7 +22,7 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(DamageInfo damageInfo)
     {
-        if (this.teamID == damageInfo.TeamID||currentHealth<=0)
+        if (this.teamID == damageInfo.caster.TeamID||currentHealth<=0)
             return;
         currentHealth -= damageInfo.Damage;
 

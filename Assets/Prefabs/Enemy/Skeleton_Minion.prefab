@@ -166,6 +166,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2d37ef003a677d0408ca1b16045a6bea, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2198741093761460247}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2d37ef003a677d0408ca1b16045a6bea, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8366093642766619289}
   m_SourcePrefab: {fileID: 100100000, guid: 2d37ef003a677d0408ca1b16045a6bea, type: 3}
 --- !u!1 &7323088097782172013 stripped
 GameObject:
@@ -292,10 +295,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 800ea0e4e0dcc784b8b6ef598beb5d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCombat
-  atk: 10
   skills:
   - {fileID: 11400000, guid: c9f96498022e2a041a1037d920c3c4c7, type: 2}
-  targetCheckRadius: 0
 --- !u!114 &6730257098049498829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,10 +356,25 @@ MonoBehaviour:
   combat: {fileID: 0}
   health: {fileID: 0}
   movement: {fileID: 0}
-  moveSpeed: 3
-  baseKnockBackForce: 1
-  knockBackResistance: 0
   afterDeathTime: 2
+--- !u!114 &8366093642766619289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7323088097782172013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fe5e971db040004db8a555467ca391a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterStats
+  MaxHealth: 100
+  Atk: 10
+  Defense: 10
+  moveSpeed: 5
+  knockBackResistance: 0
+  KnockBackForce: 0
 --- !u!4 &7992488010165965783 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2d37ef003a677d0408ca1b16045a6bea, type: 3}

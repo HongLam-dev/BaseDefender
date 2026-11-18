@@ -7,18 +7,16 @@ using UnityEngine.EventSystems;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 
-public abstract class CharacterCombat: MonoBehaviour
+public abstract class CharacterCombat: MonoBehaviour,ISkillCaster
 {
-    protected int teamID = 0;
-    public int TeamID { set => teamID=value; get=>teamID; }
+    public int TeamID => character.TeamID;
+    public Transform CasterTransform => transform;
+    public Vector3 Forward => transform.forward;
+    public int KnockBackForce => character.stats.KnockBackForce;
+    public int Atk => character.stats.Atk; 
+    [SerializeField] protected SkillBase[] skills; 
 
-    [SerializeField]
-    protected int atk = 10;
-    public int Atk => atk;
-    [SerializeField]
-    protected SkillBase[] skills;
-
-    [SerializeField] float targetCheckRadius;
+    protected Character character;
 
     public event Action OnSkillFinish;
 
@@ -29,9 +27,6 @@ public abstract class CharacterCombat: MonoBehaviour
     private SkillCastData activeSkillCastData;
 
     protected bool isCastingSkill=false;
-
-    private Health health;
-
     public event EventHandler<SkillEventArgs> OnBeginUsingSkill;
     public class SkillEventArgs : EventArgs
     {
@@ -52,11 +47,7 @@ public abstract class CharacterCombat: MonoBehaviour
 
     virtual protected void Awake()
     {
-        health = GetComponent<Health>();
-        if (health)
-        {
-            health.OnHurt += HandleHurt;
-        }
+        character = GetComponent<Character>();
 
         foreach (SkillBase skillData in skills)
         {
@@ -103,10 +94,4 @@ public abstract class CharacterCombat: MonoBehaviour
         }
         return false;
     }
-
-    private void HandleHurt(DamageInfo damageInfo)
-    {
-        FinishCurrentSkill();
-    }
-
 }

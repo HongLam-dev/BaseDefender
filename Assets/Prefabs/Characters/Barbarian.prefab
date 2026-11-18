@@ -973,7 +973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: affe368453f662e4b9f685ad21fc536a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Character
-  teamID: 1
+  teamID: 0
   combat: {fileID: 0}
   health: {fileID: 0}
   movement: {fileID: 0}

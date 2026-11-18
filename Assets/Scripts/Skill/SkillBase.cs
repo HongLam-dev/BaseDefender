@@ -48,7 +48,11 @@ public abstract class SkillBase : ScriptableObject
 
     protected virtual DamageInfo CalculateDamgeInfo(SkillCastData castData)
     {
-        return new DamageInfo(castData.caster.TeamID, CalculateDamage(castData.caster.Atk), force,castData.targetPosition- castData.caster.transform.position);
+        return new DamageInfo(castData.caster,
+            CalculateDamage(castData.caster.Atk), 
+            force+castData.caster.KnockBackForce,
+            castData.targetPosition- castData.caster.CasterTransform.position
+            );
     }
 }
 

@@ -4887,13 +4887,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2198741093761460247, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
+      propertyPath: teamID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7323088097782172013, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
       propertyPath: m_Name
       value: Skeleton_Minion (1)
       objectReference: {fileID: 0}
     - target: {fileID: 7992488010165965783, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -21.38
+      value: -20.92
       objectReference: {fileID: 0}
     - target: {fileID: 7992488010165965783, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4901,7 +4905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7992488010165965783, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.07
+      value: 1.23
       objectReference: {fileID: 0}
     - target: {fileID: 7992488010165965783, guid: 8adec3c54469f574db4f5a821a57b10e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5996,6 +6000,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 942431430041877454, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
+      propertyPath: teamID
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1631095305319092095, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
       propertyPath: m_Name
       value: Barbarian
@@ -6048,10 +6056,6 @@ PrefabInstance:
       propertyPath: resourceManager
       value: 
       objectReference: {fileID: 625023441}
-    - target: {fileID: 8745002072736626959, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
-      propertyPath: maxHealth
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
