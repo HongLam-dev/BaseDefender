@@ -41,7 +41,7 @@ public class EnemyMovement:CharacterMovement
         }
     }
 
-    public void Stop()
+    public override void Stop()
     {
         SetDirection(Vector3.zero);
         agent.isStopped = true;

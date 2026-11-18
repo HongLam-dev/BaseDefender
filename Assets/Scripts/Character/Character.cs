@@ -16,8 +16,6 @@ public class Character: MonoBehaviour
 
     [SerializeField] private float afterDeathTime = 2f;
     public CharacterStats stats { get; private set; }
-    private bool isDead=false;
-    public bool IsDead => isDead;
 
     protected virtual void Start()
     {
@@ -34,7 +32,7 @@ public class Character: MonoBehaviour
         combat.OnBeginUsingSkill += HandleSkillUsing;
         movement.OnMovement += HandleMovement;
         health.OnHurt += HandleHurt;
-        health.OnDeath += Die;
+        health.OnDeath += HandleDeath;
     }
     protected void HandleSkillFinish()
     {
@@ -57,10 +55,9 @@ public class Character: MonoBehaviour
         movement.ApplyKnockback(damageInfo.knockBackDirection.normalized, damageInfo.Force - stats.knockBackResistance);
     }
 
-    protected void Die()
+    protected void HandleDeath()
     {
-        if (isDead) return;
-        isDead = true;
+        movement.Stop();
         movement.enabled = false;
         combat.enabled = false;
         if (worker != null)

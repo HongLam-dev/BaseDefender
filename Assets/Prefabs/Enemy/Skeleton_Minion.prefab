@@ -372,7 +372,7 @@ MonoBehaviour:
   MaxHealth: 100
   Atk: 10
   Defense: 10
-  moveSpeed: 5
+  moveSpeed: 3
   knockBackResistance: 0
   KnockBackForce: 0
 --- !u!4 &7992488010165965783 stripped
