@@ -6,21 +6,6 @@ using UnityEngine.Windows;
 public class PlayerCombat : CharacterCombat {
 
     [SerializeField] LayerMask targetLayer;
-    public void BasicAttack()
-    {
-        TryUseSkill(0, Vector2.zero);
-    }
-
-    public void UseSkill2(Vector2 input)
-    {
-
-        TryUseSkill(1,input);
-    }
-
-    public void UseSkill3(Vector2 input)
-    {
-        TryUseSkill(2, input);
-    }
 
     Transform FindSuitableTargetInCastRange(Vector3 casterPosition,float castRadius)
     {

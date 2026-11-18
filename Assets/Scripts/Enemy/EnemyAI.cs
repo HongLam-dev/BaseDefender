@@ -22,7 +22,7 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        if (health.IsDead)
+        if (health.IsDead||character.IsStunned)
             return;
         if(target)
         {

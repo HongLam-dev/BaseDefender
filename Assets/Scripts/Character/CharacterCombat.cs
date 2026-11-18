@@ -72,7 +72,7 @@ public abstract class CharacterCombat: MonoBehaviour,ISkillCaster
         }
     }
 
-    private void FinishCurrentSkill()
+    public void FinishCurrentSkill()
     {
         if (activeSkill==null)
             return;

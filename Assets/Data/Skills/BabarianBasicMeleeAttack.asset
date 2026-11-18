@@ -18,6 +18,7 @@ MonoBehaviour:
   - 0.8
   baseDamage: 10
   force: 80
+  stunTime: 2
   baseCooldown: 1
   castRange: 1.5
   requireTarget: 0

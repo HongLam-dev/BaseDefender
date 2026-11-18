@@ -4787,8 +4787,8 @@ MonoBehaviour:
   skillJoysticks:
   - {fileID: 1482512347}
   - {fileID: 640569441}
-  movementJoystick: {fileID: 0}
-  player: {fileID: 747581477}
+  movementJoystick: {fileID: 1161532839}
+  player: {fileID: 2286522053401744927}
 --- !u!1 &1624447143
 GameObject:
   m_ObjectHideFlags: 0
@@ -6052,10 +6052,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2407335680811040090, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
-      propertyPath: movementJoystick
-      value: 
-      objectReference: {fileID: 1161532839}
     - target: {fileID: 6520170265324511985, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
       propertyPath: resourceManager
       value: 
@@ -6065,6 +6061,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
+--- !u!114 &2286522053401744927 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4975367171717497167, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
+  m_PrefabInstance: {fileID: 2286522053401744926}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76dfdd98002063a449aa54a7059c5913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!1 &2434596823708810461
 GameObject:
   m_ObjectHideFlags: 0

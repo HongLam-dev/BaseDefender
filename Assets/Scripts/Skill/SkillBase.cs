@@ -13,6 +13,7 @@ public abstract class SkillBase : ScriptableObject
     [SerializeField] protected int baseDamage = 10;
 
     [SerializeField] protected int force = 1;
+    [SerializeField] protected float stunTime;
 
     [SerializeField] protected float baseCooldown = 1;
 
@@ -51,7 +52,7 @@ public abstract class SkillBase : ScriptableObject
         return new DamageInfo(castData.caster,
             CalculateDamage(castData.caster.Atk), 
             force+castData.caster.KnockBackForce,
-            castData.targetPosition- castData.caster.CasterTransform.position
+            castData.targetPosition- castData.caster.CasterTransform.position,stunTime
             );
     }
 }
