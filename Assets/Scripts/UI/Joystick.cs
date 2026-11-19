@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,6 +9,10 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     public float Horizontal { get { return (snapX) ? SnapFloat(input.x, AxisOptions.Horizontal) : input.x; } }
     public float Vertical { get { return (snapY) ? SnapFloat(input.y, AxisOptions.Vertical) : input.y; } }
     public Vector2 Direction { get { return new Vector2(Horizontal, Vertical); } }
+    public event Action<Vector2> OnJoystickDrag;
+    public event Action<Vector2> OnRelease;
+
+    private Vector2 lastDirection;
 
     public float HandleRange
     {
@@ -131,6 +136,16 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 
     public virtual void OnPointerUp(PointerEventData eventData)
     {
+        ResetJoystick();
+    }
+
+    protected virtual void OnDisable()
+    {
+        ResetJoystick();
+    }
+
+    protected virtual void ResetJoystick()
+    {
         input = Vector2.zero;
         handle.anchoredPosition = Vector2.zero;
     }
@@ -144,6 +159,20 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             return localPoint - (background.anchorMax * baseRect.sizeDelta) + pivotOffset;
         }
         return Vector2.zero;
+    }
+
+    private void Update()
+    {
+        if (Direction.sqrMagnitude > 0.001)
+        {
+            OnJoystickDrag?.Invoke(Direction);
+            lastDirection = Direction;
+        }
+        else if (lastDirection.sqrMagnitude > 0.001)
+        {
+            OnRelease?.Invoke(lastDirection);
+            lastDirection = Direction;
+        }
     }
 }
 
