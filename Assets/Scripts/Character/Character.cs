@@ -20,6 +20,7 @@ public class Character: MonoBehaviour
 
     private float stunTime = 0;
     public event Action OnStunned;
+    public event Action OnStunRecover;
     public bool IsStunned => stunTime > 0;
 
     private void Start()
@@ -70,6 +71,7 @@ public class Character: MonoBehaviour
     private void StunRecover()
     {
         movement.SetSpeedMultiplier(1);
+        OnStunRecover?.Invoke();
     }
 
     protected void HandleSkillFinish()
