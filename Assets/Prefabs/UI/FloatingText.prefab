@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FloatingText
   moveSpeed: {x: 0, y: 0, z: 3}
-  lifeTime: 2
+  lifeTime: 1
   icon: {fileID: 272141912091781470}
   text: {fileID: 7176634858380333463}
   emptyIconColor: {r: 0, g: 0, b: 0, a: 0}

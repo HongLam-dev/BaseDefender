@@ -3,6 +3,7 @@ using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.iOS;
 using static CharacterCombat;
 
 public class CharacterAnimationController : MonoBehaviour
@@ -10,11 +11,12 @@ public class CharacterAnimationController : MonoBehaviour
     [SerializeField] private Animator animator;
 
     [SerializeField] private float rotationSpeed = 5.0f;
-    private CharacterEquipment characterEquipment;
 
+    private Character character;
+    private CharacterEquipment characterEquipment;
     private Health heatlh;
-    CharacterMovement movement;
-    CharacterCombat combat;
+    private CharacterMovement movement;
+    private CharacterCombat combat;
     IWorker worker;
 
     [Header("Hurt Effect")]
@@ -42,11 +44,14 @@ public class CharacterAnimationController : MonoBehaviour
         combat = GetComponent<CharacterCombat>();
         worker = GetComponent<IWorker>();
         heatlh= GetComponent<Health>();
+        character = GetComponent<Character>();
 
         movement.OnMovement += HandleMovement;
         combat.OnBeginUsingSkill += SetSkillAnimation;
         heatlh.OnHurt += HandleHurt;
         heatlh.OnDeath += HandleDeath;
+        character.OnStunned += HandleStunned;
+        character.OnStunRecover += HandleStunRecorver;
 
         if(worker!=null)
         {
@@ -64,6 +69,16 @@ public class CharacterAnimationController : MonoBehaviour
     private void HandleHurt(DamageInfo damageInfo)
     {
         Flash();
+    }
+
+    private void HandleStunned()
+    {
+        animator.SetBool("IsStunned", true);
+    }
+
+    private void HandleStunRecorver()
+    {
+        animator.SetBool("IsStunned", false);
     }
 
     private void StartWorkAnimation(WorkInfo info)
