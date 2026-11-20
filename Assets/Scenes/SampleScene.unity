@@ -806,7 +806,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.46174863, y: 0, z: 0, w: 0.8870109}
-  m_LocalPosition: {x: -11.38, y: 21, z: -12.44}
+  m_LocalPosition: {x: 3, y: 15.4, z: -12.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1132,7 +1132,7 @@ Light:
   serializedVersion: 12
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1.7
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -4678,6 +4678,10 @@ MonoBehaviour:
   workDetailIcon: {fileID: 1874555763}
   workDetailTxt: {fileID: 807860753}
   workButton: {fileID: 1139222939}
+  lumberingIcon: {fileID: -1155609327, guid: 5d3668581b4344544b244dcb9c85cab1, type: 3}
+  buildingIcon: {fileID: -994006342, guid: 5d3668581b4344544b244dcb9c85cab1, type: 3}
+  miningIcon: {fileID: 462114895, guid: 5d3668581b4344544b244dcb9c85cab1, type: 3}
+  workButtonIcon: {fileID: 1139222940}
   targetIndicatorOffset: {x: 0, y: 5, z: 0}
   targetIndicator: {fileID: 1380510992}
   resourceManager: {fileID: 625023441}
@@ -5303,7 +5307,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3bce7c11d03951f458bfd32cf22ae249, type: 3}
+  m_Sprite: {fileID: -1155609327, guid: 5d3668581b4344544b244dcb9c85cab1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5808,15 +5812,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5081127176905121244, guid: e81e61ae5df49094c96c8efb64b8aaec, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5081127176905121244, guid: e81e61ae5df49094c96c8efb64b8aaec, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5081127176905121244, guid: e81e61ae5df49094c96c8efb64b8aaec, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5081127176905121244, guid: e81e61ae5df49094c96c8efb64b8aaec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

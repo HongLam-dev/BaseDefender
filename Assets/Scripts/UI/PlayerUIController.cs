@@ -8,9 +8,12 @@ using UnityEngine.UI;
 
 public class PlayerUIController : MonoBehaviour
 {
+    [Header("Skill")]
     [SerializeField] private SkillSlot[] skilSlots;
     [SerializeField] Transform player;
     IReadOnlyList<SkillRuntime> skills;
+
+    [Header("Work configuration")]
     [SerializeField] private TMP_Text woodText;
     [SerializeField] private TMP_Text stoneText;
     [SerializeField] private TMP_Text crystalText;
@@ -20,6 +23,12 @@ public class PlayerUIController : MonoBehaviour
     [SerializeField] private TMP_Text workDetailTxt;
 
     [SerializeField] private Button workButton;
+    [SerializeField] Sprite lumberingIcon;
+    [SerializeField] Sprite buildingIcon;
+    [SerializeField] Sprite miningIcon;
+    [SerializeField] Image workButtonIcon;
+
+    private PlayerInteraction interaction;
 
     [SerializeField] private Vector3 targetIndicatorOffset;
 
@@ -27,10 +36,10 @@ public class PlayerUIController : MonoBehaviour
 
     [SerializeField] private PlayerResourceManager resourceManager;
 
+    [Header("Stats")]
     private Health playerHealth;
     [SerializeField] private Image healthFill;
     [SerializeField] private TMP_Text healthText;
-    private PlayerInteraction interaction;
 
     private void Start()
     {
@@ -142,6 +151,20 @@ public class PlayerUIController : MonoBehaviour
             WorkInfo info = work.GetWorkInfo();
             targetIndicator.GetComponent<PingPongAroundCenter>()?.SetPosition(info.position + targetIndicatorOffset);
             targetIndicator.gameObject.SetActive(true);
+            
+            switch(work.GetWorkInfo().type)
+            {
+                case WorkType.Lumbering:
+                    workButtonIcon.sprite = lumberingIcon;
+                    break;
+                case WorkType.Mining:
+                    workButtonIcon.sprite = miningIcon;
+                    break;
+                case WorkType.Building:
+                    workButtonIcon.sprite = buildingIcon;
+                    break;
+            }
+
             DisplayWorkDetail(info.remainingWorkload,info.icon);
         }
         else
