@@ -2,34 +2,32 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private Vector2 direction;
+    private Vector3 direction;
 
-    [SerializeField]
-    private float speed=7.0f;
+    [SerializeField]  private float speed=7.0f;
 
-    [SerializeField]
-    Rigidbody2D rb;
+    [SerializeField]  Rigidbody rb;
 
-    [SerializeField]
-    float lifeTime = 3.0f;
+    [SerializeField]  float lifeTime = 3.0f;
 
-    [SerializeField]
-    private bool destroyOnContact=true;
+    [SerializeField]  private bool penetrateObjects=true;
+    [SerializeField] private bool destroyOnDealDamge = true;
+
     DamageInfo damageInfo;
 
-    public void Initialize(DamageInfo damageInfo,Vector2 castPoint, Vector2 targetPosition)
+    public void Initialize(DamageInfo damageInfo,Vector3 castPoint, Vector3 targetPosition)
     {
         this.damageInfo = damageInfo;
         this.direction = targetPosition - castPoint;
         this.direction=this.direction.normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(this.direction.x, this.direction.z) * Mathf.Rad2Deg;
 
-        transform.rotation = Quaternion.Euler(0, 0, angle + 180f);
+        transform.rotation = Quaternion.Euler(0f, angle + 180f, 0f);
     }
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -45,7 +43,7 @@ public class Projectile : MonoBehaviour
         rb.linearVelocity = direction * speed;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         Health health = collision.GetComponent<Health>();
         if (health)
@@ -54,15 +52,19 @@ public class Projectile : MonoBehaviour
                 return;
             health.TakeDamage(damageInfo);
             Explode();
+            if (destroyOnDealDamge)
+                Destroy(gameObject);
         }
         else if(!collision.isTrigger)
         {
+            if (penetrateObjects)
+                return;
             Explode();
+            Destroy(gameObject);
         }
     }
     private void Explode()
     {
-        if(destroyOnContact)
-            Destroy(gameObject);
+ 
     }
 }

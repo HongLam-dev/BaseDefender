@@ -7,7 +7,6 @@ public class NPCStatUIManager : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private FloatingTextManager floatingTextManager;
-    [SerializeField] private Health[] npcHealths;
     [SerializeField] private GameObject statBarPrefab;
     [SerializeField] private Transform statBarContainer;
 
@@ -29,19 +28,10 @@ public class NPCStatUIManager : MonoBehaviour
 
     private void Start()
     {
-        foreach (Health health in npcHealths)
+        foreach (Health health in FindObjectsByType<Health>(FindObjectsSortMode.None))
         {
-            if (health != null)
+            if (health.GetComponent<EnemyAI>())
                 RegisterHealth(health);
-        }
-    }
-
-    private void OnDestroy()
-    {
-        foreach (var health in npcHealths)
-        {
-            if (health != null)
-                health.OnHealthChange -= HandleHealthChange;
         }
     }
 

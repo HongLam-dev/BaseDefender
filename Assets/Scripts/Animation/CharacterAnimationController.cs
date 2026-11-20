@@ -38,7 +38,7 @@ public class CharacterAnimationController : MonoBehaviour
 
     void Start()
     {
-        animator=GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         characterEquipment = GetComponent<CharacterEquipment>();
         movement = GetComponent<CharacterMovement>();
         combat = GetComponent<CharacterCombat>();
@@ -155,9 +155,10 @@ public class CharacterAnimationController : MonoBehaviour
     {
         if (direction.sqrMagnitude < 000.1f)
             return;
+        direction.y = 0;
         Quaternion targetRotation =
             Quaternion.LookRotation(direction.normalized);
-
+        
        if (!instantRotate)
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,

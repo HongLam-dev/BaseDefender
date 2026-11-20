@@ -18,6 +18,16 @@ public class EnemyAI : MonoBehaviour
         health = GetComponent<Health>();
 
         health.OnHurt += HandleHurt;
+
+        float smallestSkillRange = combat.Skills[0].skillData.CastRange;
+        foreach (SkillRuntime skill in combat.Skills)
+        {
+            if(skill.skillData.CastRange<smallestSkillRange)
+            {
+                smallestSkillRange = skill.skillData.CastRange;
+            }
+        }
+        movement.SetStoppingDistance(smallestSkillRange);
     }
 
     void Update()

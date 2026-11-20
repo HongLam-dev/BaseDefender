@@ -6,14 +6,12 @@ using UnityEngine.EventSystems;
 public class EnemyMovement:CharacterMovement
 {
     [SerializeField] NavMeshAgent agent;
-    [SerializeField] float stoppingDistance = 1.5f;
     private Transform target;
     private Rigidbody rb;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        agent.stoppingDistance = stoppingDistance;
     }
     public override void SetMoveSpeed(float speed)
     {
@@ -58,5 +56,10 @@ public class EnemyMovement:CharacterMovement
     {
         rb.linearVelocity = externalVelocity;
         externalVelocity = Vector3.zero;
+    }
+
+    public void SetStoppingDistance(float stoppingDistance)
+    {
+        agent.stoppingDistance = stoppingDistance;
     }
 }
