@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1996922165705618866, guid: 64fe153cdd196514696167e18e1358c2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.26627
+      value: -8.11
       objectReference: {fileID: 0}
     - target: {fileID: 1996922165705618866, guid: 64fe153cdd196514696167e18e1358c2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.64001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1996922165705618866, guid: 64fe153cdd196514696167e18e1358c2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.77507
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1996922165705618866, guid: 64fe153cdd196514696167e18e1358c2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -50,7 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4589061455289473302, guid: 64fe153cdd196514696167e18e1358c2, type: 3}
       propertyPath: m_Name
-      value: Enemy_Base Variant
+      value: Skeleton_Minion
+      objectReference: {fileID: 0}
+    - target: {fileID: 9078007496748412960, guid: 64fe153cdd196514696167e18e1358c2, type: 3}
+      propertyPath: m_Constraints
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

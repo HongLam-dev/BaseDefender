@@ -1189,7 +1189,7 @@ Light:
   serializedVersion: 12
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.2
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1232,7 +1232,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 20000
+  m_ColorTemperature: 5560
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -6001,7 +6001,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1131307677037934016, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1131307677037934016, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6038,6 +6038,14 @@ PrefabInstance:
     - target: {fileID: 3146564113389279588, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
       propertyPath: m_Name
       value: Skeleton_minion
+      objectReference: {fileID: 0}
+    - target: {fileID: 3247853971852133265, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
+      propertyPath: teamID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4776380054778563977, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
+      propertyPath: maxHealth
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6452,7 +6460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1031759946001781540, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.21
       objectReference: {fileID: 0}
     - target: {fileID: 1031759946001781540, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6603,6 +6611,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4579004370018165771, guid: 1e4ed2d39cc8337468bd228b1bb2c05b, type: 3}
+      propertyPath: maxHealth
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 6226278228177055974, guid: 1e4ed2d39cc8337468bd228b1bb2c05b, type: 3}
       propertyPath: m_Name
       value: Skeleton_Mage
@@ -6613,7 +6625,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8246599141786262594, guid: 1e4ed2d39cc8337468bd228b1bb2c05b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 8246599141786262594, guid: 1e4ed2d39cc8337468bd228b1bb2c05b, type: 3}
       propertyPath: m_LocalPosition.z
