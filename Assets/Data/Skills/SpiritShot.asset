@@ -15,9 +15,9 @@ MonoBehaviour:
   animation: MagicAttack
   stages:
   - 0.2
-  baseDamage: 15
-  force: 0
-  stunTime: 0
+  baseDamage: 25
+  force: 50
+  stunTime: 0.2
   baseCooldown: 2.5
   castRange: 8
   requireTarget: 0
@@ -25,4 +25,5 @@ MonoBehaviour:
   isSkillshot: 1
   isHealingSkill: 0
   icon: {fileID: 0}
-  projectilePrefab: {fileID: 7302498322557022896, guid: 19647be3356f63043a905097d8fe115c, type: 3}
+  projectilePrefab: {fileID: 2951712672721262034, guid: 846caf16a76bb2c47baf31f67cdbae24, type: 3}
+  projectileSpeed: 15
