@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ public class Projectile : MonoBehaviour
 {
     private Vector3 direction;
 
-    [SerializeField] private float speed = 7.0f;
+    private float speed = 7.0f;
 
     [SerializeField] Rigidbody rb;
 
@@ -18,12 +19,14 @@ public class Projectile : MonoBehaviour
     [SerializeField] private ParticleSystem hitEffect;
     [SerializeField] private GameObject mainProjectile;
     [SerializeField] private float destroyTime = 2;
+
+    List<Collider> damagedTarget=new();
     DamageInfo damageInfo;
-    public void Initialize(DamageInfo damageInfo, Vector3 castPoint, Vector3 targetPosition)
+    public void Initialize(DamageInfo damageInfo, Vector3 direction, float speed)
     {
         this.damageInfo = damageInfo;
-        this.direction = targetPosition - castPoint;
-        this.direction = this.direction.normalized;
+        this.speed = speed;
+        this.direction = direction.normalized;
         this.direction.y = 0;
         float angle = Mathf.Atan2(this.direction.x, this.direction.z) * Mathf.Rad2Deg;
 
@@ -50,12 +53,15 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
+        if (damagedTarget.Contains(collision))
+            return;
         Health health = collision.GetComponent<Health>();
         if (health)
         {
             if (damageInfo.caster.TeamID == health.TeamID)
                 return;
             health.TakeDamage(damageInfo);
+            damagedTarget.Add(collision);
             Explode();
             if (destroyOnDealDamge)
             {
@@ -100,6 +106,7 @@ public class Projectile : MonoBehaviour
     {
         speed = 0;
         mainProjectile.SetActive(false);
+        GetComponentInChildren<Collider>().enabled = false;
         yield return new WaitForSeconds(destroyTime);
         gameObject.SetActive(false);
     }

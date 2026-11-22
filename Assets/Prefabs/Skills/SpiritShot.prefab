@@ -14572,7 +14572,7 @@ MonoBehaviour:
   rb: {fileID: 676462898769773296}
   lifeTime: 2
   penetrateObjects: 1
-  destroyOnDealDamge: 0
+  destroyOnDealDamge: 1
   explodeRadius: 0
   explodeDamge: 2
   hitEffect: {fileID: 4769671936429583831}
