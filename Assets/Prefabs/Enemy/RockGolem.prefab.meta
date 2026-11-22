@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/Skills/SpiritShot.prefab.meta
+guid: 54300a9d0f5173b4d9f0eb7191888d8c
+========
 guid: 4e5c07bdf4e9b654eb83602f46115646
+>>>>>>>> main:Assets/Prefabs/Enemy/RockGolem.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

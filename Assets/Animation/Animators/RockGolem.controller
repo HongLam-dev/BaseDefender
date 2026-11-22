@@ -46,7 +46,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d4382eeaa31f1ef4e81f853a93807d5e, type: 2}
+  m_Motion: {fileID: 7400000, guid: 005f4824e91d9d347a1fb9c5325ddb45, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -194,7 +194,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: MagicAttack
+    m_ConditionEvent: MeleeAttack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1372823129208570644}
@@ -230,7 +230,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d1de0959ba7716c4786a976cfab41209, type: 2}
+  m_Motion: {fileID: 7400000, guid: 89ff9d23ee60dee4cba12d5445127ead, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -276,7 +276,7 @@ AnimatorController:
   m_Name: RockGolem
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: MagicAttack
+  - m_Name: MeleeAttack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -351,7 +351,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: attack
+  m_Name: MeleeAttack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

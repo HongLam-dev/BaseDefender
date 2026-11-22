@@ -32,6 +32,9 @@ public class Character: MonoBehaviour
         stats = GetComponent<CharacterStats>();
 
         health.TeamID = teamID;
+        health.Defense = stats.Defense;
+        health.MaxHealth = stats.MaxHealth;
+
         movement.SetMoveSpeed(stats.moveSpeed);
 
         combat.OnSkillFinish += HandleSkillFinish;
@@ -92,10 +95,11 @@ public class Character: MonoBehaviour
 
     protected void HandleHurt(DamageInfo damageInfo)
     {
-        movement.ApplyKnockback(damageInfo.knockBackDirection.normalized, damageInfo.Force - stats.knockBackResistance);
-        if(damageInfo.stunTime>0)
+        movement.ApplyKnockback(damageInfo.knockBackDirection.normalized, damageInfo.Force *stats.knockBackMultiplier);
+        float stunTime = damageInfo.stunTime * stats.stunMultiplier;
+        if(stunTime > 0.01)
         {
-            Stun(damageInfo.stunTime);
+            Stun(stunTime);
         }
     }
 

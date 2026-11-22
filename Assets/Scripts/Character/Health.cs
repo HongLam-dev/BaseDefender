@@ -5,10 +5,17 @@ public class Health : MonoBehaviour
 {
     private int teamID=0;
     public int TeamID { set => teamID = value; get => teamID; }
-    [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int currentHealth;
+    private int maxHealth = 100;
+    private int currentHealth;
+    private int defense = 0;
+    public int Defense { set => defense = value; get => defense; }
 
-    public int MaxHealth => maxHealth;
+    public int MaxHealth { get => maxHealth; set
+        {
+            maxHealth = value;
+            currentHealth = maxHealth;
+        }
+    }
     public int CurrentHealth => currentHealth;
 
     public event Action<DamageInfo> OnHurt;
@@ -18,17 +25,15 @@ public class Health : MonoBehaviour
     private bool isDead = false;
     public bool IsDead => isDead;
 
-    private void Start()
-    {
-        currentHealth = maxHealth;
-    }
-
     public void TakeDamage(DamageInfo damageInfo)
     {
         if (isDead||this.teamID == damageInfo.caster.TeamID||currentHealth<=0)
             return;
-        currentHealth -= damageInfo.Damage;
-
+        int damageIntake = damageInfo.Damage - defense;
+        if (damageIntake <= 0)
+            damageIntake = 1;
+        currentHealth -=damageIntake;
+        
         if (currentHealth <= 0)
         {
             currentHealth = 0;    
@@ -38,7 +43,7 @@ public class Health : MonoBehaviour
         {
             OnHurt?.Invoke(damageInfo);
         }
-        OnHealthChange?.Invoke(new HealthChangeInfo(this, -damageInfo.Damage));
+        OnHealthChange?.Invoke(new HealthChangeInfo(this, -damageIntake));
     }
 
     public void Heal(int amount)
