@@ -49,7 +49,7 @@ public class PlayerUIController : MonoBehaviour
 
         playerHealth.OnHealthChange += HandleHealthChange;
         interaction.OnTargetWorkChange += HandleTargetWorkChange;
-        interaction.OnNearByWorkProgressUpdate += UpdateWorkloadUI;
+        interaction.OnNearByWorkProgress+= UpdateWorkloadUI;
         resourceManager.OnResourceAdded+=HandleResourceAdded;
 
         ClearSkillUI();
@@ -132,9 +132,9 @@ public class PlayerUIController : MonoBehaviour
         workButton.gameObject.SetActive(true);
     }
 
-    private void UpdateWorkloadUI(WorkInfo info)
+    private void UpdateWorkloadUI(int remainingWorkload)
     {
-        workDetailTxt.text = info.remainingWorkload.ToString();
+        workDetailTxt.text = remainingWorkload.ToString();
     }
 
     private void DisableWorkDetail()

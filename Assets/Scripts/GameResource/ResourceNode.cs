@@ -13,6 +13,7 @@ public class ResourceNode : MonoBehaviour, IWork
     [SerializeField] private WorkType workType;
     public ItemData ResourceItem => resourceItem;
 
+    public event Action<int> OnWorkProgress;
     public void Start()
     {
         ItemStack itemStack=new();
@@ -36,6 +37,7 @@ public class ResourceNode : MonoBehaviour, IWork
             remainingResource -= amount;
             harvestTimer = 0;
             RewardWorker(worker);
+            OnWorkProgress?.Invoke(remainingResource);
         }
         if (remainingResource <= 0)
         {
@@ -51,5 +53,10 @@ public class ResourceNode : MonoBehaviour, IWork
    public WorkInfo GetWorkInfo()
     {
         return new WorkInfo(remainingResource, workType, transform.position,resourceItem.icon);
+    }
+
+    public bool IsDone()
+    {
+        return remainingResource <= 0;
     }
 }
