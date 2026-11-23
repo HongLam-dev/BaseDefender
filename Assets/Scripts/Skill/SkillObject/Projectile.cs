@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Projectile : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Projectile : MonoBehaviour
 
     private float speed = 7.0f;
 
+    [SerializeField] ObjectPool<GameObject> ownerPool;
     [SerializeField] Rigidbody rb;
 
     [SerializeField] float lifeTime = 3.0f;
@@ -109,5 +111,11 @@ public class Projectile : MonoBehaviour
         GetComponentInChildren<Collider>().enabled = false;
         yield return new WaitForSeconds(destroyTime);
         gameObject.SetActive(false);
+        ownerPool.Release(gameObject);
+    }
+
+    public void SetPool(ObjectPool<GameObject> owner)
+    {
+        this.ownerPool = owner;
     }
 }

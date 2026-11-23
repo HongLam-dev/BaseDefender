@@ -1294,9 +1294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133883e34f8241d4dbc5371d1fd229ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  oponentLayer:
-    serializedVersion: 2
-    m_Bits: 0
+  safeStoppingDistanceOffset: 0.1
 --- !u!114 &6218437741134106107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1309,8 +1307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f633b8331f80f44fafcd9b1dfd3e494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 100
-  currentHealth: 0
 --- !u!114 &4114031170590508003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1344,7 +1340,8 @@ MonoBehaviour:
   Atk: 10
   Defense: 10
   moveSpeed: 3
-  knockBackResistance: 0
+  knockBackMultiplier: 1
+  stunMultiplier: 1
   KnockBackForce: 0
 --- !u!1 &5091286364603798076
 GameObject:

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private LayerMask oponentLayer;
+    [SerializeField] float safeStoppingDistanceOffset = 0.3f;
     private Health target;
     private EnemyCombat combat;
     private EnemyMovement movement;
@@ -27,7 +27,7 @@ public class EnemyAI : MonoBehaviour
                 smallestSkillRange = skill.skillData.CastRange;
             }
         }
-        movement.SetStoppingDistance(smallestSkillRange);
+        movement.SetStoppingDistance(smallestSkillRange-safeStoppingDistanceOffset);
     }
 
     void Update()
