@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using static CharacterCombat;
 
 public class PlayerInteraction: MonoBehaviour,IWorker
@@ -15,7 +16,7 @@ public class PlayerInteraction: MonoBehaviour,IWorker
     public event Action<WorkInfo> OnStopWorking;
 
     public event Action<IWork> OnTargetWorkChange;
-    public event Action<WorkInfo> OnNearByWorkProgressUpdate;
+    public event Action<int> OnNearByWorkProgress;
 
     bool isWorking = false;
 
@@ -45,16 +46,15 @@ public class PlayerInteraction: MonoBehaviour,IWorker
     public void GetResource(Reward reward)
     {
         resourceManager.AddResource(reward);
-        OnNearByWorkProgressUpdate?.Invoke(nearbyWork.GetWorkInfo());
     }
 
     void OnTriggerStay(Collider collider)
     {
         IWork work = collider.GetComponent<IWork>();
-        if (work!=null&&nearbyWork==null)
+        if (work!=null&&!work.IsDone())
         {
             nearbyWork = work;
-            ResourceNode resource= collider.GetComponent<ResourceNode>();
+            nearbyWork.OnWorkProgress += OnNearByWorkProgress;
             OnTargetWorkChange?.Invoke(nearbyWork);
         }
     }
@@ -64,12 +64,11 @@ public class PlayerInteraction: MonoBehaviour,IWorker
         IWork work = collider.GetComponent<IWork>();
         if (nearbyWork!=null&&work==nearbyWork)
         {
-            OnTargetWorkChange?.Invoke(null);
             if (isWorking)
             {
                 StopWorking();
             }
-            nearbyWork = null;
+            LoseNearbyWork();
         }
     }
 
@@ -78,6 +77,8 @@ public class PlayerInteraction: MonoBehaviour,IWorker
         if(isWorking&&nearbyWork!=null)
         {
             nearbyWork.Work(Time.deltaTime, this);
+            if (nearbyWork.IsDone())
+                HandleWorkFinish();
         }
     }
 
@@ -87,5 +88,25 @@ public class PlayerInteraction: MonoBehaviour,IWorker
             return;
         isWorking = false;
         OnStopWorking?.Invoke(nearbyWork.GetWorkInfo());
+    }
+
+    public void HandleWorkFinish()
+    {
+        StopWorking();
+        LoseNearbyWork();
+    }
+
+    private void LoseNearbyWork()
+    {
+        OnTargetWorkChange?.Invoke(null);
+        nearbyWork = null;
+    }
+
+    public void OnDisable()
+    {
+        if(isWorking)
+        {
+            nearbyWork.OnWorkProgress -= OnNearByWorkProgress;
+        }
     }
 }

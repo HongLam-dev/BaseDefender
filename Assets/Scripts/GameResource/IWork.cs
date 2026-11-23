@@ -5,6 +5,8 @@ using UnityEngine;
 
 public interface IWork
 {
+    public bool IsDone();
+    public event Action<int> OnWorkProgress;
     public void Work(float deltaTime, IWorker worker);
     public WorkInfo GetWorkInfo();
 }
