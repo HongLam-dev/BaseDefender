@@ -11,7 +11,6 @@ public abstract class CharacterCombat: MonoBehaviour,ISkillCaster
 {
     public int TeamID => character.TeamID;
     public Transform CasterTransform => transform;
-    public Vector3 Forward => transform.forward;
     public int KnockBackForce => character.stats.KnockBackForce;
     public int Atk => character.stats.Atk; 
     [SerializeField] protected SkillBase[] skills; 
@@ -24,7 +23,6 @@ public abstract class CharacterCombat: MonoBehaviour,ISkillCaster
     public IReadOnlyList<SkillRuntime> Skills => runtimeSkills;
 
     protected SkillRuntime activeSkill { get; private set; }
-    private SkillCastData activeSkillCastData;
 
     protected bool isCastingSkill=false;
     public event EventHandler<SkillEventArgs> OnBeginUsingSkill;
@@ -59,7 +57,7 @@ public abstract class CharacterCombat: MonoBehaviour,ISkillCaster
     {
         if(activeSkill!=null)
         {
-            activeSkill.Excute(Time.deltaTime,activeSkillCastData);
+            activeSkill.Excute(Time.deltaTime);
         }
         CoolDownSkills(Time.deltaTime);
     }
@@ -84,8 +82,8 @@ public abstract class CharacterCombat: MonoBehaviour,ISkillCaster
     {
         if (activeSkill==null&& skill.CanUse(transform.position,target))
         {
-            activeSkillCastData=new SkillCastData(this, targetCastPosition,target);
             activeSkill = skill;
+            activeSkill.SetCastData(new SkillCastData(this, targetCastPosition, target));
             activeSkill.OnSkillFinish += FinishCurrentSkill;
 
             Vector3 direction = targetCastPosition - transform.position;

@@ -7,7 +7,6 @@ public class ConstructionSite : MonoBehaviour,IWork
     [SerializeField] ConstructionData data;
     [SerializeField] int remainingWorkLoad = 100;
     [SerializeField] int baseProgressPerSecond=5;
-    [SerializeField] GameObject constructionPrefab;
     [SerializeField] Transform constructionSiteModel;
 
     [SerializeField] ParticleSystem finishEffect;
@@ -46,7 +45,7 @@ public class ConstructionSite : MonoBehaviour,IWork
             finishEffect.Play();
         }
         yield return new WaitForSeconds(2);
-        Instantiate(constructionPrefab, transform.position, Quaternion.identity);
+        Instantiate(data.prefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

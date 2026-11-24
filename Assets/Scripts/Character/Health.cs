@@ -3,9 +3,9 @@ using UnityEngine.UI;
 using System;
 public class Health : MonoBehaviour
 {
-    private int teamID=0;
+    [SerializeField] private int teamID=0;
     public int TeamID { set => teamID = value; get => teamID; }
-    private int maxHealth = 100;
+    [SerializeField] private int maxHealth = 100;
     private int currentHealth;
     private int defense = 0;
     public int Defense { set => defense = value; get => defense; }

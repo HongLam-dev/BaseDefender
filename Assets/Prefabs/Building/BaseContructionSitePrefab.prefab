@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 2160107673673995034}
   - component: {fileID: 6329358861220002833}
   - component: {fileID: 5935857516310611231}
-  - component: {fileID: 5026369034996612378}
   - component: {fileID: 2999725882564447232}
+  - component: {fileID: 1899546308685053927}
+  - component: {fileID: 5451757461262717730}
   m_Layer: 0
   m_Name: BaseContructionSitePrefab
   m_TagString: Untagged
@@ -72,25 +73,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: f747c1bb4f4025e489e9a94f083d5254, type: 2}
   remainingWorkLoad: 100
   baseProgressPerSecond: 5
-  constructionPrefab: {fileID: 582843957085540479, guid: f3ef1ed84b6a1144783db415c9e50be3, type: 3}
   constructionSiteModel: {fileID: 4090664121625414005}
   finishEffect: {fileID: 0}
---- !u!208 &5026369034996612378
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6042301419145418257}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 2.535291, y: 1.837127, z: 2.632466}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0.2, y: 1.9, z: 0.3}
-  m_TimeToStationary: 0.5
 --- !u!114 &2999725882564447232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +90,39 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: f747c1bb4f4025e489e9a94f083d5254, type: 2}
   remainingWorkLoad: 100
   baseProgressPerSecond: 5
-  constructionPrefab: {fileID: 582843957085540479, guid: f3ef1ed84b6a1144783db415c9e50be3, type: 3}
+  constructionSiteModel: {fileID: 4090664121625414005}
+  finishEffect: {fileID: 0}
+--- !u!208 &1899546308685053927
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6042301419145418257}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.535291, y: 1.837127, z: 2.632466}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.2, y: 1.9, z: 0.3}
+  m_TimeToStationary: 0.5
+--- !u!114 &5451757461262717730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6042301419145418257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc0a8eb2b858f0498bd42ef191d70a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  data: {fileID: 11400000, guid: f747c1bb4f4025e489e9a94f083d5254, type: 2}
+  remainingWorkLoad: 100
+  baseProgressPerSecond: 5
   constructionSiteModel: {fileID: 4090664121625414005}
   finishEffect: {fileID: 0}
 --- !u!1001 &4561667194745155230
