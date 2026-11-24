@@ -5,7 +5,8 @@ using UnityEngine;
 public class ResourceNode : MonoBehaviour, IWork
 {
     [SerializeField] private ItemData resourceItem;
-    [SerializeField] private int remainingResource = 100;
+    [SerializeField] private int startAmount=100;
+    private int remainingResource;
     [SerializeField] private int resourcePerHarvest = 10;
     [SerializeField] private float baseHarvestTime = 2.0f;
     private float harvestTimer=0;
@@ -16,6 +17,7 @@ public class ResourceNode : MonoBehaviour, IWork
     public event Action<int> OnWorkProgress;
     public void Start()
     {
+        remainingResource = startAmount;
         ItemStack itemStack=new();
         itemStack.amount = resourcePerHarvest;
         itemStack.item = resourceItem;
@@ -52,7 +54,7 @@ public class ResourceNode : MonoBehaviour, IWork
 
    public WorkInfo GetWorkInfo()
     {
-        return new WorkInfo(remainingResource, workType, transform.position,resourceItem.icon);
+        return new WorkInfo(startAmount,remainingResource, workType, transform.position,resourceItem.icon);
     }
 
     public bool IsDone()

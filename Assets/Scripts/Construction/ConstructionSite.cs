@@ -36,7 +36,7 @@ public class ConstructionSite : MonoBehaviour,IWork
     }
     public WorkInfo GetWorkInfo()
     {
-        return new WorkInfo(remainingWorkLoad, WorkType.Building, transform.position, data.icon);
+        return new WorkInfo(data.workLoadToBuild,remainingWorkLoad, WorkType.Building, transform.position, data.icon);
     }
     IEnumerator FinishCoroutine()
     {
