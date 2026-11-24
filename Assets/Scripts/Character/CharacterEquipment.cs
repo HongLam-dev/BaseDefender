@@ -7,6 +7,7 @@ public class CharacterEquipment : MonoBehaviour
     [SerializeField] private Transform handLeft;
     [SerializeField] private Transform pickaxe;
     [SerializeField] private Transform axe;
+    [SerializeField] private Transform hammer;
 
     [SerializeField] private List<Transform> holdingItems;
     [SerializeField] private Transform[] characterDefaultItems;
@@ -45,31 +46,37 @@ public class CharacterEquipment : MonoBehaviour
         holdingItems.Clear();
     }
 
-
-    public void EquipPickaxe()
+    public void EquipWorkEquipment(WorkType workType)
     {
         UnequipAllItems();
-        EquipItem(pickaxe);
-    }
-
-    public void UnequipPickaxe()
-    {
-        UnequipItem(pickaxe);
-        foreach(Transform item in characterDefaultItems)
+        switch (workType)
         {
-            EquipItem(item);
+            case WorkType.Lumbering:
+                EquipItem(axe);
+                break;
+            case WorkType.Mining:
+                EquipItem(pickaxe);
+                break;
+            case WorkType.Building:
+                EquipItem(hammer);
+                break;
         }
     }
 
-    public void EquipAxe()
+    public void UnequipWorkEquipment(WorkType workType)
     {
-        UnequipAllItems();
-        EquipItem(axe);
-    }
-
-    public void UnequipAxe()
-    {
-        UnequipItem(axe);
+        switch (workType)
+        {
+            case WorkType.Lumbering:
+                UnequipItem(axe);
+                break;
+            case WorkType.Mining:
+                UnequipItem(pickaxe);
+                break;
+            case WorkType.Building:
+                UnequipItem(hammer);
+                break;
+        }
         foreach (Transform item in characterDefaultItems)
         {
             EquipItem(item);

@@ -562,27 +562,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6042301419145418257, guid: 0a9e773b97147bf498e888dcb58aaa4b, type: 3}
   m_PrefabInstance: {fileID: 5406746871590216554}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &197451109
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197451107}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 5.0705824, y: 3.674254, z: 5.264932}
-  m_Center: {x: 5.209704, y: 1.9464343, z: 0.3327968}
 --- !u!208 &197451110
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -597,7 +576,7 @@ NavMeshObstacle:
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 5.209704, y: 1.946434, z: 0.3327968}
+  m_Center: {x: 0.2, y: 1.9, z: 0.3}
   m_TimeToStationary: 0.5
 --- !u!114 &197451111
 MonoBehaviour:
@@ -928,7 +907,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.46174863, y: 0, z: 0, w: 0.8870109}
-  m_LocalPosition: {x: -2.69, y: 13, z: -16.7}
+  m_LocalPosition: {x: -0.77, y: 13.3, z: -10.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6373,15 +6352,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1131307677037934016, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.026176924
       objectReference: {fileID: 0}
     - target: {fileID: 1131307677037934016, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1131307677037934016, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.99965733
       objectReference: {fileID: 0}
     - target: {fileID: 1131307677037934016, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
       propertyPath: m_LocalRotation.z
@@ -6393,7 +6372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1131307677037934016, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -183
       objectReference: {fileID: 0}
     - target: {fileID: 1131307677037934016, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -6402,18 +6381,6 @@ PrefabInstance:
     - target: {fileID: 3146564113389279588, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
       propertyPath: m_Name
       value: Skeleton_minion
-      objectReference: {fileID: 0}
-    - target: {fileID: 3146564113389279588, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3247853971852133265, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
-      propertyPath: teamID
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4776380054778563977, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
-      propertyPath: maxHealth
-      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6664,13 +6631,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Construction site
       objectReference: {fileID: 0}
+    - target: {fileID: 6329358861220002833, guid: 0a9e773b97147bf498e888dcb58aaa4b, type: 3}
+      propertyPath: m_Center.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6329358861220002833, guid: 0a9e773b97147bf498e888dcb58aaa4b, type: 3}
+      propertyPath: m_Center.y
+      value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6329358861220002833, guid: 0a9e773b97147bf498e888dcb58aaa4b, type: 3}
+      propertyPath: m_Center.z
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6042301419145418257, guid: 0a9e773b97147bf498e888dcb58aaa4b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 197451109}
     - targetCorrespondingSourceObject: {fileID: 6042301419145418257, guid: 0a9e773b97147bf498e888dcb58aaa4b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 197451110}
@@ -6894,7 +6870,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1031759946001781540, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.21
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1031759946001781540, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6932,29 +6908,9 @@ PrefabInstance:
       propertyPath: resourceManager
       value: 
       objectReference: {fileID: 625023441}
-    - target: {fileID: 6236278364779082394, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
-      propertyPath: teamID
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7874920329767137306, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
       propertyPath: m_Name
       value: Barbarian
-      objectReference: {fileID: 0}
-    - target: {fileID: 7874920329767137306, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8282059528384442125, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8445864442071553834, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
-      propertyPath: m_Center.y
-      value: 0.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 8654808645369587646, guid: a8236f51f7297304b99c337d4f097dd0, type: 3}
-      propertyPath: MaxHealth
-      value: 10000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7053,25 +7009,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1458110351253903824, guid: 1e4ed2d39cc8337468bd228b1bb2c05b, type: 3}
-      propertyPath: m_Constraints
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 4579004370018165771, guid: 1e4ed2d39cc8337468bd228b1bb2c05b, type: 3}
-      propertyPath: maxHealth
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 5823235228866718227, guid: 1e4ed2d39cc8337468bd228b1bb2c05b, type: 3}
-      propertyPath: teamID
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6226278228177055974, guid: 1e4ed2d39cc8337468bd228b1bb2c05b, type: 3}
       propertyPath: m_Name
       value: Skeleton_Mage
-      objectReference: {fileID: 0}
-    - target: {fileID: 6226278228177055974, guid: 1e4ed2d39cc8337468bd228b1bb2c05b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8246599141786262594, guid: 1e4ed2d39cc8337468bd228b1bb2c05b, type: 3}
       propertyPath: m_LocalPosition.x

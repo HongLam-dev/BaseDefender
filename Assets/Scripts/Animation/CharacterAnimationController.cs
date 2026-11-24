@@ -87,15 +87,16 @@ public class CharacterAnimationController : MonoBehaviour
         switch(info.type)
         {
             case WorkType.Lumbering:
-                characterEquipment.EquipAxe();
                 SetAnimation(AnimationState.Chopping);
                 break;
             case WorkType.Mining:
-                characterEquipment.EquipPickaxe();
                 SetAnimation(AnimationState.Mining);
                 break;
+            case WorkType.Building:
+                SetAnimation(AnimationState.Building);
+                break;
         }
-
+        characterEquipment.EquipWorkEquipment(info.type);
     }
     private void StopWorkAnimation(WorkInfo info)
     {
@@ -103,14 +104,15 @@ public class CharacterAnimationController : MonoBehaviour
         {
             case WorkType.Lumbering:
                 animator.SetBool("Chopping",false);
-                characterEquipment.UnequipAxe();
                 break;
             case WorkType.Mining:
                 animator.SetBool("Mining", false);
-                characterEquipment.UnequipPickaxe();
+                break;
+            case WorkType.Building:
+                animator.SetBool("Building", false);
                 break;
         }
-
+        characterEquipment.UnequipWorkEquipment(info.type);
     }
 
     private void HandleDeath()
@@ -136,13 +138,15 @@ public class CharacterAnimationController : MonoBehaviour
         }
         else if (state == AnimationState.Mining)
         {
-            characterEquipment.EquipPickaxe();
             animator.SetBool("Mining", true);
         }
         else if (state == AnimationState.Chopping)
         {
-            characterEquipment.EquipAxe();
             animator.SetBool("Chopping", true);
+        }
+        else if (state == AnimationState.Building)
+        {
+            animator.SetBool("Building", true);
         }
         else if (state == AnimationState.Dead)
         {
