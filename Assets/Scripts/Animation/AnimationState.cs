@@ -5,5 +5,6 @@ public enum AnimationState
     Hurt,
     Chopping,
     Mining,
+    Building,
     Dead
 }
