@@ -21,6 +21,7 @@ public class PlayerUIController : MonoBehaviour
 
     [SerializeField] private Image workDetailIcon;
     [SerializeField] private TMP_Text workDetailTxt;
+    [SerializeField] private Image workProgressFill;
 
     [SerializeField] private Button workButton;
     [SerializeField] Sprite lumberingIcon;
@@ -123,13 +124,17 @@ public class PlayerUIController : MonoBehaviour
         soulText.text = amount.ToString();
     }
 
-    private void DisplayWorkDetail(int remainingWorkload, Sprite icon)
+    private void DisplayWorkDetail(int maxWorkload,int remainingWorkload, Sprite icon,Vector3 workPosition)
     {
         workDetailTxt.text = remainingWorkload.ToString();
         workDetailIcon.sprite = icon;
+        workProgressFill.fillAmount = (float)remainingWorkload / maxWorkload;
+        workProgressFill.transform.parent.position = Camera.main.WorldToScreenPoint(workPosition);
+
         workDetailTxt.gameObject.SetActive(true);
         workDetailIcon.gameObject.SetActive(true);
         workButton.gameObject.SetActive(true);
+        workProgressFill.transform.parent.gameObject.SetActive(true);
     }
 
     private void UpdateWorkloadUI(int remainingWorkload)
@@ -137,11 +142,12 @@ public class PlayerUIController : MonoBehaviour
         workDetailTxt.text = remainingWorkload.ToString();
     }
 
-    private void DisableWorkDetail()
+    private void HideWorkDetail()
     {
         workDetailTxt.gameObject.SetActive(false);
         workDetailIcon.gameObject.SetActive(false);
         workButton.gameObject.SetActive(false);
+        workProgressFill.transform.parent.gameObject.SetActive(false);
     }
 
     private void HandleTargetWorkChange(IWork work)
@@ -165,12 +171,12 @@ public class PlayerUIController : MonoBehaviour
                     break;
             }
 
-            DisplayWorkDetail(info.remainingWorkload,info.icon);
+            DisplayWorkDetail(info.originalWorload,info.remainingWorkload,info.icon,info.position);
         }
         else
         {
             targetIndicator.gameObject.SetActive(false);
-            DisableWorkDetail();
+            HideWorkDetail();
         }
     }
 
