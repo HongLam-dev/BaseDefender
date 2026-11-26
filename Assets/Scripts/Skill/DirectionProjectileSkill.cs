@@ -1,16 +1,15 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewSkill",
     menuName = "Game/Skills/Direction Projectile"
 )]
-public class DirectionProjectileSkill: SkillBase
+public class DirectionProjectileSkill: ProjectileSkill
 {
-    [Header("Projectile Setting")]
-    [SerializeField]
-    private GameObject projectilePrefab;
-    [SerializeField] float projectileSpeed=15;
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private bool destroyOnHit=true;
 
-    public float ProjectileSpeed => projectileSpeed;
+    public float ProjectileSpeed => config.speed;
     override public void ExcuteStage(SkillCastData castData,int state)
     {
         GameObject projectileObj = ProjectileManager.Instance.GetProjectile(projectilePrefab);
@@ -18,7 +17,7 @@ public class DirectionProjectileSkill: SkillBase
         projectileObj.transform.position = castData.projectileOrigin;
         Vector3 direction = castData.targetPosition - castData.projectileOrigin;
 
-        projectile.Initialize(CalculateDamgeInfo(castData),direction, projectileSpeed);
+        projectile.Initialize(config,CalculateDamgeInfo(castData),direction,destroyOnHit);
     }
 
     protected override int CalculateDamage(int atk)
