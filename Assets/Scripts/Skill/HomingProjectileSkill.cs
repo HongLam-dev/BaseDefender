@@ -1,16 +1,14 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewSkill",
     menuName = "Game/Skills/Homing Projectile"
 )]
-public class HomingProjectileSkill : SkillBase
+public class HomingProjectileSkill : ProjectileSkill
 {
-    [Header("Projectile Setting")]
-    [SerializeField]
-    private GameObject projectilePrefab;
-    [SerializeField] float projectileSpeed = 15;
+    [SerializeField]private GameObject projectilePrefab;
+    [SerializeField] private float rotationSpeed=10;
 
-    public float ProjectileSpeed => projectileSpeed;
     override public void ExcuteStage(SkillCastData castData, int state)
     {
         GameObject projectileObj = ProjectileManager.Instance.GetProjectile(projectilePrefab);
@@ -18,7 +16,7 @@ public class HomingProjectileSkill : SkillBase
         projectileObj.transform.position = castData.projectileOrigin;
         Vector3 direction = castData.targetPosition - castData.projectileOrigin;
 
-        projectile.Initialize(CalculateDamgeInfo(castData),castData.target, projectileSpeed);
+        projectile.Initialize(config,CalculateDamgeInfo(castData),castData.target,rotationSpeed);
     }
 
     protected override int CalculateDamage(int atk)

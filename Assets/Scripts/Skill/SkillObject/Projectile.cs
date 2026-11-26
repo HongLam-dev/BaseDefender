@@ -1,27 +1,29 @@
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using static UnityEngine.Rendering.STP;
 
 public abstract class Projectile : MonoBehaviour
 {
-    protected float speed = 7.0f;
-    [SerializeField] ObjectPool<GameObject> ownerPool;
-    [SerializeField] protected Rigidbody rb;
-
-    [SerializeField] protected float lifeTime = 3.0f;
-
-     protected float currentLifeTime;
-    [SerializeField] protected bool penetrateObjects = true;
-    [SerializeField] private float explodeRadius = 0;
-    [SerializeField] private int explodeDamge = 2;
+    ObjectPool<GameObject> ownerPool;
+    protected Rigidbody rb;
     [SerializeField] private ParticleSystem hitEffect;
     [SerializeField] private GameObject mainProjectile;
-    [SerializeField] private float destroyTime = 2;
-
+    [SerializeField] private float explosionEffectTime = 2;
+    private float currentLifeTime;
+    protected ProjectileConfig config;
     protected DamageInfo damageInfo;
 
-    void Start()
+    protected void Initialize(ProjectileConfig config,DamageInfo damageInfo)
+    {
+        ResetProjectile();
+
+        this.config = config;
+        this.damageInfo = damageInfo;
+    }
+
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
@@ -36,18 +38,18 @@ public abstract class Projectile : MonoBehaviour
 
     protected void Explode()
     {
-        if(explodeRadius!=0)
+        if(config.explodeRadius!=0)
         {
-           Collider[] hits= Physics.OverlapSphere(transform.position,explodeRadius);
+           Collider[] hits= Physics.OverlapSphere(transform.position, config.explodeRadius);
             foreach(Collider hit in hits)
             {
                 Health health = hit.GetComponent<Health>();
                 if (health && health.TeamID != damageInfo.caster.TeamID)
                 {
                     DamageInfo damage = new DamageInfo(damageInfo.caster,
-                        explodeDamge,damageInfo.Force,
+                        config.explodeDamage, damageInfo.Force,
                         health.transform.position-this.transform.position
-                        ,damageInfo.stunTime);
+                        , damageInfo.stunTime);
                     health.TakeDamage(damage);
                 }
             }
@@ -62,11 +64,11 @@ public abstract class Projectile : MonoBehaviour
 
     protected IEnumerator DestroyCoroutine()
     {
-        speed = 0;
+        config.speed = 0;
         mainProjectile.SetActive(false);
         GetComponentInChildren<Collider>().enabled = false;
 
-        yield return new WaitForSeconds(destroyTime);
+        yield return new WaitForSeconds(explosionEffectTime);
 
         gameObject.SetActive(false);
         ownerPool.Release(gameObject);
@@ -77,7 +79,7 @@ public abstract class Projectile : MonoBehaviour
         mainProjectile.SetActive(true);
         hitEffect.gameObject.SetActive(false);
         GetComponentInChildren<Collider>().enabled = true;
-        currentLifeTime = lifeTime;
+        currentLifeTime = config.lifeTime;
     }
 
     public void SetPool(ObjectPool<GameObject> owner)

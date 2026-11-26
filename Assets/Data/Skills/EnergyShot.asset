@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b76e03369c98da43bcd5d9e79dd03cd, type: 3}
   m_Name: EnergyShot
   m_EditorClassIdentifier: Assembly-CSharp::HomingProjectileSkill
-  animation: MeleeAttack
+  animation: MagicAttack
   stages:
   - 0.2
   baseDamage: 25
@@ -24,5 +24,11 @@ MonoBehaviour:
   isSkillshot: 1
   isHealingSkill: 0
   icon: {fileID: 0}
+  config:
+    penetrateObjects: 0
+    explodeRadius: 3
+    explodeDamage: 3
+    speed: 10
+    lifeTime: 3
   projectilePrefab: {fileID: 4847147812981058935, guid: 429a7b262b3fe2d4ea628d28927c13e5, type: 3}
-  projectileSpeed: 20
+  rotationSpeed: 50

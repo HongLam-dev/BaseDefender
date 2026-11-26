@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class HomingProjectile:Projectile
 {
+    Vector3 direction;
     Transform target;
-    public void Initialize(DamageInfo damageInfo,Transform target, float speed)
+    float rotationSpeed;
+    public void Initialize(ProjectileConfig config, DamageInfo damageInfo, Transform target, float rotationSpeed)
     {
         ResetProjectile();
 
         this.target = target;
-        this.damageInfo = damageInfo;
-        this.speed = speed;
+        this.rotationSpeed = rotationSpeed;
+
+        direction = target.transform.position - transform.position;
+        transform.rotation = Quaternion.LookRotation(direction);
+
+
+        base.Initialize(config,damageInfo);
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -25,9 +32,8 @@ public class HomingProjectile:Projectile
             Explode();
             StartCoroutine(DestroyCoroutine());
         }
-        else if (!collision.isTrigger && !penetrateObjects)
+        else if (!collision.isTrigger && !config.penetrateObjects)
         {
-            Debug.Log(collision.name);
             Explode();
             StartCoroutine(DestroyCoroutine());
         }
@@ -37,11 +43,20 @@ public class HomingProjectile:Projectile
     {
         if (target == null)
             return;
-        Vector3 direction = (target.transform.position - transform.position).normalized;
-        float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, angle + 180f, 0f);
+        direction = (target.transform.position - transform.position).normalized;
 
-        rb.linearVelocity =direction * speed;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+        rb.MoveRotation(
+            Quaternion.RotateTowards(
+                rb.rotation,
+                targetRotation,
+                rotationSpeed * Time.fixedDeltaTime
+            )
+        );
+
+        rb.linearVelocity = transform.forward * config.speed;
     }
+
 }
 

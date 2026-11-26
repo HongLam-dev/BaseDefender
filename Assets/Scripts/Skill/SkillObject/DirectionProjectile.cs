@@ -1,25 +1,27 @@
 ﻿
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using static UnityEngine.Rendering.STP;
 
 public class DirectionProjectile : Projectile
 {
     private Vector3 direction;
-    [SerializeField] protected bool destroyOnDealDamge = true;
-    protected List<Collider> damagedTarget = new();
-    public void Initialize(DamageInfo damageInfo, Vector3 direction, float speed)
+    private bool destroyOnDealDamge = true;
+    private List<Collider> damagedTarget = new();
+
+    public void Initialize(ProjectileConfig config, DamageInfo damageInfo, Vector3 direction,bool destroyOnHit)
     {
         ResetProjectile();
         damagedTarget.Clear();
 
         this.direction = direction.normalized;
+        this.destroyOnDealDamge = destroyOnHit;
         float angle = Mathf.Atan2(this.direction.x, this.direction.z) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, angle + 180f, 0f);
 
-        this.damageInfo = damageInfo;
-        this.speed = speed;
+        base.Initialize(config,damageInfo);
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -39,9 +41,8 @@ public class DirectionProjectile : Projectile
                 StartCoroutine(DestroyCoroutine());
             }
         }
-        else if (!collision.isTrigger&&!penetrateObjects)
+        else if (!collision.isTrigger&&!config.penetrateObjects)
         {
-            Debug.Log(collision.name);
             Explode();
             StartCoroutine(DestroyCoroutine());
         }
@@ -49,6 +50,6 @@ public class DirectionProjectile : Projectile
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = direction * speed;
+        rb.linearVelocity = direction * config.speed;
     }
 }
