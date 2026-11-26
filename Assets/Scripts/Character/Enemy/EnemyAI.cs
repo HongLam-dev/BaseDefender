@@ -61,6 +61,8 @@ public class EnemyAI : MonoBehaviour
     
     private void SetTarget(Health target)
     {
+        if (target)
+            target.OnDeath -= LoseTarget;
         this.target = target;
         target.OnDeath += LoseTarget;
     }

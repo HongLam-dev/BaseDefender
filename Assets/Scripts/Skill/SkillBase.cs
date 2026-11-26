@@ -19,7 +19,6 @@ public abstract class SkillBase : ScriptableObject
 
     [SerializeField] protected float castRange = 5.0f;
 
-    [SerializeField]  private bool requireTarget = false;
     [SerializeField] private float speedMultiplier = 0;
     [SerializeField] private bool isSkillshot = true;
     [SerializeField] private bool isHealingSkill = false;
@@ -28,7 +27,6 @@ public abstract class SkillBase : ScriptableObject
 
     public Sprite Icon=>icon;
     public bool IsHealingSkill => isHealingSkill;
-    public bool RequireTarget => requireTarget;
     public float BaseCooldown => baseCooldown;
     public float CastRange => castRange;
     public float[] Stages => stages;
@@ -54,6 +52,11 @@ public abstract class SkillBase : ScriptableObject
             force+castData.caster.KnockBackForce,
             castData.targetPosition- castData.caster.CasterTransform.position,stunTime
             );
+    }
+
+    public virtual bool RequireTarget()
+    {
+        return false;
     }
 }
 

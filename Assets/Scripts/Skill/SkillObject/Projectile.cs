@@ -3,37 +3,23 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class Projectile : MonoBehaviour
+public abstract class Projectile : MonoBehaviour
 {
-    private Vector3 direction;
-
-    private float speed = 7.0f;
-
+    protected float speed = 7.0f;
     [SerializeField] ObjectPool<GameObject> ownerPool;
-    [SerializeField] Rigidbody rb;
+    [SerializeField] protected Rigidbody rb;
 
-    [SerializeField] float lifeTime = 3.0f;
-    [SerializeField] private bool penetrateObjects = true;
-    [SerializeField] private bool destroyOnDealDamge = true;
+    [SerializeField] protected float lifeTime = 3.0f;
+
+     protected float currentLifeTime;
+    [SerializeField] protected bool penetrateObjects = true;
     [SerializeField] private float explodeRadius = 0;
     [SerializeField] private int explodeDamge = 2;
     [SerializeField] private ParticleSystem hitEffect;
     [SerializeField] private GameObject mainProjectile;
     [SerializeField] private float destroyTime = 2;
 
-    List<Collider> damagedTarget=new();
-    DamageInfo damageInfo;
-
-    public void Initialize(DamageInfo damageInfo, Vector3 direction, float speed)
-    {
-        this.damageInfo = damageInfo;
-        this.speed = speed;
-        this.direction = direction.normalized;
-        this.direction.y = 0;
-        float angle = Mathf.Atan2(this.direction.x, this.direction.z) * Mathf.Rad2Deg;
-
-        transform.rotation = Quaternion.Euler(0f, angle + 180f, 0f);
-    }
+    protected DamageInfo damageInfo;
 
     void Start()
     {
@@ -43,42 +29,12 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        lifeTime -= Time.deltaTime;
-        if (lifeTime <= 0)
-            Destroy(gameObject);
-    }
-
-    private void FixedUpdate()
-    {
-        rb.linearVelocity = direction * speed;
-    }
-
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (damagedTarget.Contains(collision))
-            return;
-        Health health = collision.GetComponent<Health>();
-        if (health)
-        {
-            if (damageInfo.caster.TeamID == health.TeamID)
-                return;
-            health.TakeDamage(damageInfo);
-            damagedTarget.Add(collision);
-            Explode();
-            if (destroyOnDealDamge)
-            {
-                StartCoroutine(DestroyCoroutine());
-            }
-        }
-        else if (!collision.isTrigger)
-        {
-            if (penetrateObjects)
-                return;
-            Explode();
+        currentLifeTime -= Time.deltaTime;
+        if (currentLifeTime <= 0)
             StartCoroutine(DestroyCoroutine());
-        }
     }
-    private void Explode()
+
+    protected void Explode()
     {
         if(explodeRadius!=0)
         {
@@ -104,14 +60,24 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    IEnumerator DestroyCoroutine()
+    protected IEnumerator DestroyCoroutine()
     {
         speed = 0;
         mainProjectile.SetActive(false);
         GetComponentInChildren<Collider>().enabled = false;
+
         yield return new WaitForSeconds(destroyTime);
+
         gameObject.SetActive(false);
         ownerPool.Release(gameObject);
+    }
+
+    protected void ResetProjectile()
+    {
+        mainProjectile.SetActive(true);
+        hitEffect.gameObject.SetActive(false);
+        GetComponentInChildren<Collider>().enabled = true;
+        currentLifeTime = lifeTime;
     }
 
     public void SetPool(ObjectPool<GameObject> owner)

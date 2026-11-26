@@ -17,7 +17,7 @@ public class SkillRuntime
 
     public bool CanUse(Vector3 casterPosition, Transform target)
     {
-        if (skillData.RequireTarget)
+        if (skillData.RequireTarget())
         {
             if (!target
                 || !target.GetComponent<Health>()

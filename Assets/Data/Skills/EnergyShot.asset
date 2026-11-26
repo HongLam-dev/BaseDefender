@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b76e03369c98da43bcd5d9e79dd03cd, type: 3}
+  m_Name: EnergyShot
+  m_EditorClassIdentifier: Assembly-CSharp::HomingProjectileSkill
+  animation: MeleeAttack
+  stages:
+  - 0.2
+  baseDamage: 25
+  force: 0
+  stunTime: 0
+  baseCooldown: 5
+  castRange: 10
+  speedMultiplier: 0
+  isSkillshot: 1
+  isHealingSkill: 0
+  icon: {fileID: 0}
+  projectilePrefab: {fileID: 4847147812981058935, guid: 429a7b262b3fe2d4ea628d28927c13e5, type: 3}
+  projectileSpeed: 20
