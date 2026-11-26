@@ -15,7 +15,7 @@ public class WatchTower:Construction,ISkillCaster
     private SkillRuntime runtimeSkill;
     private SkillRuntime activeSkill;
 
-    public Transform CasterTransform => towerFirePoint;
+    public Transform CasterTransform => transform;
     public int TeamID => teamID;
     public int Atk => atk;
     public int KnockBackForce => knockBackForce;
@@ -44,7 +44,7 @@ public class WatchTower:Construction,ISkillCaster
                 if (targetRb)
                 {
                     targetCastPosition = target.transform.position + skill.Stages[0] * targetRb.linearVelocity;
-                    if (skill is SimpleProjectileSkill projectileSkill)
+                    if (skill is DirectionProjectileSkill projectileSkill)
                     {
                         float t = (targetCastPosition - transform.position).magnitude / projectileSkill.ProjectileSpeed;
                         targetCastPosition = targetCastPosition + t * targetRb.linearVelocity;

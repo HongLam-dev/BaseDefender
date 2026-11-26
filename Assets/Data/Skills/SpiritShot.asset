@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d415c05b1f5020f489874da1e68c968c, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f1f858124ba1c248bdce56ee6bc89d1, type: 3}
   m_Name: SpiritShot
   m_EditorClassIdentifier: Assembly-CSharp::SimpleProjectileSkill
   animation: MagicAttack
   stages:
-  - 0.2
-  baseDamage: 25
+  - 0.4
+  baseDamage: 10
   force: 50
-  stunTime: 0.2
-  baseCooldown: 2.5
+  stunTime: 0.5
+  baseCooldown: 1
   castRange: 8
   requireTarget: 0
   speedMultiplier: 0

@@ -14529,9 +14529,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6513189564899750281}
-  - component: {fileID: 4500208784122743122}
   - component: {fileID: 676462898769773296}
   - component: {fileID: 114060362495148082}
+  - component: {fileID: 5017516704819225395}
   m_Layer: 0
   m_Name: SpiritShot
   m_TagString: Untagged
@@ -14556,28 +14556,6 @@ Transform:
   - {fileID: 95085651014679725}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4500208784122743122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2951712672721262034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3937fd5180f2cde46bedfb3080ac8b19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  speed: 15
-  rb: {fileID: 676462898769773296}
-  lifeTime: 2
-  penetrateObjects: 1
-  destroyOnDealDamge: 1
-  explodeRadius: 0
-  explodeDamge: 2
-  hitEffect: {fileID: 4769671936429583831}
-  mainProjectile: {fileID: 1059098897849818930}
-  destroyTime: 2
 --- !u!54 &676462898769773296
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14626,6 +14604,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.2, y: 0.2, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5017516704819225395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2951712672721262034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7bf09b2efd018945b5aeb0e3d7aa993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DirectionProjectile
+  rb: {fileID: 676462898769773296}
+  lifeTime: 3
+  penetrateObjects: 1
+  explodeRadius: 0
+  explodeDamge: 2
+  hitEffect: {fileID: 4769671936429583831}
+  mainProjectile: {fileID: 1059098897849818930}
+  destroyTime: 2
+  destroyOnDealDamge: 1
 --- !u!1 &5163101842857781641
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class EnemyCombat:CharacterCombat
         if (targetRb)
         {
             targetCastPosition = target.transform.position + skill.skillData.Stages[0] * targetRb.linearVelocity;
-            if(skill.skillData is SimpleProjectileSkill projectileSkill)
+            if(skill.skillData is DirectionProjectileSkill projectileSkill)
             {
                 float t = (targetCastPosition - transform.position).magnitude / projectileSkill.ProjectileSpeed;
                 targetCastPosition = targetCastPosition + t * targetRb.linearVelocity;
