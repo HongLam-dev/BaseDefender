@@ -13,8 +13,10 @@ public abstract class CharacterCombat: MonoBehaviour,ISkillCaster
     public Transform CasterTransform => transform;
     public int KnockBackForce => character.stats.KnockBackForce;
     public int Atk => character.stats.Atk; 
-    [SerializeField] protected SkillBase[] skills; 
+    [SerializeField] protected SkillBase[] skills;
+    [SerializeField] Transform projectileOrigin;
 
+    private Vector3 projectileOriginPosition;
     protected Character character;
 
     public event Action OnSkillFinish;
@@ -51,6 +53,11 @@ public abstract class CharacterCombat: MonoBehaviour,ISkillCaster
         {
             runtimeSkills.Add(new SkillRuntime(skillData));
         }
+
+        if (projectileOrigin)
+            projectileOriginPosition = projectileOrigin.position;
+        else
+            projectileOriginPosition = transform.position;
     }
 
     virtual protected void Update()
@@ -83,7 +90,7 @@ public abstract class CharacterCombat: MonoBehaviour,ISkillCaster
         if (activeSkill==null&& skill.CanUse(transform.position,target))
         {
             activeSkill = skill;
-            activeSkill.SetCastData(new SkillCastData(this, targetCastPosition, target));
+            activeSkill.SetCastData(new SkillCastData(this, targetCastPosition,projectileOriginPosition, target));
             activeSkill.OnSkillFinish += FinishCurrentSkill;
 
             Vector3 direction = targetCastPosition - transform.position;

@@ -2561,7 +2561,7 @@ GameObject:
   - component: {fileID: 6236278364779082394}
   - component: {fileID: 8654808645369587646}
   - component: {fileID: 1227917435555563647}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Barbarian
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2645,6 +2645,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f633b8331f80f44fafcd9b1dfd3e494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
+  teamID: 0
+  maxHealth: 100
 --- !u!114 &1927180420799857119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2740,7 +2742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: affe368453f662e4b9f685ad21fc536a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Character
-  teamID: 1
+  teamID: 0
   combat: {fileID: 0}
   health: {fileID: 0}
   movement: {fileID: 0}
@@ -2757,7 +2759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fe5e971db040004db8a555467ca391a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterStats
-  MaxHealth: 10000
+  MaxHealth: 1000
   Atk: 10
   Defense: 10
   moveSpeed: 5

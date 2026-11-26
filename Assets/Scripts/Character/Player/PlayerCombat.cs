@@ -1,11 +1,10 @@
 ﻿using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Windows;
 
 public class PlayerCombat : CharacterCombat {
-
-    [SerializeField] LayerMask targetLayer;
 
     Transform FindSuitableTargetInCastRange(Vector3 casterPosition,float castRadius)
     {

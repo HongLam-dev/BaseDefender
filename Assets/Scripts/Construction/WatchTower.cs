@@ -15,7 +15,7 @@ public class WatchTower:Construction,ISkillCaster
     private SkillRuntime runtimeSkill;
     private SkillRuntime activeSkill;
 
-    public Transform CasterTransform => transform;
+    public Transform CasterTransform => towerFirePoint;
     public int TeamID => teamID;
     public int Atk => atk;
     public int KnockBackForce => knockBackForce;
@@ -28,6 +28,7 @@ public class WatchTower:Construction,ISkillCaster
         runtimeSkill = new SkillRuntime(skill);
         animator = GetComponentInChildren<Animator>();
         GetComponentInChildren<SphereCollider>().radius = skill.CastRange;
+        lineRenderer.SetPosition(0, towerFirePoint.position);
     }
 
     protected override void Update()
@@ -50,11 +51,10 @@ public class WatchTower:Construction,ISkillCaster
                     }
                 }
 
-                activeSkill.SetCastData(new SkillCastData(this, targetCastPosition, target.transform));
+                activeSkill.SetCastData(new SkillCastData(this, targetCastPosition,towerFirePoint.position, target.transform));
                 activeSkill.OnSkillFinish += FinishCurrentSkill;
                 animator.SetTrigger("Attack");
             }
-            lineRenderer.SetPosition(0, towerFirePoint.position);
             lineRenderer.SetPosition(1, target.transform.position);
         }
         if(activeSkill!=null)
@@ -69,6 +69,7 @@ public class WatchTower:Construction,ISkillCaster
         if (!target&& targetHealth&& !targetHealth.IsDead &&targetHealth.TeamID!=teamID)
         {
             target = targetHealth;
+            lineRenderer.enabled = true;
             target.OnDeath += LoseTarget;
         }
     }
@@ -89,6 +90,7 @@ public class WatchTower:Construction,ISkillCaster
 
     private void LoseTarget()
     {
+        lineRenderer.enabled = false;
         target = null;
     }
 }

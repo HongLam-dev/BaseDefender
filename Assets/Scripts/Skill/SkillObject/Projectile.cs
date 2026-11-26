@@ -13,7 +13,6 @@ public class Projectile : MonoBehaviour
     [SerializeField] Rigidbody rb;
 
     [SerializeField] float lifeTime = 3.0f;
-    [SerializeField] float flyheight=1.5f;
     [SerializeField] private bool penetrateObjects = true;
     [SerializeField] private bool destroyOnDealDamge = true;
     [SerializeField] private float explodeRadius = 0;
@@ -24,13 +23,13 @@ public class Projectile : MonoBehaviour
 
     List<Collider> damagedTarget=new();
     DamageInfo damageInfo;
+
     public void Initialize(DamageInfo damageInfo, Vector3 direction, float speed)
     {
         this.damageInfo = damageInfo;
         this.speed = speed;
         this.direction = direction.normalized;
         this.direction.y = 0;
-        transform.position = new Vector3(transform.position.x, flyheight, transform.position.z);
         float angle = Mathf.Atan2(this.direction.x, this.direction.z) * Mathf.Rad2Deg;
 
         transform.rotation = Quaternion.Euler(0f, angle + 180f, 0f);
