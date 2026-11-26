@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static UnityEngine.AdaptivePerformance.Provider.AdaptivePerformanceSubsystemDescriptor;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -36,25 +37,17 @@ public class EnemyAI : MonoBehaviour
             return;
         if(target)
         {
-            if (target.IsDead)
-            {
-                target = null;
-            }
-            else
-            {
-                combat.TryAttackTarget(target.transform);
-                movement.FollowTarget(target.transform);
-            }
-
+            combat.TryAttackTarget(target.transform);
+            movement.FollowTarget(target.transform);
         }
     }
 
     private void OnTriggerStay(Collider collision)
     { 
         Health oponentUnit = collision.GetComponent<Health>();
-        if (!target&&oponentUnit&&oponentUnit.TeamID!=character.TeamID)
+        if (!target&& oponentUnit &&!oponentUnit.IsDead && oponentUnit.TeamID!=character.TeamID)
         {
-            target = oponentUnit;
+            SetTarget(oponentUnit);
         }
     }
 
@@ -62,7 +55,18 @@ public class EnemyAI : MonoBehaviour
     {
         if(info.caster.TeamID!=character.TeamID)
         {
-            target = info.caster.CasterTransform.GetComponent<Health>();
+            SetTarget(info.caster.CasterTransform.GetComponent<Health>());
         }
+    }
+    
+    private void SetTarget(Health target)
+    {
+        this.target = target;
+        target.OnDeath += LoseTarget;
+    }
+
+    private void LoseTarget()
+    {
+        target = null;
     }
 }

@@ -8,6 +8,7 @@ public class SkillRuntime
     private float cooldownRemaining=0;
     private int currentStage=-1;
     private float timer=0;
+    private SkillCastData currentCastData;
 
     public float CooldownRemaining => cooldownRemaining;
     public float SkillCooldown => skillData.BaseCooldown;
@@ -27,7 +28,7 @@ public class SkillRuntime
         return cooldownRemaining<=0;
     }
 
-    public void Excute(float deltaTime, SkillCastData castData)
+    public void Excute(float deltaTime)
     {
         timer += deltaTime;
         for(int i=0;i<skillData.Stages.Count();i++)
@@ -35,7 +36,7 @@ public class SkillRuntime
             if(timer>= skillData.Stages[i]&&currentStage<i)
             {
                 currentStage = i;
-                skillData.ExcuteStage(castData, currentStage);
+                skillData.ExcuteStage(currentCastData, currentStage);
                 return;
             }
         }
@@ -63,5 +64,10 @@ public class SkillRuntime
         currentStage = -1;
         cooldownRemaining = skillData.BaseCooldown;
         OnSkillFinish?.Invoke();
+    }
+
+    public void SetCastData(SkillCastData castData)
+    {
+        this.currentCastData = castData;
     }
 }

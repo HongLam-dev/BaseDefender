@@ -13,7 +13,6 @@ public class Projectile : MonoBehaviour
     [SerializeField] Rigidbody rb;
 
     [SerializeField] float lifeTime = 3.0f;
-
     [SerializeField] private bool penetrateObjects = true;
     [SerializeField] private bool destroyOnDealDamge = true;
     [SerializeField] private float explodeRadius = 0;
@@ -24,6 +23,7 @@ public class Projectile : MonoBehaviour
 
     List<Collider> damagedTarget=new();
     DamageInfo damageInfo;
+
     public void Initialize(DamageInfo damageInfo, Vector3 direction, float speed)
     {
         this.damageInfo = damageInfo;

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d415c05b1f5020f489874da1e68c968c, type: 3}
+  m_Name: DefenseTowerShoot
+  m_EditorClassIdentifier: Assembly-CSharp::SimpleProjectileSkill
+  animation: MagicAttack
+  stages:
+  - 0.2
+  baseDamage: 25
+  force: 50
+  stunTime: 0.2
+  baseCooldown: 4
+  castRange: 8
+  requireTarget: 0
+  speedMultiplier: 0
+  isSkillshot: 1
+  isHealingSkill: 0
+  icon: {fileID: 0}
+  projectilePrefab: {fileID: 2951712672721262034, guid: 846caf16a76bb2c47baf31f67cdbae24, type: 3}
+  projectileSpeed: 15

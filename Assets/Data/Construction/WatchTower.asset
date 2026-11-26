@@ -15,3 +15,4 @@ MonoBehaviour:
   constructionName: Watch Tower
   icon: {fileID: 21300000, guid: dcd0f6a0831290743ba1e0d1eb7b27af, type: 3}
   workLoadToBuild: 100
+  prefab: {fileID: 2275090116169848886, guid: 0d3fb4c206be93343b9f3e328bba0ca7, type: 3}
