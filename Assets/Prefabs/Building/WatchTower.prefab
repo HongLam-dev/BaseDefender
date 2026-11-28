@@ -320,6 +320,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 582843957085540479, guid: f3ef1ed84b6a1144783db415c9e50be3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3791597529639421499}
+    - targetCorrespondingSourceObject: {fileID: 582843957085540479, guid: f3ef1ed84b6a1144783db415c9e50be3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 32691732273512587}
+    - targetCorrespondingSourceObject: {fileID: 582843957085540479, guid: f3ef1ed84b6a1144783db415c9e50be3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5560887988279121733}
   m_SourcePrefab: {fileID: 100100000, guid: f3ef1ed84b6a1144783db415c9e50be3, type: 3}
 --- !u!1 &2275090116169848886 stripped
 GameObject:
@@ -345,7 +351,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.83, y: 5.2664213, z: 1.814188}
+  m_Size: {x: 1.83, y: 5.2, z: 1.8}
   m_Center: {x: -0.07, y: 2.58, z: -0.13}
 --- !u!208 &5488471160234584758
 NavMeshObstacle:
@@ -357,7 +363,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.915, y: 2.6332104, z: 0.907094}
+  m_Extents: {x: 0.915, y: 2.6, z: 0.9}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
@@ -394,9 +400,6 @@ MonoBehaviour:
   destroyEffect: {fileID: 4455280298347472335}
   defense: 50
   maxHP: 100
-  atk: 50
-  knockBackForce: 50
-  skill: {fileID: 11400000, guid: a0346583763ec3c499d51e8e6b6147eb, type: 2}
   towerFirePoint: {fileID: 4300899484713615002}
   lineRenderer: {fileID: 2844292945212351685}
 --- !u!54 &3791597529639421499
@@ -426,6 +429,41 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &32691732273512587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2275090116169848886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fe5e971db040004db8a555467ca391a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterStats
+  TeamID: 0
+  MaxHealth: 100
+  Atk: 50
+  Defense: 50
+  moveSpeed: 50
+  knockBackMultiplier: 0
+  stunMultiplier: 0
+  KnockBackForce: 0
+--- !u!114 &5560887988279121733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2275090116169848886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 800ea0e4e0dcc784b8b6ef598beb5d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCCombat
+  skills:
+  - {fileID: 11400000, guid: a0346583763ec3c499d51e8e6b6147eb, type: 2}
+  projectileOrigin: {fileID: 4300899484713615002}
 --- !u!198 &4455280298347472335 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 3049014764854537606, guid: f3ef1ed84b6a1144783db415c9e50be3, type: 3}

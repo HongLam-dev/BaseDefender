@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using static UnityEngine.AdaptivePerformance.Provider.AdaptivePerformanceSubsystemDescriptor;
 
@@ -6,19 +7,21 @@ public class EnemyAI : MonoBehaviour
 {
     [SerializeField] float safeStoppingDistanceOffset = 0.3f;
     private Health target;
-    private EnemyCombat combat;
+    private NPCCombat combat;
     private EnemyMovement movement;
     private Character character;
     private Health health;
     private Collider targetCollider;
+    private CharacterStats stats;
     float smallestSkillRange;
 
     void Start()
     {
         movement = GetComponent<EnemyMovement>();
-        combat = GetComponent<EnemyCombat>();
+        combat = GetComponent<NPCCombat>();
         character=GetComponent<Character>();
         health = GetComponent<Health>();
+        stats = GetComponent<CharacterStats>();
         health.OnHurt += HandleHurt;
 
         smallestSkillRange = combat.Skills[0].skillData.CastRange;
@@ -41,7 +44,7 @@ public class EnemyAI : MonoBehaviour
             float distance = Vector3.Distance(transform.position, closestPoint);
             if (distance <=smallestSkillRange-safeStoppingDistanceOffset)
             {
-                combat.TryAttackTarget(target.transform, distance);
+                combat.TryUseAvailableSkill(target.transform, targetCollider);
                 movement.Stop();
             }
             else
@@ -54,7 +57,7 @@ public class EnemyAI : MonoBehaviour
     private void OnTriggerStay(Collider collision)
     { 
         Health oponentUnit = collision.GetComponent<Health>();
-        if (!target&& oponentUnit &&!oponentUnit.IsDead && oponentUnit.TeamID!=character.TeamID)
+        if (!target&& oponentUnit &&!oponentUnit.IsDead && oponentUnit.TeamID!=stats.TeamID)
         {
             SetTarget(oponentUnit);
         }
@@ -62,7 +65,7 @@ public class EnemyAI : MonoBehaviour
 
     private void HandleHurt(DamageInfo info)
     {
-        if(info.caster.TeamID!=character.TeamID)
+        if(info.caster.TeamID!=stats.TeamID)
         {
             SetTarget(info.caster.CasterTransform.GetComponent<Health>());
         }

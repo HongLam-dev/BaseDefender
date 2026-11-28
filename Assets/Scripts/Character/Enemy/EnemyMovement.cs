@@ -10,8 +10,8 @@ public class EnemyMovement:CharacterMovement
 
     override protected void Start()
     {
-       // agent.updatePosition = false;
-      //  agent.updateRotation = false;
+        agent.updatePosition = false;
+        agent.updateRotation = false;
         base.Start();
     }
     public override void SetMoveSpeed(float speed)
@@ -55,6 +55,6 @@ public class EnemyMovement:CharacterMovement
     override protected void FixedUpdate()
     {
         base.FixedUpdate();
-    //    agent.nextPosition = rb.position; 
+        agent.nextPosition = rb.position; 
     }
 }

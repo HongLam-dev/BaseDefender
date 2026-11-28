@@ -11,8 +11,8 @@ public class PlayerCombat : CharacterCombat {
         Collider[] hits= Physics.OverlapSphere(casterPosition, castRadius);
         foreach(Collider hit in hits)
         {
-            Character hitCharacter = hit.GetComponent<Character>();
-            if (hitCharacter&&hitCharacter.TeamID!=TeamID)
+            Health hitTarget = hit.GetComponent<Health>();
+            if (hitTarget&&hitTarget.TeamID!=TeamID)
             {
                 return hit.transform;
             }

@@ -1412,9 +1412,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 321776432170165962, guid: 54300a9d0f5173b4d9f0eb7191888d8c, type: 3}
+      propertyPath: TeamID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 321776432170165962, guid: 54300a9d0f5173b4d9f0eb7191888d8c, type: 3}
+      propertyPath: MaxHealth
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 4088140374421493485, guid: 54300a9d0f5173b4d9f0eb7191888d8c, type: 3}
       propertyPath: m_Constraints
-      value: 126
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 6842673842291889023, guid: 54300a9d0f5173b4d9f0eb7191888d8c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6561,12 +6569,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6138991474130714741, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
+      propertyPath: TeamID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6138991474130714741, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
       propertyPath: MaxHealth
-      value: 1000
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7637761710601646162, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
       propertyPath: m_Constraints
-      value: 126
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7179,7 +7191,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1458110351253903824, guid: 1e4ed2d39cc8337468bd228b1bb2c05b, type: 3}
       propertyPath: m_Constraints
-      value: 126
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950117605475887607, guid: 1e4ed2d39cc8337468bd228b1bb2c05b, type: 3}
+      propertyPath: TeamID
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5823235228866718227, guid: 1e4ed2d39cc8337468bd228b1bb2c05b, type: 3}
       propertyPath: teamID

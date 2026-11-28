@@ -7,9 +7,6 @@ using static CharacterCombat;
 
 public class Character: MonoBehaviour
 {
-    [SerializeField] int teamID=0;
-    public int TeamID => teamID;
-
     [SerializeField] CharacterCombat combat;
     [SerializeField] IWorker worker;
     [SerializeField] Health health;
@@ -31,7 +28,7 @@ public class Character: MonoBehaviour
         worker = GetComponent<IWorker>();
         stats = GetComponent<CharacterStats>();
 
-        health.TeamID = teamID;
+        health.TeamID = stats.TeamID;
         health.Defense = stats.Defense;
         health.MaxHealth = stats.MaxHealth;
 

@@ -106,9 +106,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourceNode
   resourceItem: {fileID: 11400000, guid: fa0b4f5ccabcf40488dc574c38e7c1fc, type: 2}
-  remainingResource: 200
+  startAmount: 100
   resourcePerHarvest: 5
   baseHarvestTime: 2
+  workType: 0
 --- !u!65 &4192606356917805088
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -128,8 +129,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6299921, y: 1.6241356, z: 14.421893}
-  m_Center: {x: 0.6238721, y: -0.16054583, z: 7.2109466}
+  m_Size: {x: 1.08, y: 1.47, z: 14.422}
+  m_Center: {x: 0.57, y: 0, z: 7.211}
 --- !u!208 &2903569745982541011
 NavMeshObstacle:
   m_ObjectHideFlags: 0
