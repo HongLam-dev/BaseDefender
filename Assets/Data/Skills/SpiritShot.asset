@@ -19,7 +19,7 @@ MonoBehaviour:
   force: 50
   stunTime: 0.5
   baseCooldown: 1
-  castRange: 8
+  castRange: 7
   speedMultiplier: 0
   isSkillshot: 1
   isHealingSkill: 0

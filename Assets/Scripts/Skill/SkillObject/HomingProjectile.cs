@@ -9,14 +9,11 @@ public class HomingProjectile:Projectile
     float rotationSpeed;
     public void Initialize(ProjectileConfig config, DamageInfo damageInfo, Transform target, float rotationSpeed)
     {
-        ResetProjectile();
-
         this.target = target;
         this.rotationSpeed = rotationSpeed;
 
         direction = target.transform.position - transform.position;
         transform.rotation = Quaternion.LookRotation(direction);
-
 
         base.Initialize(config,damageInfo);
     }

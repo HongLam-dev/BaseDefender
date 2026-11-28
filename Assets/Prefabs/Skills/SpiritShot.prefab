@@ -14538,7 +14538,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6513189564899750281
 Transform:
   m_ObjectHideFlags: 0
@@ -14616,15 +14616,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7bf09b2efd018945b5aeb0e3d7aa993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionProjectile
-  rb: {fileID: 676462898769773296}
-  lifeTime: 3
-  penetrateObjects: 1
-  explodeRadius: 0
-  explodeDamge: 2
   hitEffect: {fileID: 4769671936429583831}
   mainProjectile: {fileID: 1059098897849818930}
-  destroyTime: 2
-  destroyOnDealDamge: 1
+  explosionEffectTime: 2
 --- !u!1 &5163101842857781641
 GameObject:
   m_ObjectHideFlags: 0

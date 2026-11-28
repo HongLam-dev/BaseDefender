@@ -38,9 +38,9 @@ public abstract class SkillBase : ScriptableObject
 
     public abstract void ExcuteStage(SkillCastData castData,int state);
  
-    public virtual bool IsTargetInEffectiveRange(Vector3 casterPosition, Vector3 targetPosition)
+    public virtual bool IsTargetInEffectiveRange(float distance)
     {
-        if (Vector3.Distance(casterPosition,targetPosition)>castRange)
+        if (distance>castRange)
             return false;
         return true;
     }

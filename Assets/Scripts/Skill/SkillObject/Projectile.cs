@@ -14,13 +14,11 @@ public abstract class Projectile : MonoBehaviour
     private float currentLifeTime;
     protected ProjectileConfig config;
     protected DamageInfo damageInfo;
-
     protected void Initialize(ProjectileConfig config,DamageInfo damageInfo)
     {
-        ResetProjectile();
-
         this.config = config;
         this.damageInfo = damageInfo;
+        ResetProjectile();
     }
 
     void Awake()
@@ -33,7 +31,9 @@ public abstract class Projectile : MonoBehaviour
     {
         currentLifeTime -= Time.deltaTime;
         if (currentLifeTime <= 0)
-            StartCoroutine(DestroyCoroutine());
+        {
+           StartCoroutine(DestroyCoroutine());
+        }
     }
 
     protected void Explode()
@@ -67,7 +67,6 @@ public abstract class Projectile : MonoBehaviour
         config.speed = 0;
         mainProjectile.SetActive(false);
         GetComponentInChildren<Collider>().enabled = false;
-
         yield return new WaitForSeconds(explosionEffectTime);
 
         gameObject.SetActive(false);

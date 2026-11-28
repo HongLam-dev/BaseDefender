@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.Rendering.STP;
 
 public class DirectionProjectile : Projectile
@@ -13,13 +14,11 @@ public class DirectionProjectile : Projectile
 
     public void Initialize(ProjectileConfig config, DamageInfo damageInfo, Vector3 direction,bool destroyOnHit)
     {
-        ResetProjectile();
         damagedTarget.Clear();
 
         this.direction = direction.normalized;
         this.destroyOnDealDamge = destroyOnHit;
-        float angle = Mathf.Atan2(this.direction.x, this.direction.z) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, angle + 180f, 0f);
+        transform.rotation = Quaternion.LookRotation(direction);
 
         base.Initialize(config,damageInfo);
     }
