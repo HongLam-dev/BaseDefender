@@ -10,6 +10,8 @@ public class ConstructionSite : MonoBehaviour,IWork
     [SerializeField] Transform constructionSiteModel;
 
     [SerializeField] ParticleSystem finishEffect;
+    [SerializeField] float finishEffectTime = 1;
+
     private float timer;
     public event Action OnWorkDone;
     public event Action<int> OnWorkProgress;
@@ -41,10 +43,11 @@ public class ConstructionSite : MonoBehaviour,IWork
     {
         if(finishEffect)
         {
+            finishEffect.gameObject.SetActive(true);
             finishEffect.Clear();
             finishEffect.Play();
         }
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(finishEffectTime);
         Instantiate(data.prefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

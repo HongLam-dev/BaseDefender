@@ -33,6 +33,8 @@ public class WatchTower:Construction,ISkillCaster
 
     protected override void Update()
     {
+        if (health.IsDead)
+            return;
         runtimeSkill.Cooldown(Time.deltaTime);
         if (target)
         {

@@ -14,7 +14,7 @@ public class NPCStatUIManager : MonoBehaviour
     [SerializeField] private int maxPoolSize = 20;
     [SerializeField] private float displayDuration = 3f;
 
-    [SerializeField] private Vector3 statBarAnchorOffset = new Vector3(0, 1,0 );
+    [SerializeField] private Vector3 statBarAnchorOffset = new Vector3(0, 200,0 );
 
     private class StatBarEntry
     {
@@ -28,9 +28,9 @@ public class NPCStatUIManager : MonoBehaviour
 
     private void Start()
     {
-        foreach (Health health in FindObjectsByType<Health>(FindObjectsSortMode.None))
+        foreach (Health health in FindObjectsByType<Health>(FindObjectsInactive.Include,FindObjectsSortMode.None))
         {
-            if (health.GetComponent<EnemyAI>())
+            if (!health.GetComponent<PlayerController>())
                 RegisterHealth(health);
         }
     }
@@ -60,7 +60,7 @@ public class NPCStatUIManager : MonoBehaviour
                 continue;
             }
 
-            entry.Bar.transform.position = entry.Anchor.position+statBarAnchorOffset;
+            entry.Bar.transform.position = Camera.main.WorldToScreenPoint( entry.Anchor.position) + statBarAnchorOffset;
 
             entry.Bar.SetHealth(
                 health.CurrentHealth,
