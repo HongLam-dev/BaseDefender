@@ -7,11 +7,12 @@ public class EnemyMovement:CharacterMovement
 {
     [SerializeField] NavMeshAgent agent;
     private Transform target;
-    private Rigidbody rb;
 
-    private void Start()
+    override protected void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        agent.updatePosition = false;
+        agent.updateRotation = false;
+        base.Start();
     }
     public override void SetMoveSpeed(float speed)
     {
@@ -32,11 +33,11 @@ public class EnemyMovement:CharacterMovement
 
     private void Update()
     {
-        SetDirection(agent.velocity*speedMultiplier);
         if(target)
         {
             MoveToDestination(target.position);
         }
+        SetDirection(agent.velocity);
     }
 
     public override void Stop()
@@ -46,20 +47,15 @@ public class EnemyMovement:CharacterMovement
         target = null;
     }
 
-    public override void SetSpeedMultiplier(float multiplier)
-    {
-        agent.speed = moveSpeed*multiplier;
-        speedMultiplier = multiplier;
-    }
-
-    private void FixedUpdate()
-    {
-        rb.linearVelocity = externalVelocity;
-        externalVelocity = Vector3.zero;
-    }
-
     public void SetStoppingDistance(float stoppingDistance)
     {
         agent.stoppingDistance = stoppingDistance;
+    }
+
+    override protected void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        agent.nextPosition = rb.position;
     }
 }

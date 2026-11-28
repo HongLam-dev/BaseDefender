@@ -19,8 +19,7 @@ MonoBehaviour:
   force: 0
   stunTime: 0
   baseCooldown: 1
-  castRange: 1.5
-  requireTarget: 0
+  castRange: 1
   speedMultiplier: 0
   isSkillshot: 1
   isHealingSkill: 0

@@ -21,7 +21,7 @@ public class SkillRuntime
         {
             if (!target
                 || !target.GetComponent<Health>()
-                || !skillData.IsTargetInEffectiveRange(casterPosition, target.position)       
+                || !skillData.IsTargetInEffectiveRange(Vector3.Distance(casterPosition,target.position))       
                )
                 return false;
         }

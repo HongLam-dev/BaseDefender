@@ -274,6 +274,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpiritShot Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2951712672721262034, guid: 846caf16a76bb2c47baf31f67cdbae24, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5017516704819225395, guid: 846caf16a76bb2c47baf31f67cdbae24, type: 3}
       propertyPath: hitEffect
       value: 

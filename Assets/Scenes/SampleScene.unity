@@ -2970,14 +2970,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7793348642764632700, guid: 0d3fb4c206be93343b9f3e328bba0ca7, type: 3}
-      propertyPath: skill
-      value: 
-      objectReference: {fileID: 11400000, guid: a0346583763ec3c499d51e8e6b6147eb, type: 2}
-    - target: {fileID: 7793348642764632700, guid: 0d3fb4c206be93343b9f3e328bba0ca7, type: 3}
-      propertyPath: teamID
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6558,7 +6550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3146564113389279588, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3247853971852133265, guid: 4ad9dc033f6150c45b890fb428f8d408, type: 3}
       propertyPath: teamID
@@ -7191,7 +7183,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6226278228177055974, guid: 1e4ed2d39cc8337468bd228b1bb2c05b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7241457542978273160, guid: 1e4ed2d39cc8337468bd228b1bb2c05b, type: 3}
       propertyPath: skills.Array.size

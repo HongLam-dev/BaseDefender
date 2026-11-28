@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyCombat:CharacterCombat
 {
-    public bool NPCTryUseSkill(SkillRuntime skill, Transform target)
+    public bool NPCTryUseSkill(SkillRuntime skill, Transform target, float surfaceDistance)
     {
-        if (target==null|| !skill.CanUse(transform.position, target) || !skill.skillData.IsTargetInEffectiveRange(transform.position, target.transform.position))
+        if (target==null|| !skill.CanUse(transform.position, target) || !skill.skillData.IsTargetInEffectiveRange(surfaceDistance))
             return false;
         Rigidbody targetRb = target.GetComponent<Rigidbody>();
         Vector3 targetCastPosition = target.transform.position;
@@ -23,11 +23,11 @@ public class EnemyCombat:CharacterCombat
         return TryUseSkill(skill,targetCastPosition,target);
     }
 
-    public bool TryAttackTarget(Transform target)
+    public bool TryAttackTarget(Transform target,float surfaceDistance)
     {
         foreach(SkillRuntime skill in runtimeSkills)
         {
-            if(NPCTryUseSkill(skill,target))
+            if(NPCTryUseSkill(skill,target,surfaceDistance))
             {
                 return true;
             }

@@ -388,7 +388,7 @@ MonoBehaviour:
   teamID: 0
   atk: 50
   knockBackForce: 50
-  skill: {fileID: 11400000, guid: b6c7d05e814e23a439083f8b77672123, type: 2}
+  skill: {fileID: 11400000, guid: a0346583763ec3c499d51e8e6b6147eb, type: 2}
   towerFirePoint: {fileID: 4300899484713615002}
   lineRenderer: {fileID: 2844292945212351685}
 --- !u!54 &3791597529639421499

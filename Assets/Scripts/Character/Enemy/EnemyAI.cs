@@ -10,6 +10,8 @@ public class EnemyAI : MonoBehaviour
     private EnemyMovement movement;
     private Character character;
     private Health health;
+    private Collider targetCollider;
+    float smallestSkillRange;
 
     void Start()
     {
@@ -17,10 +19,9 @@ public class EnemyAI : MonoBehaviour
         combat = GetComponent<EnemyCombat>();
         character=GetComponent<Character>();
         health = GetComponent<Health>();
-
         health.OnHurt += HandleHurt;
 
-        float smallestSkillRange = combat.Skills[0].skillData.CastRange;
+        smallestSkillRange = combat.Skills[0].skillData.CastRange;
         foreach (SkillRuntime skill in combat.Skills)
         {
             if(skill.skillData.CastRange<smallestSkillRange)
@@ -28,7 +29,6 @@ public class EnemyAI : MonoBehaviour
                 smallestSkillRange = skill.skillData.CastRange;
             }
         }
-        movement.SetStoppingDistance(smallestSkillRange-safeStoppingDistanceOffset);
     }
 
     void Update()
@@ -37,8 +37,17 @@ public class EnemyAI : MonoBehaviour
             return;
         if(target)
         {
-            combat.TryAttackTarget(target.transform);
-            movement.FollowTarget(target.transform);
+            Vector3 closestPoint = targetCollider.ClosestPoint(transform.position);
+            float distance = Vector3.Distance(transform.position, closestPoint);
+            if (distance <=smallestSkillRange-safeStoppingDistanceOffset)
+            {
+                combat.TryAttackTarget(target.transform, distance);
+                movement.Stop();
+            }
+            else
+            {
+                movement.FollowTarget(target.transform);
+            }
         }
     }
 
@@ -63,6 +72,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (target)
             target.OnDeath -= LoseTarget;
+        targetCollider = target.GetComponent<Collider>();
         this.target = target;
         target.OnDeath += LoseTarget;
     }
