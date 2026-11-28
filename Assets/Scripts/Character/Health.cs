@@ -5,8 +5,8 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private int teamID=0;
     public int TeamID { set => teamID = value; get => teamID; }
-    [SerializeField] private int maxHealth = 100;
-    private int currentHealth;
+    private int maxHealth = 100;
+    [SerializeField] private int currentHealth;
     private int defense = 0;
     public int Defense { set => defense = value; get => defense; }
 
@@ -22,12 +22,11 @@ public class Health : MonoBehaviour
     public event Action OnDeath;
     public event Action<HealthChangeInfo> OnHealthChange;
 
-    private bool isDead = false;
-    public bool IsDead => isDead;
+    public bool IsDead => currentHealth<=0;
 
     public void TakeDamage(DamageInfo damageInfo)
     {
-        if (isDead||this.teamID == damageInfo.caster.TeamID||currentHealth<=0)
+        if (IsDead||this.teamID == damageInfo.caster.TeamID||currentHealth<=0)
             return;
         int damageIntake = damageInfo.Damage - defense;
         if (damageIntake <= 0)
@@ -56,7 +55,6 @@ public class Health : MonoBehaviour
 
     public void Die()
     {
-        isDead = true;
         OnDeath?.Invoke();
     }
     
