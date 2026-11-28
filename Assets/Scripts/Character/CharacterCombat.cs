@@ -9,13 +9,13 @@ using UnityEngine.UIElements;
 
 public abstract class CharacterCombat: MonoBehaviour,ISkillCaster
 {
-    public int TeamID => character.TeamID;
+    public int TeamID => stats.TeamID;
     public Transform CasterTransform => transform;
-    public int KnockBackForce => character.stats.KnockBackForce;
-    public int Atk => character.stats.Atk; 
+    public int KnockBackForce => stats.KnockBackForce;
+    public int Atk => stats.Atk; 
     [SerializeField] protected SkillBase[] skills;
     [SerializeField] Transform projectileOrigin;
-    protected Character character;
+    protected CharacterStats stats;
 
     public event Action OnSkillFinish;
 
@@ -45,7 +45,7 @@ public abstract class CharacterCombat: MonoBehaviour,ISkillCaster
 
     virtual protected void Awake()
     {
-        character = GetComponent<Character>();
+        stats = GetComponent<CharacterStats>();
 
         foreach (SkillBase skillData in skills)
         {

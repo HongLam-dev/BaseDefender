@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: edb3fc0170a977b4082a342d686dd710, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1821.3789
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: edb3fc0170a977b4082a342d686dd710, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -938.4045
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: edb3fc0170a977b4082a342d686dd710, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -330.89493
+      value: -11.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: edb3fc0170a977b4082a342d686dd710, type: 3}
       propertyPath: m_LocalRotation.w
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourceNode
   resourceItem: {fileID: 11400000, guid: 289bc118c2558ea4bbc5b371f5dc9b0c, type: 2}
-  remainingResource: 50
+  startAmount: 100
   resourcePerHarvest: 6
   baseHarvestTime: 3
   workType: 1
@@ -123,8 +123,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.2650879, y: 0.21, z: 0.2188249}
-  m_Center: {x: 0.015382814, y: 0.09729671, z: -0.0031176805}
+  m_Size: {x: 0.25, y: 0.25, z: 0.1}
+  m_Center: {x: 0.013, y: 0.097, z: -0.01}
 --- !u!208 &6013335866747727679
 NavMeshObstacle:
   m_ObjectHideFlags: 0

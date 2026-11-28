@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CharacterStats:MonoBehaviour
 {
+    public int TeamID;
     public int MaxHealth=100;
     public int Atk=10;
     public int Defense=5;

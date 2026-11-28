@@ -2,11 +2,13 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyCombat:CharacterCombat
+public class NPCCombat:CharacterCombat
 {
-    public bool NPCTryUseSkill(SkillRuntime skill, Transform target, float surfaceDistance)
+    public bool TryUseSkillOnTarget(SkillRuntime skill, Transform target, Collider targetCollider)
     {
-        if (target==null|| !skill.CanUse(transform.position, target) || !skill.skillData.IsTargetInEffectiveRange(surfaceDistance))
+        Vector3 closestPoint = targetCollider.ClosestPoint(transform.position);
+        float distance = Vector3.Distance(transform.position, closestPoint);
+        if (target==null|| !skill.CanUse(transform.position, target) || !skill.skillData.IsTargetInEffectiveRange(distance))
             return false;
         Rigidbody targetRb = target.GetComponent<Rigidbody>();
         Vector3 targetCastPosition = target.transform.position;
@@ -23,11 +25,11 @@ public class EnemyCombat:CharacterCombat
         return TryUseSkill(skill,targetCastPosition,target);
     }
 
-    public bool TryAttackTarget(Transform target,float surfaceDistance)
+    public bool TryUseAvailableSkill(Transform target, Collider targetCollider)
     {
         foreach(SkillRuntime skill in runtimeSkills)
         {
-            if(NPCTryUseSkill(skill,target,surfaceDistance))
+            if(TryUseSkillOnTarget(skill,target,targetCollider))
             {
                 return true;
             }
